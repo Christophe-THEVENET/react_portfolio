@@ -13,7 +13,7 @@
     --color-secondary-foreground: #20b2a6;
 
     --color-muted: #252e37;
-    --color-muted-foreground: #20b2a6;
+    --color-muted-foreground: #7a8491;
 
     --color-border: #242b32;
 
@@ -22,5 +22,44 @@
     --color-highlight: #f5a623;
     --color-surface: #1a2329;
 
-    
+
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+        font-family: 'Inter', sans-serif;
+    }
+
+    .font-serif {
+        font-family: 'Playfair Display', serif;
+    }
+}
+
+@layer components {
+    .glass {
+        background-color: color-mix(in srgb, var(--color-surface) 50%, transparent);
+        backdrop-filter: blur(16px);
+        border: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+    }
+}
+
+/* *********** effets *********** */
+/* ------ logo hover ---------- */
+@keyframes hue-rotate-loop {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.hover-hue-rotate-loop:hover {
+    animation: hue-rotate-loop 3s linear infinite;
 }
