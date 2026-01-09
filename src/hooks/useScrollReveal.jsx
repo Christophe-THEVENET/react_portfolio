@@ -28,5 +28,5 @@ export const useScrollReveal = (options = {}) => {
     }
   }, [threshold, rootMargin])
 
-  return [isVisible, elementRef]
+  return { isVisible, ref: elementRef }
 }

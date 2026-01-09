@@ -60,10 +60,10 @@ export const Navbar = () => {
       }`}
       style={{ transform: 'translate3d(0,0,0)' }}
     >
-      <div className="mx-auto max-w-[1320px] px-5">
+      <div className="max-w-flux mx-auto px-5">
         <div className="flex items-center justify-between">
           {/* logo */}
-          <div className="flex items-center -mt-2">
+          <div className="-mt-2 flex items-center">
             <a href="#">
               <img
                 className="hover-hue-rotate-loop w-32 transition-all duration-500"
@@ -90,11 +90,45 @@ export const Navbar = () => {
           </nav>
 
           {/* CTA Button */}
-
           <div className="hidden items-center gap-2 md:flex">
             <button
               onClick={() => handleNavClick('contact')}
               className="rounded-[17px] border border-white bg-white/90 px-3 py-1 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white"
+            >
+              Contactez moi
+            </button>
+          </div>
+
+          {/* mobile hamburger */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-4 text-white transition-colors duration-300 hover:text-white/80 md:hidden"
+          >
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
+        </div>
+
+        {/* mobile navigation - en dehors du flex container */}
+        <div
+          className={`origin-top transition-all duration-300 ease-out md:hidden ${isMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`}
+        >
+          <div className="space-y-3 border-t border-white/10 bg-black/95 px-5 py-6 backdrop-blur-lg">
+            {NAV_LINKS.map((link) => (
+              <button
+                key={link.id}
+                onClick={() => handleNavClick(link.id)}
+                className={`block w-full rounded-lg px-4 py-3 text-left font-medium transition-all duration-300 ${activeSection === link.id ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}`}
+              >
+                {link.label}
+              </button>
+            ))}
+            <button
+              onClick={() => handleNavClick('contact')}
+              className="mt-2 w-full rounded-[17px] border-white bg-white px-5 py-2 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white/90"
             >
               Contactez moi
             </button>
