@@ -1,12 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
 
 @theme {
+  --font-display: 'Urbanist', sans-serif;
+  --breakpoint-3xl: 1920px;
+
+  --color-primary: #bdff69;
+  /*
     --color-background: #0f1418;
     --color-foreground: #f0f2f5;
 
     --color-card: #141a1f;
 
-    --color-primary: #20b2a6;
     --color-primary-foreground: #ffffff;
 
     --color-secondary: #1f2830;
@@ -20,46 +25,133 @@
     --radius: 0.75rem;
 
     --color-highlight: #f5a623;
-    --color-surface: #1a2329;
-
-
+    --color-surface: #1a2329; */
 }
 
 @layer base {
-    html {
-        scroll-behavior: smooth;
-    }
+  html {
+    font-family: var(--font-display);
+    scroll-behavior: smooth;
+  }
 
-    body {
-        background-color: var(--color-background);
-        color: var(--color-foreground);
-        font-family: 'Inter', sans-serif;
-    }
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+  }
 
-    .font-serif {
-        font-family: 'Playfair Display', serif;
+  /* Custom Scrollbar - Chrome, Edge, Opera */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  ::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1b3213;
+    border-radius: 3px;
+  }
+
+  /* Custom Scrollbar - Firefox */
+  @-moz-document url-prefix() {
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #223d18 #0a0a0a;
     }
+  }
+
+  /* hide scrollbar for carousel*/
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @layer components {
-    .glass {
+  /*   .glass {
         background-color: color-mix(in srgb, var(--color-surface) 50%, transparent);
         backdrop-filter: blur(16px);
         border: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
-    }
+    } */
 }
 
 /* *********** effets *********** */
+
 /* ------ logo hover ---------- */
 @keyframes hue-rotate-loop {
-    0% {
-        filter: hue-rotate(0deg);
-    }
-    100% {
-        filter: hue-rotate(360deg);
-    }
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
 
 .hover-hue-rotate-loop:hover {
-    animation: hue-rotate-loop 3s linear infinite;
+  animation: hue-rotate-loop 3s linear infinite;
+}
+
+  /* animations keyframes*/
+  @keyframes fadeIn {
+    from{
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+/* utiliy classes */
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+/* line clamp */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
