@@ -1,8 +1,8 @@
 export const PERSONAL_INFO = {
-    name: "Your Name",
-    title: "Your Title",
+    name: "Christophe THEVENET",
+    title: "Développeur Full Stack",
     email: 'digitob@yahoo.com',
-    location: 'Your Location',
+    location: 'Puy-de-Dôme ou distanciel',
     tagline: "Your Tagline",
     bio: [
         "Brief bio about yourself.",

@@ -93,7 +93,7 @@ export const Navbar = () => {
           <div className="hidden items-center gap-2 md:flex">
             <button
               onClick={() => handleNavClick('contact')}
-              className="rounded-[17px] border border-white bg-white/90 px-3 py-1 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white"
+              className="cursor-pointer rounded-[17px] border border-white bg-white/90 px-3 py-1 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white"
             >
               Contactez moi
             </button>
@@ -128,7 +128,7 @@ export const Navbar = () => {
             ))}
             <button
               onClick={() => handleNavClick('contact')}
-              className="mt-2 w-full rounded-[17px] border-white bg-white px-5 py-2 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white/90"
+              className="mt-2 w-full cursor-pointer rounded-[17px] border-white bg-white/90 px-5 py-2 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white"
             >
               Contactez moi
             </button>
