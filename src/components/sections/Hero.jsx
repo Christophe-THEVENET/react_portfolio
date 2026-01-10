@@ -4,7 +4,6 @@ import { SiReact, SiMysql, SiSymfony, SiWordpress } from 'react-icons/si'
 import { PERSONAL_INFO, STATS } from '@/utils/constants.js'
 import { scrollToSection } from '@/hooks/useScrollSpy.js'
 import FadeIn from '@/components/animations/FadeIn.jsx'
-import ParticleField from '@/components/backgrounds/ParticleField.jsx'
 import avatar from '@/assets/img/general/avatar_digitob.png'
 import videoTeaser from '@/assets/video/teaser_digitob_v3.mp4'
 
@@ -18,7 +17,6 @@ export const Hero = () => {
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
-      <ParticleField />
       {/*  <RadialGradientBackground variant='hero'/> */}
 
       {/* Content Container  */}
@@ -87,8 +85,8 @@ export const Hero = () => {
 
           {/*  right columns developer image*/}
           <FadeIn delay={400}>
-            <div className="relative mt-10 w-full md:mt-0">
-              <div className="group relative mx-auto aspect-4/5 w-full sm:ml-auto sm:max-w-[500px]">
+            <div className="relative mt-10 w-full md:mt-0 md:max-w-[520px]">
+              <div className="group relative mx-auto aspect-4/5 w-full sm:ml-auto sm:max-w-[440px] lg:max-w-[480px]">
                 {/* rotating border */}
                 <div className="absolute inset-0 overflow-hidden rounded-2xl">
                   <div className="rotating-border animate-spin-slow absolute inset-[-50%]"></div>

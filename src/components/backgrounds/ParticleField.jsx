@@ -29,19 +29,26 @@ const ParticleField = () => {
     }
 
     const scene = new Scene()
+    const { clientWidth: initialWidth, clientHeight: initialHeight } = container
+    const startWidth = initialWidth || window.innerWidth
+    const startHeight = initialHeight || window.innerHeight
     const camera = new PerspectiveCamera(
       75,
-      container.clientWidth / container.clientHeight,
+      startWidth / startHeight,
       0.8,
       1000,
     )
 
     camera.position.set(0.5, 0.5, 1)
 
-    const renderer = new WebGLRenderer({ antialias: true, alpha: true })
+    const renderer = new WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      preserveDrawingBuffer: true,
+    })
     renderer.setClearColor(0x000000, 0)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setSize(container.clientWidth, container.clientHeight)
+    renderer.setSize(startWidth, startHeight)
     container.appendChild(renderer.domElement)
 
     const points = new Float32Array(PARTICLE_COUNT * 3)
@@ -79,24 +86,30 @@ const ParticleField = () => {
 
     window.addEventListener('mousemove', handleMouseMove)
 
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.target !== container) {
-          continue
-        }
-        const { width, height } = entry.contentRect
-        camera.aspect = width / height
-        camera.updateProjectionMatrix()
-        renderer.setSize(width, height)
+    const handleResize = () => {
+      const bounds = container.getBoundingClientRect()
+      const width = bounds.width
+      const height = bounds.height
+      if (width === 0 || height === 0) {
+        return
       }
-    })
+      camera.aspect = width / height
+      camera.updateProjectionMatrix()
+      renderer.setSize(width, height)
+    }
 
+    const resizeObserver = new ResizeObserver(handleResize)
     resizeObserver.observe(container)
 
     let frameId
     const animate = () => {
-      const ratioX = (mouse.x / window.innerWidth - 0.5) * 2
-      const ratioY = (mouse.y / window.innerHeight - 0.5) * 2
+      const bounds = container.getBoundingClientRect()
+      if (bounds.width === 0 || bounds.height === 0) {
+        frameId = requestAnimationFrame(animate)
+        return
+      }
+      const ratioX = ((mouse.x - bounds.left) / bounds.width - 0.5) * 2
+      const ratioY = ((mouse.y - bounds.top) / bounds.height - 0.5) * 2
 
       group.rotation.y = ratioX * Math.PI * 0.5
       group.rotation.x = ratioY * Math.PI * 0.5
@@ -113,7 +126,9 @@ const ParticleField = () => {
       cancelAnimationFrame(frameId)
       resizeObserver.disconnect()
       window.removeEventListener('mousemove', handleMouseMove)
-      container.removeChild(renderer.domElement)
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement)
+      }
       geometry.dispose()
       pointMaterial.dispose()
       circleTexture.dispose()
@@ -124,7 +139,7 @@ const ParticleField = () => {
   return (
     <div
       ref={containerRef}
-      className="pointer-events-none absolute inset-0"
+      className="pointer-events-none absolute inset-x-0 top-0 z-0 h-screen overflow-hidden"
       aria-hidden="true"
     />
   )
