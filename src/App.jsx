@@ -8,7 +8,7 @@ import { Contact } from "@/components/sections/Contact"
 function App() {
 
     return (
-        <div className="min-h-screen bg-black">
+        <div className="min-h-screen bg-black max-w-flux mx-auto pb-[100vh]">
             <Navbar />
             <main>
                 <Hero />

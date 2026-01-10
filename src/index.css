@@ -7,9 +7,31 @@
   --max-width-flux: 1320px;
 
   --color-primary: #bdff69;
+  --color-green: #328281;
+  --color-green-light: #47b3b1;
 
   
   /*
+
+  $colorDark: #010302;
+$colorDark20: #31353393;
+$colorDark50: #01030231;
+$colorDark70: #0103025a;
+$colorWhite: #fffffe;
+$colorGray: #c9d8d8;
+$colorGreen: #328281;
+$colorGreenLight: #47b3b1;
+$colorGreenDark: #2d7977;
+$colorGreenFullDark: #215454;
+$colorBackgroundCard: #2b918f7f;
+$colorBackgroundCardHover: #2b918fe3;
+$colorBackgroundCardHoverFull: #2b9190fe;
+$colorSucces: #28d49b;
+$colorAlert: rgb(238, 122, 122);
+
+
+
+
     --color-background: #0f1418;
     --color-foreground: #f0f2f5;
 
@@ -47,7 +69,7 @@
 
   /* Custom Scrollbar - Chrome, Edge, Opera */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
   }
 
   ::-webkit-scrollbar-track {
@@ -56,7 +78,7 @@
 
   ::-webkit-scrollbar-thumb,
   ::-webkit-scrollbar-thumb:hover {
-    background: #1b3213;
+    background: #0b1d1d;
     border-radius: 3px;
   }
 
@@ -64,7 +86,7 @@
   @-moz-document url-prefix() {
     * {
       scrollbar-width: thin;
-      scrollbar-color: #223d18 #0a0a0a;
+      scrollbar-color: #0b1d1d;
     }
   }
 
@@ -132,8 +154,8 @@
   }
 
 /* utiliy classes */
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-out;
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 .animate-pulse {

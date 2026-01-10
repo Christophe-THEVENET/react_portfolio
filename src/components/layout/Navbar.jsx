@@ -55,7 +55,7 @@ export const Navbar = () => {
     </header> */
 
     <header
-      className={`fixed top-0 right-0 left-0 z-1000 w-full py-4 transition-all duration-300 ${
+      className={`fixed top-0 right-0 left-0 z-1000 w-full py-6 transition-all duration-300 ${
         isScrolled ? 'bg-black/30 backdrop-blur-lg' : 'bg-transparent'
       }`}
       style={{ transform: 'translate3d(0,0,0)' }}
@@ -112,11 +112,11 @@ export const Navbar = () => {
           </button>
         </div>
 
-        {/* mobile navigation - en dehors du flex container */}
+        {/* mobile navigation */}
         <div
-          className={`origin-top transition-all duration-300 ease-out md:hidden ${isMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`}
+          className={`overflow-hidden transition-all duration-300 ease-out md:hidden ${isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
         >
-          <div className="space-y-3 border-t border-white/10 bg-black/95 px-5 py-6 backdrop-blur-lg">
+          <div className="space-y-3 border-t border-white/10 bg-black/95 px-5 pt-6 pb-14 backdrop-blur-lg">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.id}
