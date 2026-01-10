@@ -12,8 +12,10 @@ function App() {
 
   useEffect(() => {
     const updateVisibility = () => {
-      const shouldShow = window.scrollY < window.innerHeight * 0.9
+      const scrollY = window.scrollY
+      const shouldShow = scrollY < window.innerHeight * 0.9
       setShowParticles((prev) => (prev === shouldShow ? prev : shouldShow))
+      document.body.classList.toggle('bg-darkened', scrollY > 10)
     }
 
     window.addEventListener('scroll', updateVisibility, { passive: true })
@@ -23,13 +25,14 @@ function App() {
     return () => {
       window.removeEventListener('scroll', updateVisibility)
       window.removeEventListener('resize', updateVisibility)
+      document.body.classList.remove('bg-darkened')
     }
   }, [])
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-transparent">
       {showParticles && <ParticleField key="particles" />}
-      <div className="max-w-flux relative z-10 mx-auto pb-[100vh]">
+      <div className="max-w-flux relative z-10 mx-auto">
         <Navbar />
         <main>
           <Hero />

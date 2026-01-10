@@ -93,7 +93,7 @@ export const Navbar = () => {
           <div className="hidden items-center gap-2 md:flex">
             <button
               onClick={() => handleNavClick('contact')}
-              className="cursor-pointer rounded-[17px] border border-white bg-white/90 px-3 py-1 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white"
+              className="cursor-pointer rounded-[17px] border border-white bg-white/75 px-3 py-1.5 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white"
             >
               Contactez moi
             </button>

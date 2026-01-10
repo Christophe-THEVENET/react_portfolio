@@ -11,47 +11,7 @@
   --color-green:#2F8E8E;
   --color-green-light: #47b3b1;
 
-  
-  /*
-
-  $colorDark: #010302;
-$colorDark20: #31353393;
-$colorDark50: #01030231;
-$colorDark70: #0103025a;
-$colorWhite: #fffffe;
-$colorGray: #c9d8d8;
-$colorGreen: #328281;
-$colorGreenLight: #47b3b1;
-$colorGreenDark: #2d7977;
-$colorGreenFullDark: #215454;
-$colorBackgroundCard: #2b918f7f;
-$colorBackgroundCardHover: #2b918fe3;
-$colorBackgroundCardHoverFull: #2b9190fe;
-$colorSucces: #28d49b;
-$colorAlert: rgb(238, 122, 122);
-
-
-
-
-    --color-background: #0f1418;
-    --color-foreground: #f0f2f5;
-
-    --color-card: #141a1f;
-
-    --color-primary-foreground: #ffffff;
-
-    --color-secondary: #1f2830;
-    --color-secondary-foreground: #20b2a6;
-
-    --color-muted: #252e37;
-    --color-muted-foreground: #7a8491;
-
-    --color-border: #242b32;
-
-    --radius: 0.75rem;
-
-    --color-highlight: #f5a623;
-    --color-surface: #1a2329; */
+ 
 }
 
 @layer base {
@@ -61,16 +21,46 @@ $colorAlert: rgb(238, 122, 122);
   }
 
   body {
+    position: relative;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.7)),
-      url('./assets/img/general/background.jpg');
+    background-color: #000000;
+    background-image: url('./assets/img/general/background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     color: #ffffff;
     overflow-x: hidden;
+  }
+
+  body::before,
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    transition: opacity 300ms ease;
+    z-index: 0;
+  }
+
+  body::before {
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 1;
+  }
+
+  body::after {
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+  }
+
+  body.bg-darkened::after {
+    opacity: 1;
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
   }
 
   /* Custom Scrollbar - Chrome, Edge, Opera */
@@ -84,7 +74,7 @@ $colorAlert: rgb(238, 122, 122);
 
   ::-webkit-scrollbar-thumb,
   ::-webkit-scrollbar-thumb:hover {
-    background: #0b1d1d;
+    background: #112e2e;
     border-radius: 3px;
   }
 

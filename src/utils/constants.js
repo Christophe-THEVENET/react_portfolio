@@ -1,6 +1,6 @@
 export const PERSONAL_INFO = {
     name: "Christophe THEVENET",
-    title: "Développeur Full Stack",
+    title: "Développeur Full-Stack",
     email: 'digitob@yahoo.com',
     location: 'Puy-de-Dôme ou distanciel',
     tagline: "Your Tagline",
@@ -29,6 +29,8 @@ export const STATS = [
 
 export const ABOUT_STATS = [
   { label: 'Happy Clients', value: '10+' },
+  { label: 'Code commit', value: '2.5k+' },
+  { label: 'Code commit', value: '2.5k+' },
   { label: 'Code commit', value: '2.5k+' },
 ]
 

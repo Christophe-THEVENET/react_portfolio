@@ -66,7 +66,7 @@ const ParticleField = () => {
     const circleTexture = textureLoader.load(textureDataUrl)
 
     const pointMaterial = new PointsMaterial({
-      color: 0x1f5e5c,
+      color: 0x2b8a86,
       size: PARTICLE_SIZE,
       map: circleTexture,
       alphaTest: 0.01,

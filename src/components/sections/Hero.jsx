@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { ChevronDown, Star, Play, CodeXml } from 'lucide-react'
 import { SiReact, SiMysql, SiSymfony, SiWordpress } from 'react-icons/si'
 import { PERSONAL_INFO, STATS } from '@/utils/constants.js'
@@ -14,6 +14,7 @@ import { PiFileSqlLight } from 'react-icons/pi'
 export const Hero = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const videoRef = useRef(null)
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
@@ -46,10 +47,12 @@ export const Hero = () => {
 
             <FadeIn delay={200}>
               <p className="mb-8 text-justify text-base text-white/70 md:max-w-[500px] lg:max-w-[530px] xl:max-w-[630px] 2xl:max-w-[700px]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
-                eos veritatis! Nulla hic provident perspiciatis mollitia natus
-                quod. Atque temporibus quo quibusdam possimus dolore autem
-                molestias in cum impedit corporis?
+                Fasciné par le web depuis ses débuts, je suis devenu développeur
+                il y a 5 ans. Je travaille en freelance sur deux axes : missions
+                techniques en Symfony et React pour des équipes de
+                développement, et création de sites WordPress pour TPE,
+                commerçants et associations. Issu d'une famille d'artisans, je
+                fabrique un site internet comme on fabrique un meuble.
               </p>
             </FadeIn>
 
@@ -58,8 +61,8 @@ export const Hero = () => {
                 className="group mb-12 inline-flex items-center gap-0"
                 onClick={() => scrollToSection('contact')}
               >
-                <div className="relative z-10 cursor-pointer rounded-[17px] border border-white bg-white/90 px-4 py-2 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white">
-                  Contact
+                <div className="relative z-10 cursor-pointer rounded-[17px] border border-white bg-white/75 px-3 py-1.5 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white">
+                  Besoin d'échanger ?
                 </div>
               </button>
             </FadeIn>
@@ -84,9 +87,9 @@ export const Hero = () => {
           </div>
 
           {/*  right columns developer image*/}
-          <FadeIn delay={400}>
-            <div className="relative mt-10 w-full md:mt-0 md:max-w-[520px]">
-              <div className="group relative mx-auto aspect-4/5 w-full sm:ml-auto sm:max-w-[440px] lg:max-w-[480px]">
+          <FadeIn delay={200}>
+            <div className="relative mt-10 w-full md:mt-0 md:flex md:justify-end">
+              <div className="group relative aspect-4/5 w-full max-w-[400px] sm:max-w-[400px] md:max-w-[420px] lg:max-w-[440px]">
                 {/* rotating border */}
                 <div className="absolute inset-0 overflow-hidden rounded-2xl">
                   <div className="rotating-border animate-spin-slow absolute inset-[-50%]"></div>
@@ -95,17 +98,19 @@ export const Hero = () => {
                 <div className="absolute inset-[2px] overflow-hidden rounded-2xl bg-black">
                   {/* Video */}
                   <video
-                    id="my-video"
+                    ref={videoRef}
                     className="h-full w-full object-cover"
                     preload="auto"
                     poster={avatar}
                     playsInline
                     controls={isVideoPlaying}
                     src={videoTeaser}
-                    onEnded={(e) => {
+                    onEnded={() => {
                       setIsTransitioning(true)
                       setTimeout(() => {
-                        e.target.load()
+                        if (videoRef.current) {
+                          videoRef.current.load()
+                        }
                         setIsVideoPlaying(false)
                         setTimeout(() => setIsTransitioning(false), 300)
                       }, 300)
@@ -123,13 +128,12 @@ export const Hero = () => {
                       className={`group absolute inset-0 flex cursor-pointer items-center justify-center transition-all duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
                       type="button"
                       aria-label="Lancer la vidéo de présentation"
-                      onClick={(e) => {
-                        const video =
-                          e.currentTarget.previousElementSibling
-                            .previousElementSibling
+                      onClick={() => {
                         setIsTransitioning(true)
                         setTimeout(() => {
-                          video.play()
+                          if (videoRef.current) {
+                            videoRef.current.play()
+                          }
                           setIsVideoPlaying(true)
                           setTimeout(() => setIsTransitioning(false), 300)
                         }, 300)
@@ -148,7 +152,7 @@ export const Hero = () => {
 
                 {/*  techno logo - hidden during video playback */}
                 {!isVideoPlaying && (
-                  <div className="absolute bottom-6 left-7 z-20">
+                  <div className="absolute bottom-6 left-8 z-20">
                     <FadeIn delay={600}>
                       <div className="flex items-center gap-4">
                         {/* React */}
@@ -190,14 +194,15 @@ export const Hero = () => {
       </div>
 
       {/*  Scroll indicator */}
-      <FadeIn delay={5000}>
+      <FadeIn delay={4000}>
         <button
-          onClick={scrollToSection('about')}
+          onClick={() => scrollToSection('about')}
           className="absolute bottom-8 left-1/2 hidden translate-x-1/2 animate-bounce md:block"
         >
           <ChevronDown className="text-green h-8 w-8" />
         </button>
       </FadeIn>
+      
     </section>
   )
 }
