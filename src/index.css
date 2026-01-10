@@ -166,6 +166,30 @@ $colorAlert: rgb(238, 122, 122);
   animation: spin 8s linear infinite;
 }
 
+.animate-ping-slow {
+  animation: ping 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* rotating border gradient */
+.rotating-border {
+  background: conic-gradient(
+    from 0deg,
+    #c5eceb,
+    #328281,
+    transparent 50%,
+    transparent 50%,
+    #328281,
+    #47b3b1
+  );
+}
+
 /* line clamp */
 .line-clamp-2 {
   display: -webkit-box;
