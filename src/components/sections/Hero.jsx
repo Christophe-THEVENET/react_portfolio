@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { ChevronDown, Star, Play } from 'lucide-react'
+import { ChevronDown, Star, Play, CodeXml } from 'lucide-react'
 import { SiReact, SiMysql, SiSymfony, SiWordpress } from 'react-icons/si'
 import { PERSONAL_INFO, STATS } from '@/utils/constants.js'
 import { scrollToSection } from '@/hooks/useScrollSpy.js'
 import FadeIn from '@/components/animations/FadeIn.jsx'
+import ParticleField from '@/components/backgrounds/ParticleField.jsx'
 import avatar from '@/assets/img/general/avatar_digitob.png'
 import videoTeaser from '@/assets/video/teaser_digitob_v3.mp4'
 
@@ -16,36 +17,37 @@ export const Hero = () => {
   const [isTransitioning, setIsTransitioning] = useState(false)
 
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden bg-black">
+    <section className="relative flex min-h-screen items-center overflow-hidden">
+      <ParticleField />
       {/*  <RadialGradientBackground variant='hero'/> */}
 
       {/* Content Container  */}
       <div className="relative z-10 mx-auto w-full px-4 pt-28 pb-20 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 items-center gap-4 lg:grid-cols-[3fr_2fr]">
+        <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-[3fr_2fr]">
           {/*  Left columns*/}
-          <div className="text-left">
+          <div className="w-full text-left">
             <FadeIn delay={0}>
               <div className="from-green/15 via -green/25 to-green/30 border-green/20 mb-8 inline-flex items-center gap-2.5 rounded-full border bg-linear-to-r px-4 py-2.5">
-                <Star className="h-4 w-4 fill-white text-white" />
-                <span className="text-xs tracking-[1.2px] text-white md:text-sm">
+                <CodeXml className="h-4 w-4 fill-white text-white" />
+                <span className="text-xs tracking-[1.2px] text-white min-[915px]:text-sm">
                   {PERSONAL_INFO.title}
-                  <br className="md:hidden" />
-                  <span className="hidden md:inline"> | </span>
-                  <span className="md:hidden"> </span>
+                  <br className="min-[915px]:hidden" />
+                  <span className="hidden min-[915px]:inline"> | </span>
+                  <span className="min-[915px]:hidden"> </span>
                   secteur {PERSONAL_INFO.location}
                 </span>
               </div>
             </FadeIn>
 
             <FadeIn delay={100}>
-              <h1 className="mb-6 text-3xl leading-tight font-normal text-white md:text-5xl lg:text-[58px] 2xl:text-7xl">
+              <h1 className="mb-6 text-2xl leading-tight font-normal text-white max-[1030px]:text-[50px] max-[886px]:text-[47px] max-[839px]:text-[45px] max-[803px]:text-[43px] lg:text-[55px] xl:text-[65px] 2xl:text-7xl">
                 Christophe
                 <span className="text-green-light"> THEVENET</span>
               </h1>
             </FadeIn>
 
             <FadeIn delay={200}>
-              <p className="mb-8 text-justify text-base text-white/70 sm:max-w-[400px] md:max-w-[500px] lg:max-w-[700px]">
+              <p className="mb-8 text-justify text-base text-white/70 md:max-w-[500px] lg:max-w-[530px] xl:max-w-[630px] 2xl:max-w-[700px]">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
                 eos veritatis! Nulla hic provident perspiciatis mollitia natus
                 quod. Atque temporibus quo quibusdam possimus dolore autem
@@ -65,7 +67,7 @@ export const Hero = () => {
             </FadeIn>
 
             <FadeIn delay={400}>
-              <div className="grid grid-cols-2 gap-10 sm:max-w-[400px] md:max-w-[500px] md:grid-cols-4 lg:max-w-[700px]">
+              <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:max-w-[530px] xl:max-w-[630px] 2xl:max-w-[700px]">
                 {STATS.map((stat, index) => (
                   <div
                     key={index}
@@ -85,8 +87,8 @@ export const Hero = () => {
 
           {/*  right columns developer image*/}
           <FadeIn delay={400}>
-            <div className="relative">
-              <div className="group relative ml-auto aspect-4/5 max-w-[500px]">
+            <div className="relative mt-10 w-full md:mt-0">
+              <div className="group relative mx-auto aspect-4/5 w-full sm:ml-auto sm:max-w-[500px]">
                 {/* rotating border */}
                 <div className="absolute inset-0 overflow-hidden rounded-2xl">
                   <div className="rotating-border animate-spin-slow absolute inset-[-50%]"></div>
@@ -124,7 +126,9 @@ export const Hero = () => {
                       type="button"
                       aria-label="Lancer la vidéo de présentation"
                       onClick={(e) => {
-                        const video = e.currentTarget.previousElementSibling.previousElementSibling
+                        const video =
+                          e.currentTarget.previousElementSibling
+                            .previousElementSibling
                         setIsTransitioning(true)
                         setTimeout(() => {
                           video.play()
@@ -146,34 +150,34 @@ export const Hero = () => {
 
                 {/*  techno logo - hidden during video playback */}
                 {!isVideoPlaying && (
-                  <div className="absolute bottom-6 left-6 z-20">
+                  <div className="absolute bottom-6 left-7 z-20">
                     <FadeIn delay={600}>
                       <div className="flex items-center gap-4">
                         {/* React */}
                         <div className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130">
                           <SiReact className="h-full w-full text-white/80" />
-                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-white/90 px-2 py-1 text-xs font-medium text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                             React.js
                           </span>
                         </div>
                         {/* Symfony */}
                         <div className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130">
                           <SiSymfony className="h-full w-full text-white/80" />
-                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-white/90 px-2 py-1 text-xs font-medium text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                             Symfony
                           </span>
                         </div>
                         {/* SQL */}
                         <div className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130">
                           <PiFileSqlLight className="h-full w-full text-white/80" />
-                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-white/90 px-2 py-1 text-xs font-medium text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                             SQL
                           </span>
                         </div>
                         {/* WordPress */}
                         <div className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130">
                           <SiWordpress className="h-full w-full text-white/80" />
-                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-white/90 px-2 py-1 text-xs font-medium text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                             WordPress
                           </span>
                         </div>
@@ -186,6 +190,16 @@ export const Hero = () => {
           </FadeIn>
         </div>
       </div>
+
+      {/*  Scroll indicator */}
+      <FadeIn delay={5000}>
+        <button
+          onClick={scrollToSection('about')}
+          className="absolute bottom-8 left-1/2 hidden translate-x-1/2 animate-bounce md:block"
+        >
+          <ChevronDown className="text-green h-8 w-8" />
+        </button>
+      </FadeIn>
     </section>
   )
 }

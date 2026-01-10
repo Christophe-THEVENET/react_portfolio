@@ -56,11 +56,11 @@ export const Navbar = () => {
 
     <header
       className={`fixed top-0 right-0 left-0 z-1000 w-full py-6 transition-all duration-300 ${
-        isScrolled ? 'bg-black/30 backdrop-blur-lg' : 'bg-transparent'
+        isScrolled ? ' backdrop-blur-lg' : 'bg-transparent'
       }`}
       style={{ transform: 'translate3d(0,0,0)' }}
     >
-      <div className="max-w-flux mx-auto px-5">
+      <div className="max-w-flux mx-auto sm:px-5">
         <div className="flex items-center justify-between">
           {/* logo */}
           <div className="-mt-2 flex items-center">
@@ -114,9 +114,11 @@ export const Navbar = () => {
 
         {/* mobile navigation */}
         <div
-          className={`overflow-hidden transition-all duration-300 ease-out md:hidden ${isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
+          className={`overflow-hidden transition-all duration-300 ease-out md:hidden ${isMenuOpen ? 'mt-3 max-h-screen opacity-100' : 'mt-0 max-h-0 opacity-0'}`}
         >
-          <div className="space-y-3 border-t border-white/10 bg-black/95 px-5 pt-6 pb-14 backdrop-blur-lg">
+          <div
+            className={`min-h-[70vh] origin-top transform space-y-4 border-t border-b border-white/20 bg-black/95 px-5 pt-6 pb-14 backdrop-blur-lg transition-all duration-300 ${isMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`}
+          >
             {NAV_LINKS.map((link) => (
               <button
                 key={link.id}
