@@ -33,7 +33,7 @@ export const Hero = () => {
                   <br className="min-[915px]:hidden" />
                   <span className="hidden min-[915px]:inline"> | </span>
                   <span className="min-[915px]:hidden"> </span>
-                  secteur {PERSONAL_INFO.location}
+                  {PERSONAL_INFO.location}
                 </span>
               </div>
             </FadeIn>
