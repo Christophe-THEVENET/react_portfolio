@@ -28,31 +28,6 @@ export const Navbar = () => {
   }
 
   return (
-    /*   <header className="fixed top-0 right-0 left-0 bg-transparent py-5">
-      <nav className="container mx-auto flex items-center justify-between px-6">
-        <a href="#">
-          <img
-            className="hover-hue-rotate-loop w-32 transition-all duration-500"
-            src={logo}
-            alt="logo digitob"
-          />
-        </a>
-        
-        <div className="glass flex items-center gap-1 rounded-full px-2 py-1">
-          {NAV_LINKS.map((link, index) => (
-            <a
-              key={index}
-              href={link.href}
-              className="text-muted-foreground hover:text-foreground hover:bg-surface rounded-full px-4 py-2 text-sm"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-
-        <div></div>
-      </nav>
-    </header> */
 
     <header
       className={`fixed top-0 right-0 left-0 z-1000 w-full py-6 transition-all duration-300 ${
@@ -62,17 +37,17 @@ export const Navbar = () => {
     >
       <div className="max-w-flux mx-auto sm:px-5">
         <div className="flex items-center justify-between">
-          {/* logo */}
+          {/* logo ************************************** */}
           <div className="-mt-2 flex items-center">
             <a href="#">
               <img
-                className="hover-hue-rotate-loop w-32 transition-all duration-500"
+                className="hover-hue-rotate-loop w-36 transition-all duration-500"
                 src={logo}
                 alt="logo digitob"
               />
             </a>
           </div>
-          {/* desktop navigation */}
+          {/* desktop navigation ************************* */}
           <nav className="hidden items-center gap-7 md:flex">
             {NAV_LINKS.map((link) => (
               <button
@@ -89,7 +64,7 @@ export const Navbar = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
+          {/* CTA Button ******************************* */}
           <div className="hidden items-center gap-2 md:flex">
             <button
               onClick={() => handleNavClick('contact')}
@@ -99,7 +74,7 @@ export const Navbar = () => {
             </button>
           </div>
 
-          {/* mobile hamburger */}
+          {/* mobile hamburger ************************* */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="p-4 text-white transition-colors duration-300 hover:text-white/80 md:hidden"
@@ -112,12 +87,12 @@ export const Navbar = () => {
           </button>
         </div>
 
-        {/* mobile navigation */}
+        {/* mobile navigation ************************* */}
         <div
           className={`overflow-hidden transition-all duration-300 ease-out md:hidden ${isMenuOpen ? 'mt-3 max-h-screen opacity-100' : 'mt-0 max-h-0 opacity-0'}`}
         >
           <div
-            className={`min-h-[70vh] origin-top transform space-y-4 border-t border-b border-white/20 bg-black/95 px-5 pt-6 pb-14 backdrop-blur-lg transition-all duration-300 ${isMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`}
+            className={`min-h-[80vh] origin-top transform space-y-4 border-t border-b border-white/20 bg-black/95 px-5 pt-6 pb-14 backdrop-blur-lg transition-all duration-300 ${isMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`}
           >
             {NAV_LINKS.map((link) => (
               <button
@@ -130,7 +105,7 @@ export const Navbar = () => {
             ))}
             <button
               onClick={() => handleNavClick('contact')}
-              className="mt-2 w-full cursor-pointer rounded-[17px] border-white bg-white/90 px-5 py-2 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white"
+              className="mt-10 w-full cursor-pointer rounded-[17px]  border-white bg-white/90 px-5 py-2 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white"
             >
               Contactez moi
             </button>

@@ -23,10 +23,10 @@ export const Hero = () => {
       {/* Content Container  */}
       <div className="relative z-10 mx-auto w-full px-4 pt-28 pb-20 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-[3fr_2fr]">
-          {/*  Left columns*/}
+          {/*  Left columns *******************************************************/}
           <div className="w-full text-left">
             <FadeIn delay={0}>
-              <div className="from-green/15 via -green/25 to-green/30 border-green/20 mb-8 inline-flex items-center gap-2.5 rounded-full border bg-linear-to-r px-4 py-2.5">
+              <div className="from-primary/5 via bg-primary/10 to-primary/15 border-primary/20 mb-8 inline-flex items-center gap-2.5 rounded-full border bg-linear-to-r px-4 py-2.5">
                 <CodeXml className="h-4 w-4 fill-white text-white" />
                 <span className="text-xs tracking-[1.2px] text-white min-[915px]:text-sm">
                   {PERSONAL_INFO.title}
@@ -37,11 +37,11 @@ export const Hero = () => {
                 </span>
               </div>
             </FadeIn>
-
+         
             <FadeIn delay={100}>
               <h1 className="mb-6 text-2xl leading-tight font-normal text-white max-[1030px]:text-[50px] max-[886px]:text-[47px] max-[839px]:text-[45px] max-[803px]:text-[43px] lg:text-[55px] xl:text-[65px] 2xl:text-7xl">
                 Christophe
-                <span className="text-green-light"> THEVENET</span>
+                <span className="text-primary"> THEVENET</span>
               </h1>
             </FadeIn>
 
@@ -62,7 +62,7 @@ export const Hero = () => {
                 onClick={() => scrollToSection('contact')}
               >
                 <div className="relative z-10 cursor-pointer rounded-[17px] border border-white bg-white/75 px-3 py-1.5 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white">
-                  Besoin d'échanger ?
+                  Besoin d'un site web ?
                 </div>
               </button>
             </FadeIn>
@@ -74,7 +74,7 @@ export const Hero = () => {
                     key={index}
                     className="border-r border-white/50 pr-10 text-left last:border-r-0"
                   >
-                    <div className="text-green-light mb-1 font-mono text-2xl font-normal">
+                    <div className="text-primary mb-1 font-mono text-2xl font-normal">
                       {stat.value}
                     </div>
                     <div className="text-sm leading-snug text-white">
@@ -86,8 +86,8 @@ export const Hero = () => {
             </FadeIn>
           </div>
 
-          {/*  right columns developer image*/}
-          <FadeIn delay={200}>
+          {/*  right columns ****************************************************** */}
+          <FadeIn delay={600}>
             <div className="relative mt-10 w-full md:mt-0 md:flex md:justify-end">
               <div className="group relative aspect-4/5 w-full max-w-[400px] sm:max-w-[400px] md:max-w-[420px] lg:max-w-[440px]">
                 {/* rotating border */}
@@ -202,7 +202,6 @@ export const Hero = () => {
           <ChevronDown className="text-green h-8 w-8" />
         </button>
       </FadeIn>
-      
     </section>
   )
 }

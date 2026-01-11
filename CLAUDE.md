@@ -30,7 +30,7 @@ Single-page React 19 portfolio with section-based layout. French language conten
 ## Styling
 
 TailwindCSS v4 with custom theme defined in `src/index.css` using `@theme` directive:
-- Custom colors: `--color-green` (#2F8E8E), `--color-green-light` (#47b3b1)
+- Custom colors: `--color-green` (#2F8E8E), `--color-primary` (#47b3b1)
 - Font: Urbanist
 - Custom animations: `animate-spin-slow`, `animate-ping-slow`, `rotating-border`
 

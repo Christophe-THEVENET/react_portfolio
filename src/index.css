@@ -6,10 +6,10 @@
   --breakpoint-3xl: 1920px;
   --max-width-flux: 1320px;
 
-  --color-primary: #bdff69;
+/*   --color-primary: #bdff69; */
   /* --color-green: #328281; */
   --color-green:#2F8E8E;
-  --color-green-light: #47b3b1;
+  --color-primary: #47b3b1;
 
  
 }
@@ -50,7 +50,7 @@
   }
 
   body::after {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     opacity: 0;
   }
 
@@ -63,28 +63,35 @@
     z-index: 1;
   }
 
+  /* Custom Scrollbar - Firefox only */
+  @supports not selector(::-webkit-scrollbar) {
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: #1c4848 #0a0a0a;
+    }
+  }
+
   /* Custom Scrollbar - Chrome, Edge, Opera */
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 12px;
   }
 
   ::-webkit-scrollbar-track {
     background: #0a0a0a;
   }
 
-  ::-webkit-scrollbar-thumb,
-  ::-webkit-scrollbar-thumb:hover {
-    background: #112e2e;
-    border-radius: 3px;
+  ::-webkit-scrollbar-thumb {
+    background: #133131;
+    border-radius: 6px;
+    border: 5px solid #0a0a0a;
+    transition: border-width 0.3s ease, background 0.3s ease;
   }
 
-  /* Custom Scrollbar - Firefox */
-  @-moz-document url-prefix() {
-    * {
-      scrollbar-width: thin;
-      scrollbar-color: #0b1d1d;
-    }
+  ::-webkit-scrollbar-thumb:hover {
+    border-width: 1px;
+    background: #225050;
   }
+
 
   /* hide scrollbar for carousel*/
   .hide-scrollbar {
@@ -105,7 +112,7 @@
     } */
 }
 
-/* *********** effets *********** */
+/* ************************************ effets ********************************* */
 
 /* ------ logo hover ---------- */
 @keyframes hue-rotate-loop {

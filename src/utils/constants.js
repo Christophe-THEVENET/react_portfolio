@@ -1,13 +1,13 @@
 export const PERSONAL_INFO = {
     name: "Christophe THEVENET",
-    title: "Développeur Full-Stack",
+    title: "Développeur Web Full-Stack",
     email: 'digitob@yahoo.com',
     location: 'Puy-de-Dôme ou distanciel',
     tagline: "Your Tagline",
     bio: [
-        "Brief bio about yourself.",
-        "Another sentence about your background or interests.",
-        "A final sentence to round out your bio."
+        "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "A final sentence to round out your bio. lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
     ]
 };
@@ -29,7 +29,6 @@ export const STATS = [
 
 export const ABOUT_STATS = [
   { label: 'Happy Clients', value: '10+' },
-  { label: 'Code commit', value: '2.5k+' },
   { label: 'Code commit', value: '2.5k+' },
   { label: 'Code commit', value: '2.5k+' },
 ]
