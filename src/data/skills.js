@@ -55,14 +55,14 @@ export const skills = [
     id: 8,
     name: 'Php',
     icon: 'SiPhp',
-    level: 'Expert',
+    level: 'Avancé',
     experience: '5+ ans',
   },
   {
     id: 9,
     name: 'Mvc',
     icon: 'SiPhp',
-    level: 'Avancé',
+    level: 'Expert',
     experience: '4+ ans',
   },
   {
