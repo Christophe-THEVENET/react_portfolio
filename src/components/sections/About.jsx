@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { PiFileSqlLight } from 'react-icons/pi'
+
 import {
   Code2,
   Download,
@@ -7,7 +9,14 @@ import {
   ExternalLink,
   BookOpenCheck,
 } from 'lucide-react'
-import { SiReact, SiTailwindcss, SiSymfony, SiWordpress } from 'react-icons/si'
+import {
+  SiReact,
+  SiTailwindcss,
+  SiSymfony,
+  SiWordpress,
+  SiMysql ,
+  SiClaude,
+} from 'react-icons/si'
 import { PERSONAL_INFO, ABOUT_STATS, SOCIAL_LINKS } from '@/utils/constants.js'
 import FadeIn from '@/components/animations/FadeIn.jsx'
 import { IoSchoolOutline, IoSchool } from 'react-icons/io5'
@@ -17,11 +26,13 @@ export const About = () => {
     { name: 'React.js', icon: SiReact, color: '#61DAFB' },
     { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#38B2AC' },
     { name: 'Symfony', icon: SiSymfony, color: '#6F42C1' },
+    { name: 'SQL', icon: PiFileSqlLight, color: '#21759B' },
     { name: 'WordPress', icon: SiWordpress, color: '#21759B' },
+    { name: 'Claude code', icon: SiClaude, color: '#DA7756' },
   ]
 
   return (
-    <section id="about" className="relative overflow-hidden py-20">
+    <section id="about" className="relative overflow-hidden py-5">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main grid */}
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
@@ -210,10 +221,10 @@ export const About = () => {
         </div>
 
         {/* stats & social media *********************************************************** */}
-        <div className="mt-16 grid grid-cols-1 items-end gap-12 lg:mt-12 lg:grid-cols-2 lg:gap-0">
-          {/* Stats */}
+        <div className="mt-16 grid grid-cols-1 items-end gap-12 lg:mt-4 lg:grid-cols-2 lg:gap-0">
+          {/* Stats ************************************************************ */}
           <FadeIn delay={200}>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
               {ABOUT_STATS.map((stat, index) => (
                 <div key={index} className="flex gap-4">
                   <div className="from-primary via-primary/50 to-primary/20 h-full w-1 rounded-full bg-gradient-to-b"></div>
@@ -230,13 +241,13 @@ export const About = () => {
             </div>
           </FadeIn>
 
-          {/* Réseaux sociaux */}
+          {/* Réseaux sociaux ************************************************* */}
           <FadeIn delay={300}>
-            <div className="flex flex-col gap-4 -mt-12 sm:mt-0">
-              <h3 className="text-2xl font-normal text-white text-right">
+            <div className="-mt-12 flex flex-col gap-4 sm:mt-0">
+              <h3 className="text-right text-2xl font-normal text-white">
                 Réseaux
               </h3>
-              <div className="flex flex-wrap gap-3 justify-end">
+              <div className="flex flex-wrap justify-end gap-3">
                 {SOCIAL_LINKS.map((social, index) => {
                   const IconComponent = social.icon
                   return (
@@ -245,12 +256,12 @@ export const About = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group/social"
+                      className="group/social relative"
                       style={{ '--social-color': social.color }}
                     >
-                      <div className="hover:border-primary/50 relative flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all duration-300 hover:bg-white/10">
-                        <IconComponent className="h-5 w-5 text-white/70 transition-all duration-300 group-hover/social:text-[var(--social-color)]" />
-                        <div className="from-primary/20 absolute inset-0 rounded-xl bg-gradient-to-br to-transparent opacity-0 transition-opacity duration-300 group-hover/social:opacity-100"></div>
+                      <div className="from-primary/30 to-primary/15 absolute inset-0 rounded-xl bg-linear-to-br opacity-70 blur-xl transition-opacity duration-300 group-hover/social:opacity-75"></div>
+                      <div className="hover:border-primary/30 relative flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all duration-300">
+                        <IconComponent className="h-6 w-6 text-white/70 transition-all duration-300 group-hover/social:text-(--social-color)" />
                       </div>
                     </a>
                   )
@@ -259,6 +270,35 @@ export const About = () => {
             </div>
           </FadeIn>
         </div>
+        {/* Skills *********************************************************** */}
+        <FadeIn delay={500}>
+          <div className="flex flex-col items-center gap-8 pt-30">
+            <div className="text-center">
+              <h3 className="mb-2 text-2xl font-normal text-white">
+                Environnement technique & expertise
+              </h3>
+              <p className="text-sm text-white/60">
+                Compétences que j’utilise pour créer vos solutions
+              </p>
+            </div>
+            <div className="grid w-full max-w-4xl grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+              {skills.map((skill, i) => (
+                <div
+                  key={i}
+                  className="group hover:border-primary/50 border-primary/6 bg-primary/1 relative flex flex-col items-center justify-center gap-3 rounded-2xl border p-6 transition-all duration-300 hover:scale-105 hover:bg-white/10"
+                >
+                  <skill.icon className="text-primary text-3xl" />
+                  <div className="text-center text-sm font-medium text-white/80">
+                    {skill.name}
+                  </div>
+
+                  {/*   Hover effect glowup  */}
+                  <div className="from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-primary/10 absolute inset-0 rounded-2xl bg-linear-to-br transition-all duration-300"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
       </div>
     </section>
   )
