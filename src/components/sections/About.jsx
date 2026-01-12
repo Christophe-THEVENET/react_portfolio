@@ -221,7 +221,7 @@ export const About = () => {
         </div>
 
         {/* stats & social media *********************************************************** */}
-        <div className="mt-16 grid grid-cols-1 items-end gap-12 lg:mt-4 lg:grid-cols-2 lg:gap-0">
+        <div className="mt-16 grid grid-cols-1 items-end gap-12 lg:mt-0 lg:grid-cols-2 lg:gap-0">
           {/* Stats ************************************************************ */}
           <FadeIn delay={200}>
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
@@ -271,8 +271,8 @@ export const About = () => {
           </FadeIn>
         </div>
         {/* Skills *********************************************************** */}
-        <FadeIn delay={500}>
-          <div className="flex flex-col items-center gap-8 pt-30">
+       {/*  <FadeIn delay={500}>
+          <div className="flex flex-col items-center gap-8 pt-16">
             <div className="text-center">
               <h3 className="mb-2 text-2xl font-normal text-white">
                 Environnement technique & expertise
@@ -292,13 +292,12 @@ export const About = () => {
                     {skill.name}
                   </div>
 
-                  {/*   Hover effect glowup  */}
                   <div className="from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-primary/10 absolute inset-0 rounded-2xl bg-linear-to-br transition-all duration-300"></div>
                 </div>
               ))}
             </div>
           </div>
-        </FadeIn>
+        </FadeIn> */}
       </div>
     </section>
   )

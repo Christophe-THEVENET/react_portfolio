@@ -1,10 +1,230 @@
-
 export const skills = [
+  // Frontend
   {
     id: 1,
     name: 'React.js',
-    icon: 'Code2',
-    level:'Confirmé',
+    icon: 'SiReact',
+    level: 'Expert',
+    experience: '3+ ans',
+  },
+  {
+    id: 2,
+    name: 'Javascript.js',
+    icon: 'SiJavascript',
+    level: 'Avancé',
+    experience: '5+ ans',
+  },
+  {
+    id: 3,
+    name: 'Sass',
+    icon: 'SiSass',
+    level: 'Expert',
+    experience: '5+ ans',
+  },
+  {
+    id: 4,
+    name: 'Tailwind CSS',
+    icon: 'SiTailwindcss',
+    level: 'Avancé',
+    experience: '1+ ans',
+  },
+  {
+    id: 5,
+    name: 'Ui/Ux Design',
+    icon: 'SiFigma',
+    level: 'Expert',
+    experience: '5+ ans',
+  },
+  {
+    id: 6,
+    name: 'Figma',
+    icon: 'SiFigma',
+    level: 'Intermédiaire',
+    experience: '5+ ans',
+  },
+
+  // Backend
+  {
+    id: 7,
+    name: 'Symfony',
+    icon: 'SiSymfony',
+    level: 'Expert',
+    experience: '4+ ans',
+  },
+  {
+    id: 8,
+    name: 'Php',
+    icon: 'SiPhp',
+    level: 'Expert',
+    experience: '5+ ans',
+  },
+  {
+    id: 9,
+    name: 'Mvc',
+    icon: 'SiPhp',
+    level: 'Avancé',
+    experience: '4+ ans',
+  },
+  {
+    id: 10,
+    name: 'Poo',
+    icon: 'SiPhp',
+    level: 'Avancé',
+    experience: '4+ ans',
+  },
+  {
+    id: 11,
+    name: 'Api Rest',
+    icon: 'SiPostman',
+    level: 'Avancé',
+    experience: '3+ ans',
+  },
+  {
+    id: 12,
+    name: 'Design Patterns',
+    icon: 'SiPhp',
+    level: 'Intermédiaire',
+    experience: '2+ ans',
+  },
+
+  // Database
+  {
+    id: 13,
+    name: 'MySql',
+    icon: 'SiMysql',
+    level: 'Expert',
+    experience: '5+ ans',
+  },
+  {
+    id: 14,
+    name: 'Merise/Uml',
+    icon: 'SiDiagramsdotnet',
+    level: 'Intermédiaire',
+    experience: '4+ ans',
+  },
+  {
+    id: 15,
+    name: 'Doctrine',
+    icon: 'SiDoctrine',
+    level: 'Avancé',
+    experience: '4+ ans',
+  },
+
+  // DevOps
+  {
+    id: 16,
+    name: 'Docker',
+    icon: 'SiDocker',
+    level: 'Intermédiaire',
+    experience: '2+ ans',
+  },
+  {
+    id: 17,
+    name: 'Git/Github',
+    icon: 'SiGit',
+    level: 'Avancé',
+    experience: '5+ ans',
+  },
+  {
+    id: 18,
+    name: 'Linux',
+    icon: 'SiLinux',
+    level: 'Expert',
+    experience: '3+ ans',
+  },
+  {
+    id: 19,
+    name: 'CI/CD',
+    icon: 'SiGithubactions',
+    level: 'Intermédiaire',
+    experience: '2+ ans',
+  },
+
+  // Sécurité
+  {
+    id: 20,
+    name: 'Auth',
+    icon: 'SiAuth0',
+    level: 'Expert',
+    experience: '4+ ans',
+  },
+  {
+    id: 21,
+    name: 'Roles',
+    icon: 'SiAuth0',
+    level: 'Avancé',
+    experience: '4+ ans',
+  },
+  {
+    id: 22,
+    name: 'Validation',
+    icon: 'SiSymfony',
+    level: 'Expert',
+    experience: '4+ ans',
+  },
+  {
+    id: 23,
+    name: 'CSRF',
+    icon: 'SiSymfony',
+    level: 'Expert',
+    experience: '4+ ans',
+  },
+  {
+    id: 24,
+    name: 'XSS',
+    icon: 'SiOwasp',
+    level: 'Expert',
+    experience: '4+ ans',
+  },
+  {
+    id: 25,
+    name: 'SQL Injection',
+    icon: 'SiOwasp',
+    level: 'Expert',
+    experience: '4+ ans',
+  },
+
+  // Outils
+  {
+    id: 26,
+    name: 'Copilot',
+    icon: 'SiGithubcopilot',
+    level: 'Expert',
+    experience: '2+ ans',
+  },
+  {
+    id: 27,
+    name: 'Claude Code',
+    icon: 'SiClaude',
+    level: 'Expert',
+    experience: '1+ an',
+  },
+  {
+    id: 28,
+    name: 'Wordpress',
+    icon: 'SiWordpress',
+    level: 'Avancé',
+    experience: '5+ ans',
+  },
+  {
+    id: 29,
+    name: 'WooCommerce',
+    icon: 'SiWoocommerce',
+    level: 'Avancé',
+    experience: '4+ ans',
+  },
+  {
+    id: 30,
+    name: 'PrestaShop',
+    icon: 'SiPrestashop',
+    level: 'Intermédiaire',
+    experience: '2+ ans',
+  },
+  {
+    id: 31,
+    name: 'Agile/Scrum',
+    icon: 'SiJirasoftware',
+    level: 'Intermédiaire',
     experience: '3+ ans',
   },
 ]

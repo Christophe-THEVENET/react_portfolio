@@ -1,10 +1,11 @@
 import React from 'react'
 import { skills } from '@/data/skills'
-import * as Icons from 'lucide-react'
+import * as SiIcons from 'react-icons/si'
+import { Sparkles, Code2 } from 'lucide-react'
 import FadeIn from '@/components/animations/FadeIn'
 
-const Skills = () => {
-  // Cateforize skills
+export const Skills = () => {
+  // Categorize skills
   const SkillCategories = {
     Frontend: [
       skills.find((skill) => skill.name === 'React.js'),
@@ -51,87 +52,105 @@ const Skills = () => {
     ].filter(Boolean),
   }
 
-  // Get proficiency percentage
-  const getProficiencyPercentage = (level) => {
-    const levels = {
-      Intermédiaire: 65,
-      Confirmé: 80,
-      Expert: 95,
+  // Group skills by level within a category
+  const groupByLevel = (categorySkills) => {
+    const levels = ['Expert', 'Avancé', 'Intermédiaire']
+    return levels
+      .map((level) => ({
+        level,
+        skills: categorySkills.filter((skill) => skill.level === level),
+      }))
+      .filter((group) => group.skills.length > 0)
+  }
+
+  // Get badge styles by level
+  const getBadgeStyles = (level) => {
+    const styles = {
+      Expert: 'border-emerald-500/30 text-emerald-500 bg-emerald-600/10',
+      Avancé: 'border-primary/30 text-primary bg-primary/10',
+      Intermédiaire: 'border-slate-400/30 text-slate-400 bg-slate-400/10',
     }
-    return levels[level] || 50
+    return styles[level] || styles.Intermédiaire
+  }
+
+  // Get level label styles
+  const getLevelLabelStyles = (level) => {
+    const styles = {
+      Expert: 'text-emerald-400',
+      Avancé: 'text-primary',
+      Intermédiaire: 'text-slate-400',
+    }
+    return styles[level] || styles.Intermédiaire
   }
 
   return (
-    <section id="skills" className="">
-      {/* Animated backgound gradient */}
-      <div className="">
-        <div className=""></div>
-        <div className=""></div>
+    <section id="skills" className="relative overflow-hidden py-24">
+      {/* Animated background gradient */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="bg-primary/10 absolute top-1/4 left-0 h-96 w-96 rounded-full opacity-50 blur-3xl"></div>
+        <div className="bg-primary/10 absolute right-0 bottom-1/4 h-96 w-96 rounded-full opacity-50 blur-3xl"></div>
       </div>
 
-      <div className="">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn delay={100}>
-          <div className="">
-            <div className="">
-              <Icons.Sparkles className="" />
-              <span className="">Mon expertise</span>
+          <div className="mb-12 text-center">
+            <div className="bg-primary/10 border-primary/30 mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2">
+              <Sparkles className="text-primary h-4 w-4" />
+              <span className="text-primary text-sm font-medium">
+                Mon expertise
+              </span>
             </div>
-            <h2 className="">Skills & Technologies</h2>
-            <p className="">Aperçu de mon niveau technique et maîtrise</p>
+            <h2 className="mb-4 text-4xl font-normal text-white lg:text-5xl">
+              Compétences Techniques
+            </h2>
+            <p className="text-white/60">Niveau de maîtrise par technologie</p>
           </div>
         </FadeIn>
 
-        {/* Skills categories */}
-
-        <div className="">
+        {/* Skills grid by category */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {Object.entries(SkillCategories).map(
             ([category, categorySkills], categoryIndex) => (
-              <FadeIn key={category} delay={categoryIndex * 100}>
-                <div className="">
-                  <div className="">
-                    <div className=""></div>
-                    <h3 className="">{category}</h3>
+              <FadeIn key={category} delay={categoryIndex * 100} className="h-full">
+                <div className="group relative h-full">
+                  <div className="from-primary/10 to-primary/5 absolute inset-0 rounded-2xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-50"></div>
+                  <div className="hover:border-primary/30 relative h-full rounded-2xl border border-white/5 bg-white/2 p-5 transition-all duration-300">
+                  {/* Category header */}
+                  <div className="mb-4 flex items-center gap-3 border-b border-white/10 pb-3">
+                    <div className="h-1 w-6 rounded-full bg-primary/50"></div>
+                    <h3 className="text-lg font-medium text-white">{category}</h3>
                   </div>
 
-                  {/* Skills List */}
-                  <div className="">
-                    {categorySkills.map((skill, skillIndex) => {
-                      const IconComponent = Icons[skill.icon] || Icons.Code2
-                      const proficiency = getProficiencyPercentage(skill.level)
-                      return (
-                        <div key={skill.id} className="">
-                          <div className="">
-                            <div className="">
-                              <div className="">
-                                <IconComponent className="" />
-                              </div>
-                              <div>
-                                <div className="">{skill.name}</div>
-                                <div className="">{skill.experience}</div>
-                              </div>
-                            </div>
-
-                            <span
-                              className={`rounded-full border px-2 py-1 text-xs ${getLevelColor(skill.level)}`}
-                            >
-                              {skill.level}
-                            </span>
+                  {/* Skills grouped by level */}
+                  <div className="space-y-4">
+                    {groupByLevel(categorySkills).map(({ level, skills: levelSkills }) => (
+                      <div key={level}>
+                        {/* Level row */}
+                        <div className="flex items-start justify-between gap-4">
+                          {/* Skills badges */}
+                          <div className="flex flex-wrap gap-1.5">
+                            {levelSkills.map((skill) => {
+                              const IconComponent = SiIcons[skill.icon] || Code2
+                              return (
+                                <div
+                                  key={skill.id}
+                                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition-all duration-200 ${getBadgeStyles(level)}`}
+                                >
+                                  <IconComponent className="h-4 w-4" />
+                                  <span>{skill.name}</span>
+                                </div>
+                              )
+                            })}
                           </div>
-
-                          <div className="">
-                            <div
-                              className=""
-                              style={{ width: `${proficiency}%` }}
-                            ></div>
-                          </div>
+                          {/* Level label */}
+                          <span className={`shrink-0 text-xs font-medium ${getLevelLabelStyles(level)}`}>
+                            {level}
+                          </span>
                         </div>
-                      )
-                    })}
+                      </div>
+                    ))}
                   </div>
-
-                  {/* Hover glow effect */}
-
-                  
+                  </div>
                 </div>
               </FadeIn>
             ),
@@ -141,5 +160,3 @@ const Skills = () => {
     </section>
   )
 }
-
-export default Skills

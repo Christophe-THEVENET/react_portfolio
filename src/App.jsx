@@ -5,6 +5,7 @@ import { About } from '@/components/sections/About'
 import { Services } from '@/components/sections/Services'
 import { Projects } from '@/components/sections/Projects'
 import { Contact } from '@/components/sections/Contact'
+import { Skills } from '@/components/sections/Skills'
 import ParticleField from '@/components/backgrounds/ParticleField'
 
 function App() {
@@ -37,9 +38,11 @@ function App() {
         <main>
           <Hero />
           <About />
+          <Skills />
           <Services />
           <Projects />
           <Contact />
+
         </main>
       </div>
     </div>

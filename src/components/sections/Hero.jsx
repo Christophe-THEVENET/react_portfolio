@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { ChevronDown, Star, Play, CodeXml } from 'lucide-react'
-import { SiReact, SiMysql, SiSymfony, SiWordpress } from 'react-icons/si'
+import { SiReact, SiMysql, SiSymfony, SiWordpress, SiClaude } from 'react-icons/si'
 import { PERSONAL_INFO, STATS } from '@/utils/constants.js'
 import { scrollToSection } from '@/hooks/useScrollSpy.js'
 import FadeIn from '@/components/animations/FadeIn.jsx'
@@ -37,7 +37,7 @@ export const Hero = () => {
                 </span>
               </div>
             </FadeIn>
-         
+
             <FadeIn delay={100}>
               <h1 className="mb-6 text-2xl leading-tight font-normal text-white max-[1030px]:text-[50px] max-[886px]:text-[47px] max-[839px]:text-[45px] max-[803px]:text-[43px] lg:text-[55px] xl:text-[65px] 2xl:text-7xl">
                 Christophe
@@ -181,6 +181,13 @@ export const Hero = () => {
                           <SiWordpress className="h-full w-full text-white/80" />
                           <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                             WordPress
+                          </span>
+                        </div>
+                        {/* WordPress */}
+                        <div className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130">
+                          <SiClaude className="h-full w-full text-white/80" />
+                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                            Claude code
                           </span>
                         </div>
                       </div>
