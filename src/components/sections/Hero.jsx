@@ -77,7 +77,7 @@ export const Hero = () => {
                     <div className="text-primary mb-1 font-mono text-2xl font-normal">
                       {stat.value}
                     </div>
-                    <div className="text-sm leading-snug text-white">
+                    <div className="text-[13px] leading-snug text-white">
                       {stat.label}
                     </div>
                   </div>
