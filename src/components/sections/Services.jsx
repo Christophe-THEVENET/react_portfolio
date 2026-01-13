@@ -128,7 +128,6 @@ export const Services = () => {
                         transitionTimingFunction:
                           'cubic-bezier(0.2, 1.35, 0.82, 0.92)',
                       }}
-                      onMouseLeave={() => setActiveCard(null)}
                     >
                       {/* Header like card */}
                       <div className="mb-3 flex items-center justify-center">
@@ -138,23 +137,31 @@ export const Services = () => {
                       </div>
 
                       {/* Badge subtitle like card */}
-                      <div className="bg-primary/10 mb-4 flex w-full justify-center rounded-lg px-3 py-2">
+                      <div className="bg-primary/15 mb-4 flex w-full justify-center rounded-lg px-3 py-2">
                         <span className="text-primary text-xs font-medium tracking-wider uppercase">
                           {service.popup.subtitle}
                         </span>
                       </div>
 
                       {/* Liste des skills */}
-                      <ul className="relative flex-1 space-y-5 overflow-y-auto pr-1">
+                      <ul className="relative flex-1 space-y-3 overflow-y-auto pr-1">
                         {service.popup.skills.map((skill, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <Check className="text-primary mt-0.5 h-3 w-3 shrink-0" />
+                          <li key={i} className="flex items-start gap-2 rounded-lg bg-white/10 px-1 py-1">
+                            <Check className="mt-1 h-3 w-3 shrink-0 text-white/70" />
                             <span className="text-sm leading-relaxed text-white/70">
                               {skill}
                             </span>
                           </li>
                         ))}
                       </ul>
+
+                      {/* Bouton fermer */}
+                      <button
+                        onClick={() => setActiveCard(null)}
+                        className="border-primary/20 hover:cursor-pointer bg-primary/10 text-primary hover:bg-primary/20 mt-4 w-full shrink-0 rounded-lg border py-1 text-sm font-medium transition-colors"
+                      >
+                        Fermer
+                      </button>
                     </div>
                   </div>
                 </div>
