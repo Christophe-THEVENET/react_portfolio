@@ -4,13 +4,13 @@ export const services = [
   {
     id: 1,
     icon: 'MessageCircleCode',
-    title1: 'Freelance',
+    title1: 'Taux journalier moyen',
     subtitle1: 'Renforcez vos équipes',
     price1: { 'taux journalier': '400€' },
     description1:
       "De la conception à la mise en production, j'interviens sur toutes les étapes du développement : architecture robuste, front-end React, back-end Symfony, déploiement et monitoring. Refactoring, optimisation de code, debug complexe, évolution d'applications : ma polyvalence me permet de gérer l'intégralité des enjeux techniques..",
 
-    title2: 'Maintenance',
+    title2: 'Taux horaire',
     subtitle2: 'Garantissez la continuité',
     price2: { 'taux horaire': '50€' },
     description2:
@@ -21,7 +21,7 @@ export const services = [
       subtitle: "Je m'intègre à vos sprints",
       skills: [
         'Symfony niveau sénior',
-        'React niveau intermédiaire',
+        'React niveau avancé',
         'Workflow ia: Copilot + Claude',
         'Architecture Mvc, Poo',
         'Bdd Sql conçue avec Merise ou Uml',

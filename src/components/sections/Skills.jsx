@@ -84,14 +84,14 @@ export const Skills = () => {
   }
 
   return (
-    <section id="skills" className="relative overflow-hidden py-24">
+    <section id="skills" className="relative overflow-hidden py-30">
       {/* Animated background gradient */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="bg-primary/10 absolute top-1/4 left-0 h-96 w-96 rounded-full opacity-50 blur-3xl"></div>
         <div className="bg-primary/10 absolute right-0 bottom-1/4 h-96 w-96 rounded-full opacity-50 blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn delay={100}>
           <div className="mb-12 text-center">
             <div className="bg-primary/10 border-primary/30 mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2">
@@ -118,7 +118,7 @@ export const Skills = () => {
                   {/* Category header */}
                   <div className="mb-4 flex items-center gap-3 border-b border-white/10 pb-3">
                     <div className="h-1 w-6 rounded-full bg-primary/50"></div>
-                    <h3 className="text-lg font-medium text-white">{category}</h3>
+                    <h3 className="text-xl font-medium text-white uppercase">{category}</h3>
                   </div>
 
                   {/* Skills grouped by level */}

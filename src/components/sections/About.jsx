@@ -32,8 +32,8 @@ export const About = () => {
   ]
 
   return (
-    <section id="about" className="relative overflow-hidden py-5">
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="about" className="relative overflow-hidden py-5 ">
+      <div className="relative z-10 mx-auto  px-4 sm:px-6 lg:px-8">
         {/* Main grid */}
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           {/* Left Column *********************************************************** */}
@@ -221,7 +221,7 @@ export const About = () => {
         </div>
 
         {/* stats & social media *********************************************************** */}
-        <div className="mt-16 grid grid-cols-1 items-end gap-12 lg:mt-0 lg:grid-cols-2 lg:gap-0">
+        <div className="mt-16 grid grid-cols-1 items-end gap-12 lg:mt-6 lg:grid-cols-2 lg:gap-0">
           {/* Stats ************************************************************ */}
           <FadeIn delay={200}>
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
