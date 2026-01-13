@@ -15,9 +15,8 @@ export const projects = [
 
 export const categories = [
     "All",
-    "Frontend",
-    "Backend",
-    "Full Stack",
-    "Mobile",
-    "Wordpress"
+    "App Front",
+    "App Full-Stack",
+    "Site Vitrine",
+    "E-Commerce"
 ];

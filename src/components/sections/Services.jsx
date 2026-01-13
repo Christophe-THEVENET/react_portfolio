@@ -11,8 +11,8 @@ export const Services = () => {
     <section id="services" className="relative overflow-hidden py-10">
       {/* cadrillage background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="bg-primary/20 absolute top-1/4 left-1/4 h-96 w-96 rounded-full opacity-20 blur-3xl" />
-        <div className="bg-primary/20 absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full opacity-20 blur-3xl" />
+        <div className="bg-primary/10 absolute top-1/4 left-1/4 h-96 w-96 rounded-full opacity-20 blur-3xl" />
+        <div className="bg-primary/10 absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full opacity-20 blur-3xl" />
         <div className="bg-primary/10 absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-20 blur-3xl" />
       </div>
       <div
@@ -68,8 +68,8 @@ export const Services = () => {
                       </div>
 
                       {/* Badge subtitle */}
-                      <div className="bg-primary/10  mb-4 flex w-full justify-center rounded-lg px-3 py-2">
-                        <span className="text-primary inline-block  text-xs font-medium tracking-wider uppercase">
+                      <div className="bg-primary/10 mb-4 flex w-full justify-center rounded-lg px-3 py-2">
+                        <span className="text-primary inline-block text-xs font-medium tracking-wider uppercase">
                           {service.subtitle1}
                         </span>
                       </div>
@@ -79,7 +79,10 @@ export const Services = () => {
                         {/* Offre 1 */}
                         <div>
                           <h4 className="mb-1 text-sm font-bold tracking-wider text-white uppercase">
-                            {service.title1}: {Object.values(service.price1)[0]}
+                            {service.title1}:{' '}
+                            <span className="text-primary">
+                              {Object.values(service.price1)[0]}
+                            </span>
                           </h4>
                           <p className="text-justify text-sm leading-normal text-white/70">
                             {service.description1}
@@ -89,7 +92,10 @@ export const Services = () => {
                         {/* Offre 2 */}
                         <div>
                           <h4 className="mb-1 text-sm font-bold tracking-wider text-white uppercase">
-                            {service.title2}: {Object.values(service.price2)[0]}
+                            {service.title2}:{' '}
+                            <span className="text-primary">
+                              {Object.values(service.price2)[0]}
+                            </span>
                           </h4>
                           <p className="text-justify text-sm leading-relaxed text-white/70">
                             {service.description2}
@@ -101,7 +107,9 @@ export const Services = () => {
                           <div>
                             <h4 className="mb-1 text-xs font-bold tracking-wider text-white uppercase">
                               {service.title3}:{' '}
-                              {Object.values(service.price3)[0]}
+                              <span className="text-primary">
+                                {Object.values(service.price3)[0]}
+                              </span>
                             </h4>
                             <p className="text-justify text-sm leading-relaxed text-white/70">
                               {service.description3}
@@ -113,7 +121,7 @@ export const Services = () => {
                       {/* Bouton */}
                       <button
                         onClick={() => setActiveCard(service.id)}
-                        className="border-primary/20 hover:cursor-pointer bg-primary/10 text-primary hover:bg-primary/20 mt-4 w-full shrink-0 rounded-lg border py-1 text-sm font-medium transition-colors"
+                        className="border-primary/20 bg-primary/10 text-primary hover:bg-primary/20 mt-4 w-full shrink-0 rounded-lg border py-1 text-sm font-medium transition-colors hover:cursor-pointer"
                       >
                         En savoir plus
                       </button>
@@ -121,12 +129,15 @@ export const Services = () => {
 
                     {/* Popup slide up */}
                     <div
-                      className={`absolute inset-0 flex flex-col rounded-2xl border border-primary/10 bg-black p-5 transition-transform duration-800 ${
-                        isActive ? 'translate-y-0' : 'translate-y-full'
+                      className={`border-primary/10 absolute inset-0 flex flex-col rounded-2xl border bg-black p-5 transition-transform ${
+                        isActive
+                          ? 'translate-y-0 duration-900'
+                          : 'translate-y-full duration-700'
                       }`}
                       style={{
-                        transitionTimingFunction:
-                          'cubic-bezier(0.2, 1.35, 0.82, 0.92)',
+                        transitionTimingFunction: isActive
+                          ? 'cubic-bezier(0.2, 1.35, 0.82, 0.92)'
+                          : 'cubic-bezier(0.4, 0, 0.2, 1)',
                       }}
                     >
                       {/* Header like card */}
@@ -146,7 +157,10 @@ export const Services = () => {
                       {/* Liste des skills */}
                       <ul className="relative flex-1 space-y-3 overflow-y-auto pr-1">
                         {service.popup.skills.map((skill, i) => (
-                          <li key={i} className="flex items-start gap-2 rounded-lg bg-white/10 px-1 py-1">
+                          <li
+                            key={i}
+                            className="flex items-start gap-2 rounded-lg bg-white/10 px-1 py-1"
+                          >
                             <Check className="mt-1 h-3 w-3 shrink-0 text-white/70" />
                             <span className="text-sm leading-relaxed text-white/70">
                               {skill}
@@ -158,7 +172,7 @@ export const Services = () => {
                       {/* Bouton fermer */}
                       <button
                         onClick={() => setActiveCard(null)}
-                        className="border-primary/20 hover:cursor-pointer bg-primary/10 text-primary hover:bg-primary/20 mt-4 w-full shrink-0 rounded-lg border py-1 text-sm font-medium transition-colors"
+                        className="border-primary/20 bg-primary/10 text-primary hover:bg-primary/20 mt-4 w-full shrink-0 rounded-lg border py-1 text-sm font-medium transition-colors hover:cursor-pointer"
                       >
                         Fermer
                       </button>

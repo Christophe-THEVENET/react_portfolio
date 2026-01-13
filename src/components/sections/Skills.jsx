@@ -137,7 +137,7 @@ export const Skills = () => {
                                   className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition-all duration-200 ${getBadgeStyles(level)}`}
                                 >
                                   <IconComponent className="h-4 w-4" />
-                                  <span>{skill.name}</span>
+                                  <span className='uppercase text-[11px]'>{skill.name}</span>
                                 </div>
                               )
                             })}
