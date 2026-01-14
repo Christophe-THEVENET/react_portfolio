@@ -2,7 +2,6 @@ import logo from '@/assets/img/general/logo_digitob.svg'
 import { Code, Menu, X } from 'lucide-react'
 import { NAV_LINKS, PERSONAL_INFO } from '@/utils/constants.js'
 import React, { useState, useEffect } from 'react'
-/* import useScrollReveal from '@/hooks/useScrollReveal.jsx' */
 import { useScrollSpy, scrollToSection } from '@/hooks/useScrollSpy.js'
 
 export const Navbar = () => {

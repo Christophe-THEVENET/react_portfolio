@@ -58,9 +58,10 @@ export const Projects = () => {
   // Category icons mapping
   const categoryIcons = {
     All: Target,
-    'App Front': LayoutTemplate,
-    'App Full-Stack': Layers,
-    'Site Vitrine': MonitorSmartphone,
+    Maquette: LayoutTemplate,
+    Front: MonitorSmartphone,
+    'Full-Stack': Layers,
+    Vitrine: MonitorSmartphone,
     'E-Commerce': ShoppingCart,
   }
 
@@ -131,11 +132,15 @@ export const Projects = () => {
 
         {/* Projects carousel */}
         <FadeIn delay={200}>
-          <div className="">
-            <div ref={scrollContainerRef} className="">
-              <div className="">
+          <div className="relative">
+            <div ref={scrollContainerRef} className="overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar">
+              <div className="flex gap-6 pb-4">
                 {filteredProjects.map((project, index) => (
-                  <div key={project.id} className="">
+                  <div
+                    key={`${activeCategory}-${project.id}`}
+                    className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start animate-fade-in-up"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
                     <ProjectCard project={project} />
                   </div>
                 ))}
@@ -148,27 +153,27 @@ export const Projects = () => {
                 <button
                   onClick={prevSlide}
                   disabled={currentIndex === 0}
-                  className=""
+                  className="flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 lg:-translate-x-4 justify-center items-center h-10 w-10 lg:h-12 lg:w-12 bg-primary/10 backdrop-blur-sm border border-primary/20 rounded-full hover:bg-primary/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed z-10"
                   aria-label="Projet précédent"
                 >
-                  <ChevronLeft className="" />
+                  <ChevronLeft className="w-6 h-6 text-white" />
                 </button>
 
                 <button
                   onClick={nextSlide}
                   disabled={currentIndex >= filteredProjects.length - 3}
-                  className=""
+                  className="flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-4 justify-center items-center h-10 w-10 lg:h-12 lg:w-12 bg-primary/10 backdrop-blur-sm border border-primary/20 rounded-full hover:bg-primary/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed z-10"
                   aria-label="Projet suivant"
                 >
-                  <ChevronRight className="" />
+                  <ChevronRight className="w-6 h-6 text-white" />
                 </button>
               </>
             )}
 
-            {/* Navigation dots */}
-            {filteredProjects.length > 3 && (
-              <div className="mt-8 flex justify-center gap-2">
-                {Array.from({
+            {/* Navigation dots - hauteur fixe pour éviter le décalage */}
+            <div className="flex items-center justify-center gap-2 mt-8 h-2">
+              {filteredProjects.length > 3 &&
+                Array.from({
                   length: Math.max(0, filteredProjects.length - 2),
                 }).map((_, index) => (
                   <button
@@ -182,8 +187,7 @@ export const Projects = () => {
                     aria-label={`Aller au projet ${index + 1}`}
                   />
                 ))}
-              </div>
-            )}
+            </div>
           </div>
         </FadeIn>
       </div>

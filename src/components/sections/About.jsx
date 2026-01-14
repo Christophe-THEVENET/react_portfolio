@@ -32,8 +32,8 @@ export const About = () => {
   ]
 
   return (
-    <section id="about" className="relative overflow-hidden py-5 ">
-      <div className="relative z-10 mx-auto  px-4 sm:px-6 lg:px-8">
+    <section id="about" className="relative overflow-hidden py-5">
+      <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main grid */}
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           {/* Left Column *********************************************************** */}
@@ -104,7 +104,7 @@ export const About = () => {
                       className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130"
                     >
                       <ExternalLink className="h-full w-full text-white/80" />
-                      <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                      <span className="pointer-events-none absolute right-full mr-2 translate-x-8 -translate-y-6 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                         Voir le diplôme
                       </span>
                     </a>
@@ -139,7 +139,7 @@ export const About = () => {
                       className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130"
                     >
                       <ExternalLink className="h-full w-full text-white/80" />
-                      <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                      <span className="pointer-events-none absolute right-full mr-2 translate-x-8 -translate-y-6 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                         Voir le diplôme
                       </span>
                     </a>
@@ -174,7 +174,7 @@ export const About = () => {
                       className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130"
                     >
                       <ExternalLink className="h-full w-full text-white/80" />
-                      <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                      <span className="pointer-events-none absolute right-full mr-2 translate-x-8 -translate-y-6 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                         Voir le diplôme
                       </span>
                     </a>
@@ -209,7 +209,7 @@ export const About = () => {
                       className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130"
                     >
                       <ExternalLink className="h-full w-full text-white/80" />
-                      <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                      <span className="pointer-events-none absolute right-full mr-2 translate-x-8 -translate-y-6 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                         Voir les certificats
                       </span>
                     </a>
@@ -271,7 +271,7 @@ export const About = () => {
           </FadeIn>
         </div>
         {/* Skills *********************************************************** */}
-       {/*  <FadeIn delay={500}>
+        {/*  <FadeIn delay={500}>
           <div className="flex flex-col items-center gap-8 pt-16">
             <div className="text-center">
               <h3 className="mb-2 text-2xl font-normal text-white">

@@ -8,8 +8,6 @@ import avatar from '@/assets/img/general/avatar_digitob.png'
 import videoTeaser from '@/assets/video/teaser_digitob_v3.mp4'
 
 import { PiFileSqlLight } from 'react-icons/pi'
-/* import RadialGradientBackground from "@/components/backgrounds/RadialGradientBackground.jsx"
- */
 
 export const Hero = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
