@@ -15,6 +15,17 @@
 }
 
 @layer base {
+  /* Selection color */
+  ::selection {
+    background-color: #5cc9c7;
+    color: #000000;
+  }
+
+  ::-moz-selection {
+    background-color: #5cc9c7;
+    color: #000000;
+  }
+
   html {
     font-family: var(--font-display);
     scroll-behavior: smooth;

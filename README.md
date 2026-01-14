@@ -1,16 +1,59 @@
-# React + Vite
+# Portfolio - Christophe THEVENET
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio personnel de developpeur web full-stack freelance.
 
-Currently, two official plugins are available:
+**Demo:** [christophethevenet.fr](https://christophethevenet.fr)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## React Compiler
+- **React 19** - UI library
+- **Vite** (Rolldown) - Build tool
+- **TailwindCSS v4** - Styling
+- **Three.js** - Particle background animation
+- **Lucide React / React Icons** - Icons
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Installation
 
-## Expanding the ESLint configuration
+```bash
+npm install
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Scripts
+
+```bash
+npm run dev      # Start dev server
+npm run build    # Production build
+npm run preview  # Preview production build
+npm run lint     # ESLint check
+```
+
+## Structure
+
+```
+src/
+├── components/
+│   ├── sections/      # Hero, About, Skills, Services, Projects, Contact
+│   ├── layout/        # Navbar, Footer
+│   ├── animations/    # FadeIn, ScrollReveal
+│   └── backgrounds/   # ParticleField (Three.js)
+├── data/              # projects.js, services.js, skills.js
+├── hooks/             # useScrollSpy
+└── utils/             # constants.js
+```
+
+## Deploiement
+
+Le site est deploye sur **Netlify** avec build automatique sur push.
+
+```
+Build command: npm run build
+Publish directory: dist
+```
+
+## Auteur
+
+**Christophe THEVENET** - Developpeur Web Full-Stack Freelance
+Puy-de-Dome (63) | Distanciel France entiere
+
+- GitHub: [@Christophe-THEVENET](https://github.com/Christophe-THEVENET)
+- Twitter: [@D_I_G_I_T_O_B](https://twitter.com/D_I_G_I_T_O_B)

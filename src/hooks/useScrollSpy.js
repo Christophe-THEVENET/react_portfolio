@@ -40,7 +40,7 @@ export const useScrollSpy = (sectionIds, offset = 100) => {
 
 // smooth scroll to section
 const sectionOffsets = {
-  about: 80,
+  about: 120,
   services: 120,
   skills: 20,
   projects: 20,
