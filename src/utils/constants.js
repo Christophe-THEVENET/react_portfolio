@@ -5,6 +5,7 @@ import {
   SiInstagram,
 } from 'react-icons/si'
 import { RiTwitterXFill } from 'react-icons/ri'
+import { add } from 'three/tsl'
 
 
 export const PERSONAL_INFO = {
@@ -12,7 +13,10 @@ export const PERSONAL_INFO = {
   title: 'Développeur Web Full-Stack',
   email: 'digitob@yahoo.com',
   location: 'Puy-de-Dôme ou distanciel',
-  tagline: 'Your Tagline',
+  telephone: '06 02 87 32 51',
+  address: '9 Rue des Colonnes 75002 PARIS',
+  insurance: 'RC Pro HISCOX n° HSXIN320041368',
+  siret: '97992656500016',
   bio: [
     "Développeur Full-Stack avec 5 ans d'expérience, je conçois des applications web robustes en Symfony et React pour équipes techniques, et accompagne artisans, commerçants et associations dans leur digitalisation via WordPress et WooCommerce.",
     "De l'architecture à la mise en production, je maîtrise l'ensemble de la chaîne : API REST sécurisées, interfaces réactives, back-offices sur mesure et déploiement Docker. Assisté par l'intelligence artificielle pour optimiser ma productivité, je livre des solutions de qualité professionnelle avec une vélocité accrue.",

@@ -1,5 +1,15 @@
 import { useState } from 'react'
-import { Mail, MapPin, Send, AlertCircle } from 'lucide-react'
+import {
+  Mail,
+  MapPin,
+  Send,
+  AlertCircle,
+  Phone,
+  MapPinHouse,
+  Map,
+  ShieldCheck,
+  Tally4,
+} from 'lucide-react'
 import { PERSONAL_INFO, SOCIAL_LINKS } from '@/utils/constants'
 import { FiGithub } from 'react-icons/fi'
 import FadeIn from '@/components/animations/FadeIn'
@@ -158,11 +168,11 @@ export const Contact = () => {
         </div>
       </FadeIn>
 
-      <div className="relative z-10 mx-auto  px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
           {/* Left Column - Form */}
           <FadeIn delay={100}>
-            <div className="rounded-2xl border border-primary/20 bg-white/5 p-8 transition-colors duration-300">
+            <div className="border-primary/20 rounded-2xl border bg-white/5 p-8 transition-colors duration-300">
               <form
                 name="contact"
                 method="POST"
@@ -273,7 +283,7 @@ export const Contact = () => {
                   ) : (
                     <>
                       Envoyer le message
-                      <Send className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                      <Send className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                     </>
                   )}
                 </button>
@@ -294,41 +304,90 @@ export const Contact = () => {
           <FadeIn delay={200}>
             <div className="flex flex-col justify-center">
               {/* Title */}
-               <h3 className="mb-4 text-2xl font-normal text-white">
+              {/*     <h3 className="mb-4 text-2xl font-normal text-white">
                 Ecrire un message
-              </h3> 
-             <p className="leading-relaxed text-white/60 mb-6">
+              </h3>
+              <p className="mb-6 leading-relaxed text-white/60">
                 Je suis toujours ouvert à discuter de nouveaux projets, d'idées
                 créatives ou d'opportunités. N'hésitez pas à me contacter !
-              </p> 
+              </p> */}
 
-              {/* Contact Cards */}
-              <div className="mb-10 space-y-4">
-                {/* Email Card */}
-                <a
-                  href={`mailto:${PERSONAL_INFO.email}`}
-                  className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-5 transition-all duration-300 hover:bg-black/30"
-                >
-                  <div className="border-primary/50 bg-primary/10 flex h-12 w-12 items-center justify-center rounded-lg border">
-                    <Mail className="text-primary h-6 w-6" />
+              {/* Contact Cards **************************************** */}
+              <div className="mb-5 space-y-3">
+                {/* Location Card */}
+                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                    <Map className="text-primary h-5 w-5" />
                   </div>
-                  <div>
-                    <p className="text-sm text-white/50">Email</p>
+                  <div className="flex-1">
+                    <p className="text-sm text-white/60">Secteur</p>
+                    <p className="font-medium text-white">
+                      {PERSONAL_INFO.location}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Phone Card */}
+                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                    <Phone className="text-primary h-5 w-5" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm text-white/60">Téléphone</p>
+                    <p className="font-medium text-white">
+                      {PERSONAL_INFO.telephone}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Email Card */}
+                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                    <Mail className="text-primary h-5 w-5" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm text-white/60">Email</p>
                     <p className="font-medium text-white">
                       {PERSONAL_INFO.email}
                     </p>
                   </div>
-                </a>
+                </div>
 
-                {/* Location Card */}
-                <div className="flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-5">
-                  <div className="border-primary/50 bg-primary/10 flex h-12 w-12 items-center justify-center rounded-lg border">
-                    <MapPin className="text-primary h-6 w-6" />
+                {/* Address Card */}
+                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                    <MapPinHouse className="text-primary h-5 w-5" />
                   </div>
-                  <div>
-                    <p className="text-sm text-white/50">Localisation</p>
+                  <div className="flex-1">
+                    <p className="text-sm text-white/60">Adresse</p>
                     <p className="font-medium text-white">
-                      {PERSONAL_INFO.location}
+                      {PERSONAL_INFO.address}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Assurance Card */}
+                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                    <ShieldCheck className="text-primary h-5 w-5" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm text-white/60">Assurance</p>
+                    <p className="font-medium text-white">
+                      {PERSONAL_INFO.insurance}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Siret Card */}
+                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                    <Tally4 className="text-primary h-5 w-5" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm text-white/60">Siret</p>
+                    <p className="font-medium text-white">
+                      {PERSONAL_INFO.siret}
                     </p>
                   </div>
                 </div>
@@ -336,7 +395,6 @@ export const Contact = () => {
 
               {/* Social Links */}
               <div>
-                <p className="mb-4 text-sm text-white/50">Me suivre</p>
                 <div className="flex gap-3">
                   {SOCIAL_LINKS.map((social, index) => {
                     const IconComponent =
@@ -349,7 +407,7 @@ export const Contact = () => {
                         rel="noopener noreferrer"
                         className="hover:border-primary/50 hover:bg-primary/10 flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-black/20 transition-all duration-300"
                       >
-                        <IconComponent className="h-5 w-5 text-white/70" />
+                        <IconComponent className="h-6 w-6 text-white/70" />
                       </a>
                     )
                   })}
