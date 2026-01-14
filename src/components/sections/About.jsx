@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import { PiFileSqlLight } from 'react-icons/pi'
-
 import {
   Code2,
   Download,
@@ -9,28 +6,11 @@ import {
   ExternalLink,
   BookOpenCheck,
 } from 'lucide-react'
-import {
-  SiReact,
-  SiTailwindcss,
-  SiSymfony,
-  SiWordpress,
-  SiMysql ,
-  SiClaude,
-} from 'react-icons/si'
 import { PERSONAL_INFO, ABOUT_STATS, SOCIAL_LINKS } from '@/utils/constants.js'
 import FadeIn from '@/components/animations/FadeIn.jsx'
 import { IoSchoolOutline, IoSchool } from 'react-icons/io5'
 
 export const About = () => {
-  const skills = [
-    { name: 'React.js', icon: SiReact, color: '#61DAFB' },
-    { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#38B2AC' },
-    { name: 'Symfony', icon: SiSymfony, color: '#6F42C1' },
-    { name: 'SQL', icon: PiFileSqlLight, color: '#21759B' },
-    { name: 'WordPress', icon: SiWordpress, color: '#21759B' },
-    { name: 'Claude code', icon: SiClaude, color: '#DA7756' },
-  ]
-
   return (
     <section id="about" className="relative overflow-hidden py-5">
       <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
@@ -261,7 +241,7 @@ export const About = () => {
                     >
                       <div className="from-primary/30 to-primary/15 absolute inset-0 rounded-xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover/social:opacity-95"></div>
                       <div className="hover:border-primary/30 relative flex h-15 w-15 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all duration-300">
-                        <IconComponent className="h-7 w-7 text-white/70 transition-all duration-300 group-hover/social:text-(--social-color)" />
+                        <IconComponent className="h-7 w-7 text-white/70 transition-all duration-300 group-hover/social:text-primary" />
                       </div>
                     </a>
                   )
@@ -270,34 +250,6 @@ export const About = () => {
             </div>
           </FadeIn>
         </div>
-        {/* Skills *********************************************************** */}
-        {/*  <FadeIn delay={500}>
-          <div className="flex flex-col items-center gap-8 pt-16">
-            <div className="text-center">
-              <h3 className="mb-2 text-2xl font-normal text-white">
-                Environnement technique & expertise
-              </h3>
-              <p className="text-sm text-white/60">
-                Compétences que j’utilise pour créer vos solutions
-              </p>
-            </div>
-            <div className="grid w-full max-w-4xl grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-              {skills.map((skill, i) => (
-                <div
-                  key={i}
-                  className="group hover:border-primary/50 border-primary/6 bg-primary/1 relative flex flex-col items-center justify-center gap-3 rounded-2xl border p-6 transition-all duration-300 hover:scale-105 hover:bg-white/10"
-                >
-                  <skill.icon className="text-primary text-3xl" />
-                  <div className="text-center text-sm font-medium text-white/80">
-                    {skill.name}
-                  </div>
-
-                  <div className="from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-primary/10 absolute inset-0 rounded-2xl bg-linear-to-br transition-all duration-300"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </FadeIn> */}
       </div>
     </section>
   )

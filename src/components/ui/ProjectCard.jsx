@@ -10,11 +10,8 @@ const ProjectCard = ({ project }) => {
     technologies,
     demoUrl,
     githubUrl,
-    metrics,
     ExtraUrl1,
-    titleExtraUrl,
     ExtraUrl2,
-    titleExtraUrl2,
     demoName,
   } = project
   return (

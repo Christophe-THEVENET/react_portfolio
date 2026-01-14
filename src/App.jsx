@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Navbar } from '@/components/layout/Navbar'
+import {Footer} from '@/components/layout/Footer'
 import { Hero } from '@/components/sections/Hero'
 import { About } from '@/components/sections/About'
 import { Services } from '@/components/sections/Services'
@@ -42,7 +43,7 @@ function App() {
           <Services />
           <Projects />
           <Contact />
-
+            <Footer />
         </main>
       </div>
     </div>

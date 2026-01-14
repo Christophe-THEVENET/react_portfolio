@@ -151,7 +151,7 @@ export const Services = () => {
                     >
                       {/* Header avec icône */}
                       <div className="mb-5 flex items-center gap-3 border-b border-white/10 pb-4">
-                        <IconComponent className="h-6 w-6 text-emerald-400" />
+                        <IconComponent className="h-6 w-6 text-primary" />
                         <h3 className="text-2xl font-semibold text-white uppercase">
                           {service.popup.title}
                         </h3>
@@ -170,7 +170,7 @@ export const Services = () => {
                           {service.popup.skills.map((skill, i) => (
                             <span
                               key={i}
-                              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[12px] text-white/80 uppercase transition-all duration-200 hover:scale-105 hover:border-emerald-500/30 hover:bg-emerald-500/10 hover:text-emerald-300"
+                              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[12px] text-white/80 uppercase transition-all duration-200 hover:scale-105 hover:border-primary/30 hover:bg-primary/10 hover:text-primary"
                             >
                               {skill}
                             </span>

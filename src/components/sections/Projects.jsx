@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { projects, categories } from '@/data/projects'
 import {
   Briefcase,
@@ -17,7 +17,20 @@ import FadeIn from '@/components/animations/FadeIn'
 export const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('All')
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [visibleCards, setVisibleCards] = useState(3)
   const scrollContainerRef = useRef(null)
+
+  // Calcul du nombre de cartes visibles selon la taille d'ecran
+  useEffect(() => {
+    const updateVisibleCards = () => {
+      if (window.innerWidth >= 1024) setVisibleCards(3)      // lg
+      else if (window.innerWidth >= 768) setVisibleCards(2)  // md
+      else setVisibleCards(1)
+    }
+    updateVisibleCards()
+    window.addEventListener('resize', updateVisibleCards)
+    return () => window.removeEventListener('resize', updateVisibleCards)
+  }, [])
 
   const filteredProjects =
     activeCategory === 'All'
@@ -36,13 +49,13 @@ export const Projects = () => {
     setCurrentIndex(index)
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current
-      const cardWidth = container.offsetWidth / 3 // assuming 3 cards are visible
+      const cardWidth = container.offsetWidth / visibleCards
       container.scrollTo({ left: cardWidth * index, behavior: 'smooth' })
     }
   }
 
   const nextSlide = () => {
-    const maxIndex = Math.max(0, filteredProjects.length - 3)
+    const maxIndex = Math.max(0, filteredProjects.length - visibleCards)
     const newIndex = Math.min(currentIndex + 1, maxIndex)
     if (newIndex !== currentIndex) {
       scrollToIndex(newIndex)
@@ -152,7 +165,7 @@ export const Projects = () => {
             </div>
 
             {/*  Navigation arrow */}
-            {filteredProjects.length > 3 && (
+            {filteredProjects.length > visibleCards && (
               <>
                 <button
                   onClick={prevSlide}
@@ -165,7 +178,7 @@ export const Projects = () => {
 
                 <button
                   onClick={nextSlide}
-                  disabled={currentIndex >= filteredProjects.length - 3}
+                  disabled={currentIndex >= filteredProjects.length - visibleCards}
                   className="bg-primary/10 border-primary/20 hover:bg-primary/20 absolute top-1/2 right-0 z-10 flex h-10 w-10 translate-x-4 -translate-y-1/2 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 lg:h-12 lg:w-12 lg:translate-x-4"
                   aria-label="Projet suivant"
                 >
@@ -176,9 +189,9 @@ export const Projects = () => {
 
             {/* Navigation dots - hauteur fixe pour éviter le décalage */}
             <div className="mt-8 flex h-2 items-center justify-center gap-2">
-              {filteredProjects.length > 3 &&
+              {filteredProjects.length > visibleCards &&
                 Array.from({
-                  length: Math.max(0, filteredProjects.length - 2),
+                  length: Math.max(0, filteredProjects.length - visibleCards + 1),
                 }).map((_, index) => (
                   <button
                     key={index}

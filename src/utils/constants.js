@@ -5,8 +5,6 @@ import {
   SiInstagram,
 } from 'react-icons/si'
 import { RiTwitterXFill } from 'react-icons/ri'
-import { add } from 'three/tsl'
-
 
 export const PERSONAL_INFO = {
   name: 'Christophe THEVENET',

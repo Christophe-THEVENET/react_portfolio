@@ -6,6 +6,8 @@ export const useScrollSpy = (sectionIds, offset = 100) => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + offset
+      let foundSection = ''
+
       // find the current section
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const section = document.getElementById(sectionIds[i])
@@ -16,11 +18,13 @@ export const useScrollSpy = (sectionIds, offset = 100) => {
             scrollPosition >= sectionTop &&
             scrollPosition < sectionTop + sectionHeight
           ) {
-            setActiveSection(sectionIds[i])
+            foundSection = sectionIds[i]
             break
           }
         }
       }
+
+      setActiveSection(foundSection)
     }
 
     handleScroll()

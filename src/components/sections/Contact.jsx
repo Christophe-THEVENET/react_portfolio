@@ -26,6 +26,7 @@ export const Contact = () => {
   const [touched, setTouched] = useState({})
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
   const socialIcons = {
     github: FiGithub,
@@ -36,6 +37,8 @@ export const Contact = () => {
   }
 
   // Validation rules
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+
   const validateField = (name, value) => {
     switch (name) {
       case 'name':
@@ -45,7 +48,6 @@ export const Contact = () => {
         return ''
       case 'email':
         if (!value.trim()) return 'L\'email est requis'
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         if (!emailRegex.test(value)) return 'Format d\'email invalide'
         return ''
       case 'message':
@@ -104,6 +106,7 @@ export const Contact = () => {
     const formDataEncoded = new URLSearchParams(new FormData(form)).toString()
 
     try {
+      setSubmitError(false)
       await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -116,6 +119,8 @@ export const Contact = () => {
       setTimeout(() => setIsSubmitted(false), 5000)
     } catch (error) {
       console.error('Erreur lors de l\'envoi du formulaire:', error)
+      setSubmitError(true)
+      setTimeout(() => setSubmitError(false), 5000)
     } finally {
       setIsSubmitting(false)
     }
@@ -141,11 +146,11 @@ export const Contact = () => {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden py-3">
+    <section id="contact" className="relative overflow-hidden pt-3 pb-20">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="bg-primary/20 absolute top-1/4 left-1/4 h-96 w-96 rounded-full opacity-30 blur-3xl" />
-        <div className="bg-primary/20 absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full opacity-30 blur-3xl" />
+        <div className="bg-primary/10 absolute top-1/4 left-1/4 h-96 w-96 rounded-full opacity-30 blur-3xl" />
+        <div className="bg-primary/10 absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full opacity-30 blur-3xl" />
         <div className="bg-primary/10 absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-3xl" />
       </div>
 
@@ -172,7 +177,7 @@ export const Contact = () => {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
           {/* Left Column - Form */}
           <FadeIn delay={100}>
-            <div className="border-primary/20 rounded-2xl border bg-white/5 p-8 transition-colors duration-300">
+            <div className="border-primary/20 rounded-2xl border bg-white/6 hover:bg-white/8 p-8 transition-colors duration-300">
               <form
                 name="contact"
                 method="POST"
@@ -296,6 +301,15 @@ export const Contact = () => {
                     </p>
                   </div>
                 )}
+
+                {/* Error notification */}
+                {submitError && (
+                  <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-4">
+                    <p className="text-sm text-red-400">
+                      Une erreur est survenue. Veuillez réessayer ou me contacter directement par email.
+                    </p>
+                  </div>
+                )}
               </form>
             </div>
           </FadeIn>
@@ -303,19 +317,11 @@ export const Contact = () => {
           {/* Right Column - Info */}
           <FadeIn delay={200}>
             <div className="flex flex-col justify-center">
-              {/* Title */}
-              {/*     <h3 className="mb-4 text-2xl font-normal text-white">
-                Ecrire un message
-              </h3>
-              <p className="mb-6 leading-relaxed text-white/60">
-                Je suis toujours ouvert à discuter de nouveaux projets, d'idées
-                créatives ou d'opportunités. N'hésitez pas à me contacter !
-              </p> */}
-
+           
               {/* Contact Cards **************************************** */}
               <div className="mb-5 space-y-3">
                 {/* Location Card */}
-                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 flex items-center gap-4 rounded-xl border border-white/10 bg-linear-to-l p-2.5 transition-all duration-300">
                   <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <Map className="text-primary h-5 w-5" />
                   </div>
@@ -328,7 +334,7 @@ export const Contact = () => {
                 </div>
 
                 {/* Phone Card */}
-                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 flex items-center gap-4 rounded-xl border border-white/10 bg-linear-to-l p-2.5 transition-all duration-300">
                   <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <Phone className="text-primary h-5 w-5" />
                   </div>
@@ -341,7 +347,7 @@ export const Contact = () => {
                 </div>
 
                 {/* Email Card */}
-                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 flex items-center gap-4 rounded-xl border border-white/10 bg-linear-to-l p-2.5 transition-all duration-300">
                   <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <Mail className="text-primary h-5 w-5" />
                   </div>
@@ -354,7 +360,7 @@ export const Contact = () => {
                 </div>
 
                 {/* Address Card */}
-                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 flex items-center gap-4 rounded-xl border border-white/10 bg-linear-to-l p-2.5 transition-all duration-300">
                   <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <MapPinHouse className="text-primary h-5 w-5" />
                   </div>
@@ -367,7 +373,7 @@ export const Contact = () => {
                 </div>
 
                 {/* Assurance Card */}
-                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 flex items-center gap-4 rounded-xl border border-white/10 bg-linear-to-l p-2.5 transition-all duration-300">
                   <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <ShieldCheck className="text-primary h-5 w-5" />
                   </div>
@@ -380,7 +386,7 @@ export const Contact = () => {
                 </div>
 
                 {/* Siret Card */}
-                <div className="group hover:border-primary/30 flex items-center gap-4 rounded-xl border border-white/10 bg-black/20 p-2.5 transition-all duration-300 hover:bg-black/30">
+                <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 flex items-center gap-4 rounded-xl border border-white/10 bg-linear-to-l p-2.5 transition-all duration-300">
                   <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <Tally4 className="text-primary h-5 w-5" />
                   </div>
@@ -405,9 +411,9 @@ export const Contact = () => {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:border-primary/50 hover:bg-primary/10 flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-black/20 transition-all duration-300"
+                        className="group/icon hover:border-primary/50 hover:bg-primary/10 flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-black/20 transition-all duration-300"
                       >
-                        <IconComponent className="h-6 w-6 text-white/70" />
+                        <IconComponent className="h-6 w-6 text-white/70 group-hover/icon:text-primary" />
                       </a>
                     )
                   })}
