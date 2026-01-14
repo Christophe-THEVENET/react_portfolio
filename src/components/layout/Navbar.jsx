@@ -38,7 +38,7 @@ export const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* logo ************************************** */}
           <div className="-mt-2 flex items-center">
-            <a href="https://christophethevenet.fr" target="_blank" rel="noopener noreferrer">
+            <a href="https://christophethevenet.fr">
               <img
                 className="hover-hue-rotate-loop w-36 transition-all duration-500"
                 src={logo}
