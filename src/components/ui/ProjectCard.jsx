@@ -1,5 +1,6 @@
 import React from 'react'
-import { ExternalLink, Github, TrendingUp, BookOpen } from 'lucide-react'
+import { ExternalLink, TrendingUp, BookOpen } from 'lucide-react'
+import { FiGithub } from 'react-icons/fi'
 
 const ProjectCard = ({ project }) => {
   const {
@@ -55,7 +56,7 @@ const ProjectCard = ({ project }) => {
               rel="noopener noreferrer"
               className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130"
             >
-              <Github className="h-full w-full text-white/80" />
+              <FiGithub className="h-5 w-5 text-white/80" />
               <span className="pointer-events-none absolute top-1/2 right-full mr-2 -translate-y-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                 Voir le code
               </span>

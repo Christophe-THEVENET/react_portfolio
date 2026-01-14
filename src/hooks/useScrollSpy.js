@@ -40,7 +40,7 @@ const sectionOffsets = {
   services: 120,
   skills: 20,
   projects: 20,
-  contact: 80,
+  contact: 120,
 }
 
 export const scrollToSection = (sectionId) => {

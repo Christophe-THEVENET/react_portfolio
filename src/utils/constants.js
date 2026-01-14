@@ -6,6 +6,7 @@ import {
 } from 'react-icons/si'
 import { RiTwitterXFill } from 'react-icons/ri'
 
+
 export const PERSONAL_INFO = {
   name: 'Christophe THEVENET',
   title: 'Développeur Web Full-Stack',
