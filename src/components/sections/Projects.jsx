@@ -88,20 +88,20 @@ export const Projects = () => {
               Projets Représentatifs
             </h2>
             <p className="mx-auto max-w-xl text-lg text-white/60">
-              Une sélection d'applications full-stack, front-end, boutiques
-              e-commerce et sites WordPress parmi mes réalisations
+              Sélection d'applications web, boutiques e-commerce et sites
+              vitrines parmi mes projets livrés
             </p>
           </div>
         </FadeIn>
 
         {/* Category filter */}
         <FadeIn delay={100}>
-          <div className="flex flex-wrap justify-center gap-3 mb-16">
+          <div className="mb-16 flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => handleCategoryChange(category)}
-                className={`group cursor-pointer relative rounded-full px-6 py-3 font-medium transition-all duration-300 ${
+                className={`group relative cursor-pointer rounded-full px-6 py-3 font-medium transition-all duration-300 ${
                   activeCategory === category
                     ? 'text-white'
                     : 'text-white/60 hover:text-white'
@@ -117,7 +117,7 @@ export const Projects = () => {
                 />
                 {/* Glow effect */}
                 {activeCategory === category && (
-                  <div className="absolute inset-0 -z-10 rounded-full bg-primary opacity-30 blur-xl" />
+                  <div className="bg-primary absolute inset-0 -z-10 rounded-full opacity-30 blur-xl" />
                 )}
                 {/* Content */}
                 <div className="relative flex items-center gap-2">
@@ -134,12 +134,15 @@ export const Projects = () => {
         {/* Projects carousel */}
         <FadeIn delay={200}>
           <div className="relative">
-            <div ref={scrollContainerRef} className="overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar">
+            <div
+              ref={scrollContainerRef}
+              className="hide-scrollbar snap-x snap-mandatory overflow-x-auto scroll-smooth"
+            >
               <div className="flex gap-6 pb-4">
                 {filteredProjects.map((project, index) => (
                   <div
                     key={`${activeCategory}-${project.id}`}
-                    className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start animate-fade-in-up"
+                    className="animate-fade-in-up w-full shrink-0 snap-start md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <ProjectCard project={project} />
@@ -154,25 +157,25 @@ export const Projects = () => {
                 <button
                   onClick={prevSlide}
                   disabled={currentIndex === 0}
-                  className="flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 lg:-translate-x-4 justify-center items-center h-10 w-10 lg:h-12 lg:w-12 bg-primary/10 backdrop-blur-sm border border-primary/20 rounded-full hover:bg-primary/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+                  className="bg-primary/10 border-primary/20 hover:bg-primary/20 absolute top-1/2 left-0 z-10 flex h-10 w-10 -translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 lg:h-12 lg:w-12 lg:-translate-x-4"
                   aria-label="Projet précédent"
                 >
-                  <ChevronLeft className="w-6 h-6 text-white" />
+                  <ChevronLeft className="h-6 w-6 text-white" />
                 </button>
 
                 <button
                   onClick={nextSlide}
                   disabled={currentIndex >= filteredProjects.length - 3}
-                  className="flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-4 justify-center items-center h-10 w-10 lg:h-12 lg:w-12 bg-primary/10 backdrop-blur-sm border border-primary/20 rounded-full hover:bg-primary/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+                  className="bg-primary/10 border-primary/20 hover:bg-primary/20 absolute top-1/2 right-0 z-10 flex h-10 w-10 translate-x-4 -translate-y-1/2 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 lg:h-12 lg:w-12 lg:translate-x-4"
                   aria-label="Projet suivant"
                 >
-                  <ChevronRight className="w-6 h-6 text-white" />
+                  <ChevronRight className="h-6 w-6 text-white" />
                 </button>
               </>
             )}
 
             {/* Navigation dots - hauteur fixe pour éviter le décalage */}
-            <div className="flex items-center justify-center gap-2 mt-8 h-2">
+            <div className="mt-8 flex h-2 items-center justify-center gap-2">
               {filteredProjects.length > 3 &&
                 Array.from({
                   length: Math.max(0, filteredProjects.length - 2),

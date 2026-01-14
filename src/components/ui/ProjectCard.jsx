@@ -17,7 +17,7 @@ const ProjectCard = ({ project }) => {
     demoName,
   } = project
   return (
-    <div className="group border-primary/10 hover:border-primary/30 relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white/5 transition-all duration-300">
+    <div className="group border-primary/15 hover:border-primary/30 relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white/5 transition-all duration-300">
       <div className="relative h-48 shrink-0 overflow-hidden">
         <img
           src={imageUrl}
@@ -104,7 +104,7 @@ const ProjectCard = ({ project }) => {
               {title}
             </h3>
           </div>
-          <p className="line-clamp-3 text-sm leading-relaxed text-white/60 text-justify">
+          <p className="line-clamp-3 text-justify text-sm leading-normal text-white/70">
             {description}
           </p>
         </div>

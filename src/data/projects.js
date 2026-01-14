@@ -131,7 +131,7 @@ export const projects = [
     category: 'Front',
     technologies: ['Vite', 'JavaScript', 'Sass', 'Docker'],
     metrics: '',
-    demoUrl: 'https://alblse.fr/',
+    demoUrl: 'https://dicefighter.netlify.app/',
     githubUrl: 'https://github.com/Christophe-THEVENET/eval_javascript_studi',
     ExtraUrl1: '',
     ExtraUrl2: '',

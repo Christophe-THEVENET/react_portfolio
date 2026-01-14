@@ -34,22 +34,16 @@ export const services = [
   {
     id: 2,
     icon: 'PanelsTopLeft',
-    title1: 'événementiel',
+    title1: 'vitrine base',
     subtitle1: 'Affirmez votre présence web',
-    price1: { tarif: '250€' },
+    price1: { tarif: '350€' },
     description1:
-      "Vous organisez un événement? Je conçois une page d'accueil optimisée pour captiver votre audience et collecter les inscriptions.",
+      'Une page unique pour présenter votre activité et convertir vos visiteurs en clients. Idéal pour artisans, freelances ou petits commerces qui veulent une présence web simple mais efficace : design moderne, optimisation mobile, référencement local et formulaire de contact.',
 
-    title2: 'vitrine base',
+    title2: 'vitrine complet',
     subtitle2: '',
-    price2: { tarif: '350€' },
+    price2: { tarif: '850€' },
     description2:
-      'Une page unique pour présenter votre activité. Idéal pour artisans, freelances ou petits commerces qui veulent une présence web simple et efficace.',
-
-    title3: 'vitrine complet',
-    subtitle3: '',
-    price3: { tarif: '850€' },
-    description3:
       'Un véritable site de présentation avec plusieurs pages. Pour les petites/moyennes entreprises qui veulent montrer leurs services, leurs réalisations et inspirer confiance. Au-delà de 5 pages : supplément à la page',
 
     popup: {

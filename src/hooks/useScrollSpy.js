@@ -35,9 +35,18 @@ export const useScrollSpy = (sectionIds, offset = 100) => {
 }
 
 // smooth scroll to section
-export const scrollToSection = (sectionId, offset = 800) => {
+const sectionOffsets = {
+  about: 80,
+  services: 120,
+  skills: 20,
+  projects: 20,
+  contact: 80,
+}
+
+export const scrollToSection = (sectionId) => {
   const section = document.getElementById(sectionId)
   if (section) {
+    const offset = sectionOffsets[sectionId] ?? 80
     const top = section.offsetTop - offset
     window.scrollTo({
       top: top,

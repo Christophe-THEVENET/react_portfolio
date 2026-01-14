@@ -32,8 +32,8 @@ export const About = () => {
   ]
 
   return (
-    <section id="about" className="relative overflow-hidden py-5 ">
-      <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 ">
+    <section id="about" className="relative overflow-hidden py-5">
+      <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main grid */}
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           {/* Left Column *********************************************************** */}
@@ -43,7 +43,7 @@ export const About = () => {
                 <div className="border-primary/30 bg-primary/10 inline-flex w-fit items-center gap-2.5 rounded-full border px-5 py-2.5">
                   <Code2 className="text-primary h-4 w-4" />
                   <span className="text-primary text-sm font-medium">
-                    Développeur Web Full-Stack
+                    À propos de moi
                   </span>
                   <Sparkles className="text-primary h-4 w-4" />
                 </div>
@@ -79,7 +79,7 @@ export const About = () => {
 
               <div className="group relative">
                 <div className="from-primary/10 to-primary/5 absolute inset-0 bg-linear-to-br opacity-10 blur-xl transition-opacity duration-300 group-hover:opacity-75"></div>
-                <div className="hover:border-primary/20 bg-primary/5 relative rounded-2xl border border-white/10 px-6 py-3 transition-all duration-300">
+                <div className="hover:border-primary/30 bg-primary/5 relative rounded-2xl border border-white/10 px-6 py-3 transition-all duration-300">
                   <div className="flex items-center gap-4">
                     <div className="bg-primary/10 flex flex-col items-center rounded-xl px-4 py-3">
                       <IoSchool className="text-primary h-6 w-6" />
@@ -184,7 +184,7 @@ export const About = () => {
 
               <div className="group relative">
                 <div className="from-primary/10 to-primary/5 absolute inset-0 bg-linear-to-br opacity-50 blur-xl transition-opacity duration-300 group-hover:opacity-75"></div>
-                <div className="hover:border-primary/30 relative rounded-2xl border border-white/10 bg-primary/5 px-6 py-3 transition-all duration-300">
+                <div className="hover:border-primary/30 bg-primary/5 relative rounded-2xl border border-white/10 px-6 py-3 transition-all duration-300">
                   <div className="flex items-center gap-4">
                     <div className="bg-primary/10 flex flex-col items-center rounded-xl px-4 py-3">
                       <BookOpenCheck className="text-primary h-6 w-6" />
@@ -259,7 +259,7 @@ export const About = () => {
                       className="group/social relative"
                       style={{ '--social-color': social.color }}
                     >
-                      <div className="from-primary/30 to-primary/15 absolute inset-0 rounded-xl bg-linear-to-br opacity-10 blur-xl transition-opacity duration-300 group-hover/social:opacity-95"></div>
+                      <div className="from-primary/30 to-primary/15 absolute inset-0 rounded-xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover/social:opacity-95"></div>
                       <div className="hover:border-primary/30 relative flex h-15 w-15 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all duration-300">
                         <IconComponent className="h-7 w-7 text-white/70 transition-all duration-300 group-hover/social:text-(--social-color)" />
                       </div>
