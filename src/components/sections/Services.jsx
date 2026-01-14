@@ -8,7 +8,7 @@ export const Services = () => {
   const [activeCard, setActiveCard] = useState(null)
 
   return (
-    <section id="services" className="relative overflow-hidden py-4">
+    <section id="services" className="relative overflow-hidden py-24">
       {/* cadrillage background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="bg-primary/10 absolute top-1/4 left-1/4 h-96 w-96 rounded-full opacity-20 blur-3xl" />
