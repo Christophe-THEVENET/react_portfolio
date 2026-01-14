@@ -84,7 +84,7 @@ export const Skills = () => {
   }
 
   return (
-    <section id="skills" className="relative overflow-hidden py-30">
+    <section id="skills" className="relative overflow-hidden py-24">
       {/* Animated background gradient */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="bg-primary/10 absolute top-1/4 left-0 h-96 w-96 rounded-full opacity-50 blur-3xl"></div>

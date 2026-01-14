@@ -80,7 +80,7 @@ export const Projects = () => {
   }
 
   return (
-    <section id="projects" className="relative overflow-hidden py-27">
+    <section id="projects" className="relative overflow-hidden py-24">
       <div className="absolute inset-0 overflow-hidden">
         <div className="bg-primary/20 absolute top-1/3 right-0 h-96 w-96 rounded-full opacity-20 blur-3xl" />
         <div className="bg-primary/20 absolute bottom-1/3 left-0 h-96 w-96 rounded-full opacity-20 blur-3xl" />

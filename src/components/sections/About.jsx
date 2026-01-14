@@ -12,7 +12,7 @@ import { IoSchoolOutline, IoSchool } from 'react-icons/io5'
 
 export const About = () => {
   return (
-    <section id="about" className="relative overflow-hidden py-5">
+    <section id="about" className="relative overflow-hidden py-24">
       <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main grid */}
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">

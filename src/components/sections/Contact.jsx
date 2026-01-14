@@ -146,7 +146,7 @@ export const Contact = () => {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden pt-3 pb-20">
+    <section id="contact" className="relative overflow-hidden py-24">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="bg-primary/10 absolute top-1/4 left-1/4 h-96 w-96 rounded-full opacity-30 blur-3xl" />
@@ -164,11 +164,11 @@ export const Contact = () => {
           </div>
 
           <h2 className="mx-auto mb-4 max-w-2xl text-4xl font-normal text-white lg:text-5xl">
-            Travaillons ensemble
+            Un Projet ? Discutons
           </h2>
           <p className="mx-auto max-w-xl text-lg text-white/60">
-            Je suis toujours ouvert à discuter de nouveaux projets, d'idées
-            créatives ou d'opportunités. N'hésitez pas à me contacter !
+            Mission freelance, site vitrine ou application sur mesure ?
+            Parlons-en autour d'un café (virtuel ou réel).
           </p>
         </div>
       </FadeIn>
@@ -177,7 +177,7 @@ export const Contact = () => {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
           {/* Left Column - Form */}
           <FadeIn delay={100}>
-            <div className="border-primary/20 rounded-2xl border bg-white/6 hover:bg-white/8 p-8 transition-colors duration-300">
+            <div className="border-primary/20 rounded-2xl border bg-white/6 p-8 transition-colors duration-300 hover:bg-white/8">
               <form
                 name="contact"
                 method="POST"
@@ -306,7 +306,8 @@ export const Contact = () => {
                 {submitError && (
                   <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-4">
                     <p className="text-sm text-red-400">
-                      Une erreur est survenue. Veuillez réessayer ou me contacter directement par email.
+                      Une erreur est survenue. Veuillez réessayer ou me
+                      contacter directement par email.
                     </p>
                   </div>
                 )}
@@ -317,7 +318,6 @@ export const Contact = () => {
           {/* Right Column - Info */}
           <FadeIn delay={200}>
             <div className="flex flex-col justify-center">
-           
               {/* Contact Cards **************************************** */}
               <div className="mb-5 space-y-3">
                 {/* Location Card */}
@@ -413,7 +413,7 @@ export const Contact = () => {
                         rel="noopener noreferrer"
                         className="group/icon hover:border-primary/50 hover:bg-primary/10 flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-black/20 transition-all duration-300"
                       >
-                        <IconComponent className="h-6 w-6 text-white/70 group-hover/icon:text-primary" />
+                        <IconComponent className="group-hover/icon:text-primary h-6 w-6 text-white/70" />
                       </a>
                     )
                   })}
