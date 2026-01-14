@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { services } from '@/data/services'
 import * as Icons from 'lucide-react'
-import { Wrench, Check } from 'lucide-react'
+import { Wrench } from 'lucide-react'
 import FadeIn from '@/components/animations/FadeIn'
 
 export const Services = () => {
@@ -45,7 +45,7 @@ export const Services = () => {
           </div>
         </FadeIn>
         {/* card service ******************************************* */}
-        <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mx-auto grid  grid-cols-1 gap-6 md:grid-cols-2">
           {services.map((service, index) => {
             const IconComponent = Icons[service.icon] || Icons['Box']
             const isActive = activeCard === service.id
@@ -55,13 +55,14 @@ export const Services = () => {
                 delay={100 + index * 100}
                 className="h-full"
               >
-                <div className="group relative h-full min-h-120">
-                  <div className="from-primary/10 to-primary/5 absolute inset-0 rounded-2xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-70"></div>
-                  <div className="hover:border-primary/30 border-primary/15 bg-primary/3 relative h-full overflow-hidden rounded-2xl border p-5 transition-all duration-300">
+                <div className="group relative h-full min-h-100">
+                  <div className="from-primary/10 to-primary/5 absolute inset-0 rounded-2xl bg-linear-to-br opacity-10 blur-xl transition-opacity duration-300 group-hover:opacity-50"></div>
+                  <div className="hover:border-primary/20 relative h-full overflow-hidden rounded-2xl border border-white/5 bg-white/2 p-5 transition-all duration-300">
                     {/* Contenu principal */}
                     <div className="flex h-full flex-col">
                       {/* Header avec icône */}
-                      <div className="mb-3 flex items-center justify-center gap-3">
+                      <div className="mb-4 flex items-center gap-3 border-b border-white/10 pb-3">
+                        <IconComponent className="text-primary h-5 w-5" />
                         <h3 className="text-xl font-medium text-white uppercase">
                           {service.popup.title}
                         </h3>
@@ -119,17 +120,19 @@ export const Services = () => {
                       </div>
 
                       {/* Bouton */}
-                      <button
-                        onClick={() => setActiveCard(service.id)}
-                        className="border-primary/20 bg-primary/10 text-primary hover:bg-primary/20 mt-4 w-full shrink-0 rounded-lg border py-1 text-sm font-medium transition-colors hover:cursor-pointer"
-                      >
-                        En savoir plus
-                      </button>
+                      <div className="mt-4 flex justify-end">
+                        <button
+                          onClick={() => setActiveCard(service.id)}
+                          className="border-primary/20 bg-primary/10 text-primary hover:bg-primary/20 shrink-0 rounded-lg border px-4 py-1 text-sm font-medium transition-colors hover:cursor-pointer"
+                        >
+                          En savoir plus
+                        </button>
+                      </div>
                     </div>
 
                     {/* Popup slide up */}
                     <div
-                      className={`border-primary/10 absolute inset-0 flex flex-col rounded-2xl border bg-black p-5 transition-transform ${
+                      className={`absolute inset-0 flex flex-col rounded-2xl border border-white/5 bg-black/95 p-5 transition-transform ${
                         isActive
                           ? 'translate-y-0 duration-900'
                           : 'translate-y-full duration-700'
@@ -140,34 +143,34 @@ export const Services = () => {
                           : 'cubic-bezier(0.4, 0, 0.2, 1)',
                       }}
                     >
-                      {/* Header like card */}
-                      <div className="mb-3 flex items-center justify-center">
+                      {/* Header avec icône */}
+                      <div className="mb-4 flex items-center gap-3 border-b border-white/10 pb-3">
+                        <IconComponent className="text-primary h-5 w-5" />
                         <h3 className="text-xl font-medium text-white uppercase">
                           {service.popup.title}
                         </h3>
                       </div>
 
-                      {/* Badge subtitle like card */}
-                      <div className="bg-primary/15 mb-4 flex w-full justify-center rounded-lg px-3 py-2">
+                      {/* Badge subtitle */}
+                      <div className="bg-primary/10 mb-4 flex w-full justify-center rounded-lg px-3 py-2">
                         <span className="text-primary text-xs font-medium tracking-wider uppercase">
                           {service.popup.subtitle}
                         </span>
                       </div>
 
-                      {/* Liste des skills */}
-                      <ul className="relative flex-1 space-y-3 overflow-y-auto pr-1">
-                        {service.popup.skills.map((skill, i) => (
-                          <li
-                            key={i}
-                            className="flex items-start gap-2 rounded-lg bg-white/10 px-1 py-1"
-                          >
-                            <Check className="mt-1 h-3 w-3 shrink-0 text-white/70" />
-                            <span className="text-sm leading-relaxed text-white/70">
+                      {/* Skills en badges */}
+                      <div className="relative flex-1 overflow-y-auto pr-1">
+                        <div className="flex flex-wrap gap-2">
+                          {service.popup.skills.map((skill, i) => (
+                            <span
+                              key={i}
+                              className="border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 hover:border-primary/50 inline-flex items-center rounded-full border px-3 py-1.5 text-xs transition-all duration-200 hover:scale-105"
+                            >
                               {skill}
                             </span>
-                          </li>
-                        ))}
-                      </ul>
+                          ))}
+                        </div>
+                      </div>
 
                       {/* Bouton fermer */}
                       <button

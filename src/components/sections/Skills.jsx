@@ -113,8 +113,8 @@ export const Skills = () => {
             ([category, categorySkills], categoryIndex) => (
               <FadeIn key={category} delay={categoryIndex * 100} className="h-full">
                 <div className="group relative h-full">
-                  <div className="from-primary/10 to-primary/5 absolute inset-0 rounded-2xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-50"></div>
-                  <div className="hover:border-primary/30 relative h-full rounded-2xl border border-white/5 bg-white/2 p-5 transition-all duration-300">
+                  <div className="from-primary/10 to-primary/5 absolute inset-0 rounded-2xl bg-linear-to-br opacity-10 blur-xl transition-opacity duration-300 group-hover:opacity-50"></div>
+                  <div className="hover:border-primary/20 relative h-full rounded-2xl border border-white/5 bg-white/2 p-5 transition-all duration-300">
                   {/* Category header */}
                   <div className="mb-4 flex items-center gap-3 border-b border-white/10 pb-3">
                     <div className="h-1 w-6 rounded-full bg-primary/50"></div>
