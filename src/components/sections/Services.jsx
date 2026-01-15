@@ -57,7 +57,7 @@ export const Services = () => {
               >
                 <div className="group relative h-full">
                   <div className="from-primary/10 to-primary/5 absolute inset-0 rounded-2xl bg-linear-to-br opacity-10 blur-xl transition-opacity duration-300 group-hover:opacity-50"></div>
-                  <div className="hover:border-primary/30 relative h-full overflow-hidden rounded-2xl border border-primary/15 bg-white/2 p-6 transition-all duration-300">
+                  <div className="hover:border-primary/40 relative h-full overflow-hidden rounded-2xl border border-primary/25 bg-white/2 p-6 transition-all duration-300">
                     {/* Contenu principal */}
                     <div className="flex h-full flex-col">
                       {/* Header avec icône */}
@@ -107,22 +107,6 @@ export const Services = () => {
                           </p>
                         </div>
 
-                        {/* Offre 3 (si existante) */}
-                        {/* {service.title3 && (
-                          <div className="">
-                            <div className="mb-2 flex items-center justify-between">
-                              <h4 className="text-sm font-semibold tracking-wide text-white uppercase">
-                                {service.title3}
-                              </h4>
-                              <span className="text-primary rounded-md bg-primary/10 px-3 py-1 text-sm font-bold">
-                                {Object.values(service.price3)[0]}
-                              </span>
-                            </div>
-                            <p className="text-justify text-sm leading-normal text-white/70">
-                              {service.description3}
-                            </p>
-                          </div>
-                        )} */}
                       </div>
 
                       {/* Bouton */}
