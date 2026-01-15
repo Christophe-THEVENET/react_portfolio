@@ -4,8 +4,8 @@ import { SiReact, SiMysql, SiSymfony, SiWordpress, SiClaude } from 'react-icons/
 import { PERSONAL_INFO, STATS } from '@/utils/constants.js'
 import { scrollToSection } from '@/hooks/useScrollSpy.js'
 import FadeIn from '@/components/animations/FadeIn.jsx'
-import avatar from '@/assets/img/general/avatar_digitob.png'
-import videoTeaser from '@/assets/video/teaser_digitob_v3.mp4'
+/* import avatar from '@/assets/img/general/avatar_digitob.png'
+import videoTeaser from '@/assets/video/teaser_digitob_v3.mp4' */
 
 import { PiFileSqlLight } from 'react-icons/pi'
 
@@ -98,11 +98,11 @@ export const Hero = () => {
                   <video
                     ref={videoRef}
                     className="h-full w-full object-cover"
-                    preload="auto"
-                    poster={avatar}
+                    preload="none"
+                    poster='/avatar.webp'
                     playsInline
                     controls={isVideoPlaying}
-                    src={videoTeaser}
+                    src='/teaser.mp4'
                     onEnded={() => {
                       setIsTransitioning(true)
                       setTimeout(() => {
