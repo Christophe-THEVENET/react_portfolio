@@ -240,8 +240,8 @@ export const About = () => {
                       style={{ '--social-color': social.color }}
                     >
                       <div className="from-primary/30 to-primary/15 absolute inset-0 rounded-xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover/social:opacity-95"></div>
-                      <div className="hover:border-primary/30 relative flex h-15 w-15 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all duration-300">
-                        <IconComponent className="h-7 w-7 text-white/70 transition-all duration-300 group-hover/social:text-primary" />
+                      <div className="hover:border-primary/30 relative flex h-16 w-16 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all duration-300">
+                        <IconComponent className="h-8 w-8 text-white/70 transition-all duration-300 group-hover/social:text-primary" />
                       </div>
                     </a>
                   )

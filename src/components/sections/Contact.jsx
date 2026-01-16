@@ -177,7 +177,7 @@ export const Contact = () => {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
           {/* Left Column - Form */}
           <FadeIn delay={100}>
-            <div className="border-primary/20 hover:border-primary/30 rounded-2xl border bg-white/6 p-8 transition-colors duration-300 hover:bg-white/8">
+            <div className="border-primary/20 hover:border-primary/30 from-primary/10 via-primary/3 hover:to-primary/3 to-primary/2 hover:from-primary/15 hoverto-primary/2 rounded-2xl border bg-linear-to-br p-8 transition-colors duration-300">
               <form
                 name="contact"
                 method="POST"
@@ -322,7 +322,7 @@ export const Contact = () => {
               <div className="mb-5 space-y-3">
                 {/* Location Card */}
                 <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 border-primary/20 flex items-center gap-4 rounded-xl border bg-linear-to-l p-2.5 transition-all duration-300">
-                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                  <div className="border-primary/30 from-primary/10 to-primary/5 flex h-9.5 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <Map className="text-primary h-5 w-5" />
                   </div>
                   <div className="flex-1">
@@ -335,7 +335,7 @@ export const Contact = () => {
 
                 {/* Phone Card */}
                 <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 border-primary/20 flex items-center gap-4 rounded-xl border bg-linear-to-l p-2.5 transition-all duration-300">
-                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                  <div className="border-primary/30 from-primary/10 to-primary/5 flex h-9.5 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <Phone className="text-primary h-5 w-5" />
                   </div>
                   <div className="flex-1">
@@ -348,7 +348,7 @@ export const Contact = () => {
 
                 {/* Email Card */}
                 <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 border-primary/20 flex items-center gap-4 rounded-xl border bg-linear-to-l p-2.5 transition-all duration-300">
-                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                  <div className="border-primary/30 from-primary/10 to-primary/5 flex h-9.5 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <Mail className="text-primary h-5 w-5" />
                   </div>
                   <div className="flex-1">
@@ -361,7 +361,7 @@ export const Contact = () => {
 
                 {/* Address Card */}
                 <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 border-primary/20 flex items-center gap-4 rounded-xl border bg-linear-to-l p-2.5 transition-all duration-300">
-                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                  <div className="border-primary/30 from-primary/10 to-primary/5 flex h-9.5 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <MapPinHouse className="text-primary h-5 w-5" />
                   </div>
                   <div className="flex-1">
@@ -374,7 +374,7 @@ export const Contact = () => {
 
                 {/* Assurance Card */}
                 <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 border-primary/20 flex items-center gap-4 rounded-xl border bg-linear-to-l p-2.5 transition-all duration-300">
-                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                  <div className="border-primary/30 from-primary/10 to-primary/5 flex h-9.5 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <ShieldCheck className="text-primary h-5 w-5" />
                   </div>
                   <div className="flex-1">
@@ -387,7 +387,7 @@ export const Contact = () => {
 
                 {/* Siret Card */}
                 <div className="group hover:border-primary/30 from-primary/0 via-primary/0.5 to-primary/5 border-primary/20 flex items-center gap-4 rounded-xl border bg-linear-to-l p-2.5 transition-all duration-300">
-                  <div className="border-primary/30 from-primary/30 to-primary/15 flex h-10 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
+                  <div className="border-primary/30 from-primary/10 to-primary/5 flex h-9.5 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
                     <Tally4 className="text-primary h-5 w-5" />
                   </div>
                   <div className="flex-1">
@@ -411,7 +411,7 @@ export const Contact = () => {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/icon hover:border-primary/50 hover:bg-primary/10 flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-black/20 transition-all duration-300"
+                        className="group/icon hover:border-primary/50 hover:bg-primary/10 flex h-13 w-15 items-center justify-center rounded-lg border border-white/10 bg-black/20 transition-all duration-300"
                       >
                         <IconComponent className="group-hover/icon:text-primary h-6 w-6 text-white/70" />
                       </a>
