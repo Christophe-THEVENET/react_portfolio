@@ -149,9 +149,9 @@ export const Contact = () => {
     <section id="contact" className="relative overflow-hidden py-24">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="bg-primary/10 absolute top-1/4 left-1/4 h-96 w-96 rounded-full opacity-30 blur-3xl" />
-        <div className="bg-primary/10 absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full opacity-30 blur-3xl" />
-        <div className="bg-primary/10 absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-white/7 opacity-30 blur-3xl" />
+        <div className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-white/7 opacity-30 blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/7 opacity-30 blur-3xl" />
       </div>
 
       <FadeIn delay={0}>
@@ -177,7 +177,7 @@ export const Contact = () => {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
           {/* Left Column - Form */}
           <FadeIn delay={100}>
-            <div className="border-primary/20 hover:border-primary/30 from-primary/10 via-primary/3 hover:to-primary/3 to-primary/2 hover:from-primary/15 hoverto-primary/2 rounded-2xl border bg-linear-to-br p-8 transition-colors duration-300">
+            <div className="border-primary/20 hover:border-primary/35 from-primary/15 via-primary/5 hover:to-primary/3 to-primary/2 hover:from-primary/17 hover:via-primary/7 rounded-2xl border bg-linear-to-br p-8 transition-colors duration-300">
               <form
                 name="contact"
                 method="POST"
