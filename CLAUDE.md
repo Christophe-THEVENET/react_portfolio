@@ -21,7 +21,7 @@ Single-page React 19 portfolio with section-based layout. French language conten
 - `src/components/sections/` - Page sections: Hero, About, Services, Projects, Contact
 - `src/components/layout/` - Navbar, Footer
 - `src/components/backgrounds/` - ParticleField (Three.js), RadialGradientBackground
-- `src/components/animations/` - FadeIn, ScrollReveal
+- `src/components/animations/` - FadeIn
 - `src/data/` - Static data arrays (projects.js, services.js, skills.js)
 - `src/utils/constants.js` - Site-wide constants (PERSONAL_INFO, STATS, NAV_LINKS)
 

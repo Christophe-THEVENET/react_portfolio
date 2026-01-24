@@ -34,7 +34,7 @@ src/
 ├── components/
 │   ├── sections/      # Hero, About, Skills, Services, Projects, Contact
 │   ├── layout/        # Navbar, Footer
-│   ├── animations/    # FadeIn, ScrollReveal
+│   ├── animations/    # FadeIn
 │   └── backgrounds/   # ParticleField (Three.js)
 ├── data/              # projects.js, services.js, skills.js
 ├── hooks/             # useScrollSpy
