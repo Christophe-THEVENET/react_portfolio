@@ -56,12 +56,10 @@ export const Hero = () => {
 
             <FadeIn delay={300}>
               <button
-                className="group mb-12 inline-flex items-center gap-0"
+                className="btn-shimmer mb-12 cursor-pointer rounded-[17px] bg-white/75 px-3 py-1.5 text-base font-medium text-[#212121] transition-all duration-300"
                 onClick={() => scrollToSection('contact')}
               >
-                <div className="relative z-10 cursor-pointer rounded-[17px] border border-white bg-white/75 px-3 py-1.5 text-base font-medium text-[#212121] transition-all duration-300 hover:bg-white">
-                  Besoin d'un site web ?
-                </div>
+                Besoin d'un site web ?
               </button>
             </FadeIn>
 
