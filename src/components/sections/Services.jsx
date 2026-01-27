@@ -154,7 +154,7 @@ export const Services = () => {
                           {service.popup.skills.map((skill, i) => (
                             <span
                               key={i}
-                              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[12px] text-white/80 uppercase transition-all duration-200 hover:scale-105 hover:border-primary/30 hover:bg-primary/10 hover:text-primary"
+                              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[12px] text-white/80 uppercase transition-all duration-200  hover:border-primary/30 hover:bg-primary/10 "
                             >
                               {skill}
                             </span>
