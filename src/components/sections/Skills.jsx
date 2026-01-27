@@ -9,11 +9,12 @@ export const Skills = () => {
   const SkillCategories = {
     Frontend: [
       skills.find((skill) => skill.name === 'React.js'),
-      skills.find((skill) => skill.name === 'Javascript.js'),
+      skills.find((skill) => skill.name === 'Javascript'),
       skills.find((skill) => skill.name === 'Sass'),
-      skills.find((skill) => skill.name === 'Tailwind CSS'),
-      skills.find((skill) => skill.name === 'Ui/Ux Design'),
-      skills.find((skill) => skill.name === 'Figma'),
+      skills.find((skill) => skill.name === 'Tailwind'),
+      skills.find((skill) => skill.name === 'TanStack'),
+      skills.find((skill) => skill.name === 'Zustand'),
+      skills.find((skill) => skill.name === 'TypeScript'),
     ].filter(Boolean),
     Backend: [
       skills.find((skill) => skill.name === 'Symfony'),
@@ -22,25 +23,34 @@ export const Skills = () => {
       skills.find((skill) => skill.name === 'Poo'),
       skills.find((skill) => skill.name === 'Api Rest'),
       skills.find((skill) => skill.name === 'Design Patterns'),
+      skills.find((skill) => skill.name === 'Symfony UX'),
+      skills.find((skill) => skill.name === 'Mercure'),
     ].filter(Boolean),
-    Database: [
+    'BDD/DevOps': [
       skills.find((skill) => skill.name === 'MySql'),
       skills.find((skill) => skill.name === 'Merise/Uml'),
       skills.find((skill) => skill.name === 'Doctrine'),
-    ].filter(Boolean),
-    DevOps: [
       skills.find((skill) => skill.name === 'Docker'),
       skills.find((skill) => skill.name === 'Git/Github'),
       skills.find((skill) => skill.name === 'Linux'),
       skills.find((skill) => skill.name === 'CI/CD'),
     ].filter(Boolean),
+    Design: [
+      skills.find((skill) => skill.name === 'Wireframing'),
+      skills.find((skill) => skill.name === 'Prototyping'),
+      skills.find((skill) => skill.name === 'Ui/Ux Design'),
+      skills.find((skill) => skill.name === 'Responsive'),
+      skills.find((skill) => skill.name === 'Accessibility'),
+      skills.find((skill) => skill.name === 'User Stories'),
+    ].filter(Boolean),
     Sécurité: [
       skills.find((skill) => skill.name === 'Auth'),
-      skills.find((skill) => skill.name === 'Roles'),
+      skills.find((skill) => skill.name === 'Authorization'),
       skills.find((skill) => skill.name === 'Validation'),
       skills.find((skill) => skill.name === 'CSRF'),
       skills.find((skill) => skill.name === 'XSS'),
       skills.find((skill) => skill.name === 'SQL Injection'),
+      skills.find((skill) => skill.name === 'Encryption'),
     ].filter(Boolean),
     Outils: [
       skills.find((skill) => skill.name === 'Copilot'),
