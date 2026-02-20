@@ -36,15 +36,15 @@ export const services = [
     icon: 'PanelsTopLeft',
     title1: 'vitrine base',
     subtitle1: 'Affirmez votre présence web',
-    price1: { tarif: '350€' },
+    price1: { tarif: '450€' },
     description1:
       'Une page unique pour présenter votre activité et convertir vos visiteurs en clients. Idéal pour artisans, freelances ou petits commerces qui veulent une présence web simple mais efficace : design moderne, optimisation mobile, référencement local et formulaire de contact.',
 
     title2: 'vitrine complet',
     subtitle2: '',
-    price2: { tarif: '850€' },
+    price2: { tarif: '950€' },
     description2:
-      'Un véritable site de présentation avec plusieurs pages. Pour les petites/moyennes entreprises qui veulent montrer leurs services, leurs réalisations et inspirer confiance. Au-delà de 5 pages : supplément à la page',
+      'Un véritable site de présentation avec plusieurs pages pour petites et moyennes entreprises. Montrez vos services, vos réalisations et inspirez confiance. Site de 5 pages (au-delà : supplément à la page). Modules complémentaires possibles (blog, calendrier, réservation...).',
 
     popup: {
       title: 'Site vitrine',
@@ -68,13 +68,13 @@ export const services = [
     icon: 'ShoppingCart',
     title1: 'Boutique minimaliste',
     subtitle1: 'Développez vos ventes 24/24',
-    price1: { tarif: '1300€' },
+    price1: { tarif: '1600€' },
     description1:
       'Commencez à vendre en ligne sans complexité. Une boutique fonctionnelle avec les essentiels : catalogue produits, panier, paiement sécurisé et gestion de commandes. Parfait pour un petit commerce ou artisan qui souhaite démarrer rapidement avec un investissement maîtrisé.',
 
     title2: 'Boutique en ligne pro',
     subtitle2: '',
-    price2: { tarif: '2100€' },
+    price2: { tarif: '2500€' },
     description2:
       "Une véritable solution de vente. Catalogue plus large, gestion avancée de l'inventaire, options clients personnalisées, analytics et outils pour booster vos ventes. Conçue pour les commerces ayant une vraie ambition de croissance en ligne avec un potentiel d'évolution.",
 
