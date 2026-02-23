@@ -73,7 +73,7 @@ export const About = () => {
                         Bootcamp avancé Symfony
                       </h3>
                       <p className="text-sm leading-relaxed break-words text-white/70">
-                        Compétence BCO4 Titre pro RNCP Concepteur Logiciel
+                        Compétence BCO4 RNCP Concepteur Logiciel
                       </p>
                     </div>
 
@@ -169,7 +169,7 @@ export const About = () => {
                     <div className="bg-primary/10 flex flex-col items-center rounded-xl px-4 py-3">
                       <BookOpenCheck className="text-primary h-6 w-6" />
                       <span className="mt-1 text-[12px] font-semibold text-white/60">
-                        2021
+                        2020⇢
                       </span>
                     </div>
 
@@ -241,7 +241,7 @@ export const About = () => {
                     >
                       <div className="from-primary/30 to-primary/15 absolute inset-0 rounded-xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover/social:opacity-95"></div>
                       <div className="hover:border-primary/30 relative flex h-16 w-16 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all duration-300">
-                        <IconComponent className="h-8 w-8 text-white/70 transition-all duration-300 group-hover/social:text-primary" />
+                        <IconComponent className="group-hover/social:text-primary h-8 w-8 text-white/70 transition-all duration-300" />
                       </div>
                     </a>
                   )
