@@ -11,19 +11,20 @@ import imgCbd from '@/assets/img/projects/cbd.png'
 import imgAletti from '@/assets/img/projects/aletti.jpg'
 import imgGreengoodies from '@/assets/img/projects/greengoodies.jpg'
 import imgCybermeteo from '@/assets/img/projects/cyber_meteo.jpg'
+import imgBoulio from '@/assets/img/projects/boulio.jpg'
 
 export const projects = [
   {
-    id: 14,
-    title: 'Cyber météo',
+    id: 15,
+    title: 'Boulio',
     description:
-      "Application météo moderne développée avec React 19, permettant de consulter la météo en temps réel pour n'importe quelle ville dans le monde. Intégration de l'API OpenWeather pour des données précises et actualisées.",
-    imageUrl: imgCybermeteo,
-    category: 'Front',
-    technologies: ['React.js', 'Tailwind', 'Zustand', 'Zod'],
+      'Plateforme communautaire dédiée à la pétanque: réseau social, blog contributeurs, forum thématique, chat live, messagerie privée et intégration lives YouTube.',
+    imageUrl: imgBoulio,
+    category: 'Full-Stack',
+    technologies: ['React.js', 'Symfony', 'TanStack', 'Mercure', 'SQL'],
     metrics: '',
-    demoUrl: 'https://cybermeteo.netlify.app/',
-    githubUrl: 'https://github.com/Christophe-THEVENET/react_meteo_live',
+    demoUrl: 'https://boulio.com',
+    githubUrl: 'https://github.com/Christophe-THEVENET/boulio-showcase',
     ExtraUrl1: {
       title: '',
       url: '',
@@ -32,7 +33,7 @@ export const projects = [
     demoName: "Voir l'application",
   },
   {
-    id: 13,
+    id: 14,
     title: 'Greengoodies',
     description:
       'Site e-commerce en Symfony : base de données, API sécurisée, intégration Twig, panier asynchrone, commandes, authentification, validations temps réel, notifications et expérience utilisateur optimisée.',
@@ -50,7 +51,7 @@ export const projects = [
     demoName: "Voir l'application",
   },
   {
-    id: 12,
+    id: 13,
     title: 'Aletti Palace',
     description:
       'Site vitrine WordPress réalisé en distanciel. Dix pages illustrées, design premium, carte du restaurant intégrée, traduction anglaise. Atout majeur : une esthétique raffinée ambiance belle époque.',
@@ -66,6 +67,24 @@ export const projects = [
     },
     ExtraUrl2: '',
     demoName: 'Voir le site',
+  },
+  {
+    id: 12,
+    title: 'Cyber météo',
+    description:
+      "Application météo moderne développée avec React 19, permettant de consulter la météo en temps réel pour n'importe quelle ville dans le monde. Intégration de l'API OpenWeather pour des données précises et actualisées.",
+    imageUrl: imgCybermeteo,
+    category: 'Front',
+    technologies: ['React.js', 'Tailwind', 'Zustand', 'Zod'],
+    metrics: '',
+    demoUrl: 'https://cybermeteo.netlify.app/',
+    githubUrl: 'https://github.com/Christophe-THEVENET/react_meteo_live',
+    ExtraUrl1: {
+      title: '',
+      url: '',
+    },
+    ExtraUrl2: '',
+    demoName: "Voir l'application",
   },
   {
     id: 11,
