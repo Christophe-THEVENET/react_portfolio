@@ -87,24 +87,57 @@
   /* Custom Scrollbar - Chrome, Edge, Opera */
   ::-webkit-scrollbar {
     width: 12px;
+    border-left: 1px solid #2a2a2a;
   }
 
   ::-webkit-scrollbar-track {
-    background: #0a0a0a;
+    background: #111111;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #133131;
-    border-radius: 6px;
-    border: 5px solid #0a0a0a;
+    background: #1e4e4e;
+    border-radius: 4px;
+    border: 3px solid #111111;
     transition: border-width 0.3s ease, background 0.3s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    border-width: 1px;
-    background: #225050;
+    border-width: 2px;
+    background: #2F8E8E;
   }
 
+  ::-webkit-scrollbar-button:single-button {
+    background-color: #1a1a1a;
+    display: block;
+    height: 12px;
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 12 12'%3E%3Cpath d='M6 2 L11 9 L1 9 Z' fill='%231e4e4e'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  ::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 12 12'%3E%3Cpath d='M6 10 L11 3 L1 3 Z' fill='%231e4e4e'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  ::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+    background-color: #1a1a1a;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 12 12'%3E%3Cpath d='M6 2 L11 9 L1 9 Z' fill='%232F8E8E'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  ::-webkit-scrollbar-button:single-button:vertical:increment:hover {
+    background-color: #111111;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 12 12'%3E%3Cpath d='M6 10 L11 3 L1 3 Z' fill='%232F8E8E'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 
   /* hide scrollbar for carousel*/
   .hide-scrollbar {
