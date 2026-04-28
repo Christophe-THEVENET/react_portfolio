@@ -70,6 +70,24 @@ export const projects = [
   },
   {
     id: 12,
+    title: 'CBD-63',
+    description:
+      "Site vitrine complet de 9 pages. Calendrier d'événements, géolocalisation d'une trentaine d'adresses, bibliothèque de documents, intégration de graphiques de résultats Google Sheet.",
+    imageUrl: imgCbd,
+    category: 'Vitrine',
+    technologies: ['WordPress', 'Elementor'],
+    metrics: '',
+    demoUrl: 'https://cbd-63.fr/',
+    githubUrl: '',
+    ExtraUrl1: {
+      title: '',
+      url: '',
+    },
+    ExtraUrl2: '',
+    demoName: 'Voir le site',
+  },
+  {
+    id: 11,
     title: 'Cyber météo',
     description:
       "Application météo moderne développée avec React 19, permettant de consulter la météo en temps réel pour n'importe quelle ville dans le monde. Intégration de l'API OpenWeather pour des données précises et actualisées.",
@@ -85,24 +103,6 @@ export const projects = [
     },
     ExtraUrl2: '',
     demoName: "Voir l'application",
-  },
-  {
-    id: 11,
-    title: 'CBD-63',
-    description:
-      "Site vitrine complet de 9 pages. Blog, calendrier d'événements, géolocalisation d'une trentaine d'adresses, bibliothèque de documents, intégration de graphiques de résultats Google Sheet.",
-    imageUrl: imgCbd,
-    category: 'Vitrine',
-    technologies: ['WordPress', 'Elementor'],
-    metrics: '',
-    demoUrl: 'https://cbd-63.fr/',
-    githubUrl: '',
-    ExtraUrl1: {
-      title: '',
-      url: '',
-    },
-    ExtraUrl2: '',
-    demoName: 'Voir le site',
   },
   {
     id: 10,

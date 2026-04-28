@@ -15,6 +15,10 @@ Portfolio personnel de developpeur web full-stack freelance.
 ## Installation
 
 ```bash
+git clone https://github.com/Christophe-THEVENET/react_portfolio.git
+```
+
+```bash
 npm install
 ```
 
