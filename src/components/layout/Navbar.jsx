@@ -3,6 +3,8 @@ import { Code, Menu, X } from 'lucide-react'
 import { NAV_LINKS, PERSONAL_INFO } from '@/utils/constants.js'
 import React, { useState, useEffect } from 'react'
 import { useScrollSpy, scrollToSection } from '@/hooks/useScrollSpy.js'
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'motion/react'
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -64,13 +66,16 @@ export const Navbar = () => {
           </nav>
 
           {/* CTA Button ******************************* */}
-          <div className="hidden items-center gap-2 md:flex">
-            <button
+          <div className="relative hidden items-center gap-2 md:flex">
+            <motion.button
               onClick={() => handleNavClick('contact')}
-              className="btn-shimmer cursor-pointer rounded-[17px] bg-white/75 px-3 py-1.5 text-base font-medium text-[#212121] transition-all duration-300"
+              className="btn-shimmer relative cursor-pointer rounded-[17px] bg-white/75 px-3 py-1.5 text-base font-medium text-[#212121]"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={{ originX: 0.5, originY: 0.5 }}
             >
               Contactez moi
-            </button>
+            </motion.button>
           </div>
 
           {/* mobile hamburger ************************* */}
@@ -102,12 +107,14 @@ export const Navbar = () => {
                 {link.label}
               </button>
             ))}
-            <button
+            <motion.button
               onClick={() => handleNavClick('contact')}
-              className="btn-shimmer mt-10 w-full cursor-pointer rounded-[17px] bg-white/90 px-5 py-2 text-base font-medium text-[#212121] transition-all duration-300"
+              className="btn-shimmer mt-10 w-full cursor-pointer rounded-[17px] bg-white/90 px-5 py-2 text-base font-medium text-[#212121]"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Contactez moi
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>

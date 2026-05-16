@@ -15,12 +15,12 @@ const ProjectCard = ({ project }) => {
     demoName,
   } = project
   return (
-    <div className="group border-primary/15 hover:border-primary/20 relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white/5 transition-all duration-300">
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition-all duration-300">
       <div className="relative h-48 shrink-0 overflow-hidden">
         <img
           src={imageUrl}
           alt={title}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-102"
+          className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-90" />
 

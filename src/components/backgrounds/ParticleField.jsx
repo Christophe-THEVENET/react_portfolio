@@ -10,14 +10,24 @@ import {
   WebGLRenderer,
   BufferGeometry,
   Float32BufferAttribute,
+  CanvasTexture,
 } from 'three'
 
 const PARTICLE_COUNT = 200
 const PARTICLE_DISTANCE = 2
 const PARTICLE_SIZE = 0.01
 
-const textureDataUrl =
-  'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="white"/></svg>'
+const createCircleTexture = () => {
+  const canvas = document.createElement('canvas')
+  canvas.width = 32
+  canvas.height = 32
+  const ctx = canvas.getContext('2d')
+  ctx.beginPath()
+  ctx.arc(16, 16, 14, 0, Math.PI * 2)
+  ctx.fillStyle = 'white'
+  ctx.fill()
+  return new CanvasTexture(canvas)
+}
 
 const ParticleField = () => {
   const containerRef = useRef(null)
@@ -44,7 +54,6 @@ const ParticleField = () => {
     const renderer = new WebGLRenderer({
       antialias: true,
       alpha: true,
-      preserveDrawingBuffer: true,
     })
     renderer.setClearColor(0x000000, 0)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -62,8 +71,7 @@ const ParticleField = () => {
     const geometry = new BufferGeometry()
     geometry.setAttribute('position', new Float32BufferAttribute(points, 3))
 
-    const textureLoader = new TextureLoader()
-    const circleTexture = textureLoader.load(textureDataUrl)
+    const circleTexture = createCircleTexture()
 
     const pointMaterial = new PointsMaterial({
       color: 0x335654,
