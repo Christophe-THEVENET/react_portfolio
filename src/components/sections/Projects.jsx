@@ -13,6 +13,10 @@ import {
 } from 'lucide-react'
 import ProjectCard from '@/components/ui/ProjectCard'
 import FadeIn from '@/components/animations/FadeIn'
+import { FadeInStagger, FadeInStaggerItem } from '@/components/animations/FadeIn'
+import GlowCard from '@/components/animations/GlowCard'
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'motion/react'
 
 export const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('All')
@@ -20,11 +24,10 @@ export const Projects = () => {
   const [visibleCards, setVisibleCards] = useState(3)
   const scrollContainerRef = useRef(null)
 
-  // Calcul du nombre de cartes visibles selon la taille d'ecran
   useEffect(() => {
     const updateVisibleCards = () => {
-      if (window.innerWidth >= 1024) setVisibleCards(3)      // lg
-      else if (window.innerWidth >= 768) setVisibleCards(2)  // md
+      if (window.innerWidth >= 1024) setVisibleCards(3)
+      else if (window.innerWidth >= 768) setVisibleCards(2)
       else setVisibleCards(1)
     }
     updateVisibleCards()
@@ -37,7 +40,6 @@ export const Projects = () => {
       ? projects
       : projects.filter((project) => project.category === activeCategory)
 
-  // reset carousel when category changes
   const handleCategoryChange = (category) => {
     setActiveCategory(category)
     setCurrentIndex(0)
@@ -45,6 +47,7 @@ export const Projects = () => {
       scrollContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' })
     }
   }
+
   const scrollToIndex = (index) => {
     setCurrentIndex(index)
     if (scrollContainerRef.current) {
@@ -69,7 +72,6 @@ export const Projects = () => {
     }
   }
 
-  // Category icons mapping
   const categoryIcons = {
     All: Target,
     Maquette: LayoutTemplate,
@@ -107,87 +109,98 @@ export const Projects = () => {
           </div>
         </FadeIn>
 
-        {/* Category filter */}
         <FadeIn delay={100}>
           <div className="mb-16 flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
-              <button
+              <motion.button
                 key={category}
                 onClick={() => handleCategoryChange(category)}
-                className={`group relative cursor-pointer rounded-full px-6 py-3 font-medium transition-all duration-300 ${
+                className={`group relative cursor-pointer rounded-full px-6 py-3 font-medium focus:outline-none ${
                   activeCategory === category
                     ? 'text-white'
                     : 'text-white/60 hover:text-white'
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {/* Background */}
                 <div
                   className={`absolute inset-0 rounded-full transition-all duration-300 ${
                     activeCategory === category
-                      ? 'bg-primary/10'
+                      ? 'bg-primary/5 border border-primary/20'
                       : 'border border-white/10 bg-white/5 group-hover:bg-white/10'
                   }`}
                 />
-                {/* Glow effect */}
                 {activeCategory === category && (
-                  <div className="bg-primary absolute inset-0 -z-10 rounded-full opacity-30 blur-xl" />
+                  <motion.div
+                    className="bg-primary absolute inset-0 -z-10 rounded-full blur-lg"
+                    layoutId="activeCategoryBg"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.15 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  />
                 )}
-                {/* Content */}
                 <div className="relative flex items-center gap-2">
                   {React.createElement(categoryIcons[category], {
                     className: 'h-4 w-4',
                   })}
                   <span className="text-sm">{category}</span>
                 </div>
-              </button>
+              </motion.button>
             ))}
           </div>
         </FadeIn>
 
-        {/* Projects carousel */}
         <FadeIn delay={200}>
           <div className="relative">
             <div
               ref={scrollContainerRef}
               className="hide-scrollbar snap-x snap-mandatory overflow-x-auto scroll-smooth"
             >
-              <div className="flex gap-6 pb-4">
-                {filteredProjects.map((project, index) => (
-                  <div
-                    key={`${activeCategory}-${project.id}`}
-                    className="animate-fade-in-up w-full shrink-0 snap-start md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <ProjectCard project={project} />
-                  </div>
-                ))}
-              </div>
+              <FadeInStagger
+                key={activeCategory}
+                staggerDelay={0.06}
+                className="flex gap-6 pb-4"
+                once={true}
+              >
+                  {filteredProjects.map((project) => (
+                    <FadeInStaggerItem
+                      key={`${activeCategory}-${project.id}`}
+                      className="w-full shrink-0 snap-start md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+                    >
+                      <GlowCard>
+                        <ProjectCard project={project} />
+                      </GlowCard>
+                    </FadeInStaggerItem>
+                  ))}
+              </FadeInStagger>
             </div>
 
-            {/*  Navigation arrow */}
             {filteredProjects.length > visibleCards && (
               <>
-                <button
+                <motion.button
                   onClick={prevSlide}
                   disabled={currentIndex === 0}
-                  className="bg-primary/10 border-primary/20 hover:bg-primary/20 absolute top-1/2 left-0 z-10 flex h-10 w-10 -translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 lg:h-12 lg:w-12 lg:-translate-x-4"
+                  className="bg-primary/10 border-primary/20 hover:bg-primary/20 absolute top-1/2 left-0 z-10 flex h-10 w-10 -translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border backdrop-blur-sm disabled:cursor-not-allowed disabled:opacity-50 lg:h-12 lg:w-12 lg:-translate-x-4"
                   aria-label="Projet précédent"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   <ChevronLeft className="h-6 w-6 text-white" />
-                </button>
+                </motion.button>
 
-                <button
+                <motion.button
                   onClick={nextSlide}
                   disabled={currentIndex >= filteredProjects.length - visibleCards}
-                  className="bg-primary/10 border-primary/20 hover:bg-primary/20 absolute top-1/2 right-0 z-10 flex h-10 w-10 translate-x-4 -translate-y-1/2 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 lg:h-12 lg:w-12 lg:translate-x-4"
+                  className="bg-primary/10 border-primary/20 hover:bg-primary/20 absolute top-1/2 right-0 z-10 flex h-10 w-10 translate-x-4 -translate-y-1/2 items-center justify-center rounded-full border backdrop-blur-sm disabled:cursor-not-allowed disabled:opacity-50 lg:h-12 lg:w-12 lg:translate-x-4"
                   aria-label="Projet suivant"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   <ChevronRight className="h-6 w-6 text-white" />
-                </button>
+                </motion.button>
               </>
             )}
 
-            {/* Navigation dots - hauteur fixe pour éviter le décalage */}
             <div className="mt-8 flex h-2 items-center justify-center gap-2">
               {filteredProjects.length > visibleCards &&
                 Array.from({

@@ -4,8 +4,10 @@ import { SiReact, SiMysql, SiSymfony, SiWordpress, SiClaude } from 'react-icons/
 import { PERSONAL_INFO, STATS } from '@/utils/constants.js'
 import { scrollToSection } from '@/hooks/useScrollSpy.js'
 import FadeIn from '@/components/animations/FadeIn.jsx'
-/* import avatar from '@/assets/img/general/avatar_digitob.png'
-import videoTeaser from '@/assets/video/teaser_digitob_v3.mp4' */
+import TextReveal from '@/components/animations/TextReveal.jsx'
+import AnimatedCounter from '@/components/animations/AnimatedCounter.jsx'
+// eslint-disable-next-line no-unused-vars
+import { motion, AnimatePresence } from 'motion/react'
 
 import { PiFileSqlLight } from 'react-icons/pi'
 
@@ -16,12 +18,9 @@ export const Hero = () => {
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
-      {/*  <RadialGradientBackground variant='hero'/> */}
-
-      {/* Content Container  */}
       <div className="relative z-10 mx-auto w-full px-4 pt-28 pb-20 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-[3fr_2fr]">
-          {/*  Left columns *******************************************************/}
+          {/* Left columns */}
           <div className="w-full text-left">
             <FadeIn delay={0}>
               <div className="from-primary/5 via bg-primary/10 to-primary/15 border-primary/20 mb-8 inline-flex items-center gap-2.5 rounded-full border bg-linear-to-r px-4 py-2.5">
@@ -38,8 +37,17 @@ export const Hero = () => {
 
             <FadeIn delay={100}>
               <h1 className="mb-6 text-2xl leading-tight font-normal text-white max-[1030px]:text-[50px] max-[886px]:text-[47px] max-[839px]:text-[45px] max-[803px]:text-[43px] lg:text-[55px] xl:text-[65px] 2xl:text-7xl">
-                Christophe
-                <span className="text-primary"> THEVENET</span>
+                <span className="md:hidden">
+                  Christophe
+                  <br />
+                  <span className="text-primary">THEVENET</span>
+                </span>
+                <span className="hidden md:inline">
+                  <TextReveal staggerDelay={0.025}>
+                    Christophe{' '}
+                    <span className="text-primary">THEVENET</span>
+                  </TextReveal>
+                </span>
               </h1>
             </FadeIn>
 
@@ -55,12 +63,14 @@ export const Hero = () => {
             </FadeIn>
 
             <FadeIn delay={300}>
-              <button
+              <motion.button
                 className="btn-shimmer mb-12 cursor-pointer rounded-[17px] bg-white/75 px-3 py-1.5 text-base font-medium text-[#212121] transition-all duration-300"
                 onClick={() => scrollToSection('contact')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 Besoin d'un site web ?
-              </button>
+              </motion.button>
             </FadeIn>
 
             <FadeIn delay={400}>
@@ -70,9 +80,11 @@ export const Hero = () => {
                     key={index}
                     className="border-r border-white/50 pr-10 text-left last:border-r-0"
                   >
-                    <div className="text-primary mb-1 font-mono text-2xl font-normal">
-                      {stat.value}
-                    </div>
+                    <AnimatedCounter
+                      value={stat.value}
+                      className="text-primary mb-1 font-mono text-2xl font-normal"
+                      duration={2.5}
+                    />
                     <div className="text-[13px] leading-snug text-white">
                       {stat.label}
                     </div>
@@ -82,25 +94,27 @@ export const Hero = () => {
             </FadeIn>
           </div>
 
-          {/*  right columns ****************************************************** */}
+          {/* Right columns */}
           <FadeIn delay={600}>
-            <div className="relative mt-10 w-full md:mt-0 md:flex md:justify-end">
+            <motion.div
+              className="relative mt-10 w-full md:mt-0 md:flex md:justify-end"
+              initial={{ clipPath: 'circle(0% at 100% 100%)' }}
+              animate={{ clipPath: 'circle(150% at 100% 100%)' }}
+              transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.4 }}
+            >
               <div className="group relative aspect-4/5 w-full max-w-[400px] sm:max-w-[400px] md:max-w-[420px] lg:max-w-[440px]">
-                {/* rotating border */}
                 <div className="absolute inset-0 overflow-hidden rounded-2xl">
                   <div className="rotating-border animate-spin-slow absolute inset-[-50%]"></div>
                 </div>
-                {/* image container */}
                 <div className="absolute inset-[2px] overflow-hidden rounded-2xl bg-black">
-                  {/* Video */}
                   <video
                     ref={videoRef}
                     className="h-full w-full object-cover"
                     preload="none"
-                    poster='/avatar.webp'
+                    poster="/avatar.webp"
                     playsInline
                     controls={isVideoPlaying}
-                    src='/teaser.mp4'
+                    src="/teaser.mp4"
                     onEnded={() => {
                       setIsTransitioning(true)
                       setTimeout(() => {
@@ -113,15 +127,21 @@ export const Hero = () => {
                     }}
                   />
 
-                  {/* Transition overlay */}
-                  <div
-                    className={`pointer-events-none absolute inset-0 z-10 bg-black transition-opacity duration-500 ${isTransitioning ? 'opacity-100' : 'opacity-0'}`}
-                  />
+                  <AnimatePresence>
+                    {isTransitioning && (
+                      <motion.div
+                        className="pointer-events-none absolute inset-0 z-10 bg-black"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                      />
+                    )}
+                  </AnimatePresence>
 
-                  {/* Play button with rotating border */}
                   {!isVideoPlaying && (
-                    <button
-                      className={`group absolute inset-0 flex cursor-pointer items-center justify-center transition-all duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
+                    <motion.button
+                      className="group absolute inset-0 flex cursor-pointer items-center justify-center"
                       type="button"
                       aria-label="Lancer la vidéo de présentation"
                       onClick={() => {
@@ -134,76 +154,67 @@ export const Hero = () => {
                           setTimeout(() => setIsTransitioning(false), 300)
                         }, 300)
                       }}
+                      initial={{ opacity: 1 }}
+                      animate={{ opacity: isTransitioning ? 0 : 1 }}
+                      transition={{ duration: 0.5 }}
                     >
-                      {/* Subtle ping effect */}
                       <span className="animate-ping-slow absolute h-10 w-10 rounded-full border border-white/30"></span>
-
-                      {/* Play button */}
-                      <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-white/40 bg-black/20 backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-black/70">
+                      <motion.span
+                        className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-white/40 bg-black/20 backdrop-blur-sm"
+                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(0,0,0,0.7)' }}
+                        whileTap={{ scale: 0.95 }}
+                      >
                         <Play className="ml-0.5 h-5 w-5 fill-white/50 text-white/50" />
-                      </span>
-                    </button>
+                      </motion.span>
+                    </motion.button>
                   )}
                 </div>
 
-                {/*  techno logo - hidden during video playback */}
                 {!isVideoPlaying && (
                   <div className="absolute bottom-6 left-8 z-20">
                     <FadeIn delay={600}>
                       <div className="flex items-center gap-4">
-                        {/* React */}
-                        <div className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130">
-                          <SiReact className="h-full w-full text-white/80" />
-                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
-                            React.js
-                          </span>
-                        </div>
-                        {/* Symfony */}
-                        <div className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130">
-                          <SiSymfony className="h-full w-full text-white/80" />
-                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
-                            Symfony
-                          </span>
-                        </div>
-                        {/* SQL */}
-                        <div className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130">
-                          <PiFileSqlLight className="h-full w-full text-white/80" />
-                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
-                            SQL
-                          </span>
-                        </div>
-                        {/* WordPress */}
-                        <div className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130">
-                          <SiWordpress className="h-full w-full text-white/80" />
-                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
-                            WordPress
-                          </span>
-                        </div>
-                        {/* WordPress */}
-                        <div className="group/tooltip relative flex h-6 w-6 items-center justify-center transition-all duration-300 hover:scale-130">
-                          <SiClaude className="h-full w-full text-white/80" />
-                          <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
-                            Claude code
-                          </span>
-                        </div>
+                        {[
+                          { Icon: SiReact, label: 'React.js' },
+                          { Icon: SiSymfony, label: 'Symfony' },
+                          { Icon: PiFileSqlLight, label: 'SQL' },
+                          { Icon: SiWordpress, label: 'WordPress' },
+                          { Icon: SiClaude, label: 'Claude code' },
+                        ].map((item) => {
+                          const { Icon, label } = item
+                          return (
+                          <motion.div
+                            key={label}
+                            className="group/tooltip relative flex h-6 w-6 items-center justify-center"
+                            whileHover={{ scale: 1.3 }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                          >
+                            <Icon className="h-full w-full text-white/80" />
+                            <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                              {label}
+                            </span>
+                          </motion.div>
+                          )
+                        })}
                       </div>
                     </FadeIn>
                   </div>
                 )}
               </div>
-            </div>
+            </motion.div>
           </FadeIn>
         </div>
       </div>
 
-      {/*  Scroll indicator */}
       <FadeIn delay={4000}>
-        <button
+        <motion.button
           onClick={() => scrollToSection('about')}
-          className="absolute bottom-8 left-1/2 hidden translate-x-1/2 animate-bounce md:block"
+          className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 md:block"
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
           <ChevronDown className="text-green h-8 w-8" />
-        </button>
+        </motion.button>
       </FadeIn>
     </section>
   )

@@ -3,9 +3,12 @@ import { skills } from '@/data/skills'
 import * as SiIcons from 'react-icons/si'
 import { Sparkles, Code2 } from 'lucide-react'
 import FadeIn from '@/components/animations/FadeIn'
+import { FadeInStagger, FadeInStaggerItem } from '@/components/animations/FadeIn'
+import GlowCard from '@/components/animations/GlowCard'
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'motion/react'
 
 export const Skills = () => {
-  // Categorize skills
   const SkillCategories = {
     Frontend: [
       skills.find((skill) => skill.name === 'React.js'),
@@ -62,7 +65,6 @@ export const Skills = () => {
     ].filter(Boolean),
   }
 
-  // Group skills by level within a category
   const groupByLevel = (categorySkills) => {
     const levels = ['Expert', 'Avancé', 'Intermédiaire']
     return levels
@@ -73,7 +75,6 @@ export const Skills = () => {
       .filter((group) => group.skills.length > 0)
   }
 
-  // Get badge styles by level
   const getBadgeStyles = (level) => {
     const styles = {
       Expert: 'border-emerald-500/30 text-emerald-500 bg-emerald-600/10',
@@ -83,7 +84,6 @@ export const Skills = () => {
     return styles[level] || styles.Intermédiaire
   }
 
-  // Get level label styles
   const getLevelLabelStyles = (level) => {
     const styles = {
       Expert: 'text-emerald-400',
@@ -95,7 +95,6 @@ export const Skills = () => {
 
   return (
     <section id="skills" className="relative overflow-hidden py-24">
-      {/* Animated background gradient */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="bg-primary/10 absolute top-1/4 left-0 h-96 w-96 rounded-full opacity-50 blur-3xl"></div>
         <div className="bg-primary/10 absolute right-0 bottom-1/4 h-96 w-96 rounded-full opacity-50 blur-3xl"></div>
@@ -117,55 +116,56 @@ export const Skills = () => {
           </div>
         </FadeIn>
 
-        {/* Skills grid by category */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <FadeInStagger
+          staggerDelay={0.08}
+          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+        >
           {Object.entries(SkillCategories).map(
-            ([category, categorySkills], categoryIndex) => (
-              <FadeIn key={category} delay={categoryIndex * 100} className="h-full">
-                <div className="group relative h-full">
-                  <div className="from-primary/10 to-primary/5 absolute inset-0 rounded-2xl bg-linear-to-br opacity-10 blur-xl transition-opacity duration-300 group-hover:opacity-50"></div>
-                  <div className="hover:border-primary/35 relative h-full rounded-2xl border border-primary/25 bg-white/2 p-5 transition-all duration-300">
-                  {/* Category header */}
-                  <div className="mb-4 flex items-center gap-3 border-b border-white/10 pb-3">
-                    <div className="h-1 w-6 rounded-full bg-primary/50"></div>
-                    <h3 className="text-xl font-medium text-white uppercase">{category}</h3>
-                  </div>
-
-                  {/* Skills grouped by level */}
-                  <div className="space-y-4">
-                    {groupByLevel(categorySkills).map(({ level, skills: levelSkills }) => (
-                      <div key={level}>
-                        {/* Level row */}
-                        <div className="flex items-start justify-between gap-4">
-                          {/* Skills badges */}
-                          <div className="flex flex-wrap gap-1.5">
-                            {levelSkills.map((skill) => {
-                              const IconComponent = SiIcons[skill.icon] || Code2
-                              return (
-                                <div
-                                  key={skill.id}
-                                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition-all duration-200 ${getBadgeStyles(level)}`}
-                                >
-                                  <IconComponent className="h-4 w-4" />
-                                  <span className='uppercase text-[11px]'>{skill.name}</span>
-                                </div>
-                              )
-                            })}
-                          </div>
-                          {/* Level label */}
-                          <span className={`shrink-0 text-xs font-medium ${getLevelLabelStyles(level)}`}>
-                            {level}
-                          </span>
-                        </div>
+            ([category, categorySkills]) => (
+              <FadeInStaggerItem key={category} className="h-full">
+                <GlowCard>
+                  <div className="group relative h-full">
+                    <div className="from-primary/10 to-primary/5 absolute inset-0 rounded-2xl bg-linear-to-br opacity-10 blur-xl transition-opacity duration-300 group-hover:opacity-50"></div>
+                    <div className="hover:border-primary/35 relative h-full rounded-2xl border border-primary/25 bg-white/2 p-5 transition-all duration-300">
+                      <div className="mb-4 flex items-center gap-3 border-b border-white/10 pb-3">
+                        <div className="h-1 w-6 rounded-full bg-primary/50"></div>
+                        <h3 className="text-xl font-medium text-white uppercase">{category}</h3>
                       </div>
-                    ))}
+
+                      <div className="space-y-4">
+                        {groupByLevel(categorySkills).map(({ level, skills: levelSkills }) => (
+                          <div key={level}>
+                            <div className="flex items-start justify-between gap-4">
+                              <div className="flex flex-wrap gap-1.5">
+                                {levelSkills.map((skill) => {
+                                  const IconComponent = SiIcons[skill.icon] || Code2
+                                  return (
+                                    <motion.div
+                                      key={skill.id}
+                                      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs ${getBadgeStyles(level)}`}
+                                      whileHover={{ scale: 1.1 }}
+                                      transition={{ type: 'spring', stiffness: 400 }}
+                                    >
+                                      <IconComponent className="h-4 w-4" />
+                                      <span className="text-[11px] uppercase">{skill.name}</span>
+                                    </motion.div>
+                                  )
+                                })}
+                              </div>
+                              <span className={`shrink-0 text-xs font-medium ${getLevelLabelStyles(level)}`}>
+                                {level}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  </div>
-                </div>
-              </FadeIn>
+                </GlowCard>
+              </FadeInStaggerItem>
             ),
           )}
-        </div>
+        </FadeInStagger>
       </div>
     </section>
   )

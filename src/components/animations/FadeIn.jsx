@@ -1,44 +1,103 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useRef } from 'react'
+// eslint-disable-next-line no-unused-vars
+import { motion, useInView } from 'motion/react'
 
-const FadeIn = ({ children, delay = 0, duration = 500, threshold = 0.1 }) => {
-  const [isVisible, setIsVisible] = useState(false)
-  const elementRef = useRef(null)
+const FadeIn = ({
+  children,
+  delay = 0,
+  duration = 0.5,
+  threshold = 0.1,
+  className = '',
+  direction = 'up',
+  distance = 20,
+  once = true,
+}) => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, {
+    once,
+    margin: '0px 0px -50px 0px',
+    amount: threshold,
+  })
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        //Trigger when element is visible
-        if (entry.isIntersecting && !isVisible) {
-          setIsVisible(true)
-        }
-      },
-      // Trigger slightly before the element is in view
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' },
-    )
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current)
-    }
-    return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current)
+  const directionStyle = isInView
+    ? {}
+    : {
+        transform: `translate${direction === 'left' || direction === 'right' ? 'X' : 'Y'}(${
+          direction === 'down' || direction === 'right' ? '-' : ''
+        }${distance}px)`,
       }
-    }
-  }, [isVisible, threshold])
 
   return (
-    <div
-      ref={elementRef}
-      className={isVisible ? 'animate-fade-in' : 'opacity-0'}
-      style={{
-        animationDelay: isVisible ? `${delay}ms` : '0ms',
-        animationDuration: `${duration}ms`,
-        animationFillMode: 'both',
+    <motion.div
+      ref={ref}
+      className={className}
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{
+        duration,
+        delay: delay / 1000,
+        ease: [0.25, 0.46, 0.45, 0.94],
       }}
+      style={directionStyle}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+}
+
+export const FadeInStagger = ({
+  children,
+  staggerDelay = 0.08,
+  threshold = 0.1,
+  className = '',
+  once = true,
+}) => {
+  const ref = useRef(null)
+  const isInView = useInView(ref, {
+    once,
+    margin: '0px 0px -50px 0px',
+    amount: threshold,
+  })
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: staggerDelay,
+        delayChildren: 0.05,
+      },
+    },
+  }
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+export const FadeInStaggerItem = ({ children, className = '' }) => (
+  <motion.div className={className} variants={itemVariants}>
+    {children}
+  </motion.div>
+)
 
 export default FadeIn
