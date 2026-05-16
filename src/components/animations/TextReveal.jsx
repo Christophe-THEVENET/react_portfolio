@@ -78,7 +78,6 @@ const TextReveal = ({
               key={`${segIdx}-${idx}`}
               variants={letterVariants}
               className={`inline-block ${segment.letterClass || ''}`}
-              style={{ whiteSpace: letter === ' ' ? 'pre' : undefined }}
             >
               {letter === ' ' ? '\u00A0' : letter}
             </motion.span>

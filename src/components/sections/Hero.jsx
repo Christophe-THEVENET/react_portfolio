@@ -37,10 +37,17 @@ export const Hero = () => {
 
             <FadeIn delay={100}>
               <h1 className="mb-6 text-2xl leading-tight font-normal text-white max-[1030px]:text-[50px] max-[886px]:text-[47px] max-[839px]:text-[45px] max-[803px]:text-[43px] lg:text-[55px] xl:text-[65px] 2xl:text-7xl">
-                <TextReveal staggerDelay={0.025}>
-                  Christophe{' '}
+                <span className="md:hidden">
+                  Christophe
+                  <br />
                   <span className="text-primary">THEVENET</span>
-                </TextReveal>
+                </span>
+                <span className="hidden md:inline">
+                  <TextReveal staggerDelay={0.025}>
+                    Christophe{' '}
+                    <span className="text-primary">THEVENET</span>
+                  </TextReveal>
+                </span>
               </h1>
             </FadeIn>
 

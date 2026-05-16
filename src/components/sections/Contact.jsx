@@ -155,7 +155,7 @@ export const Contact = () => {
       </div>
 
       <FadeIn delay={0}>
-        <div className="mb-12 text-center">
+        <div className="mb-12 px-4 text-center">
           <div className="bg-primary/10 border-primary/30 mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2">
             <Mail className="text-primary h-4 w-4" />
             <span className="text-primary text-sm font-medium">Me contacter</span>
