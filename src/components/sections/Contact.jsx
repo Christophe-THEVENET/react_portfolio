@@ -176,7 +176,7 @@ export const Contact = () => {
           {/* Left Column - Form */}
           <ScrollReveal index={0} total={2} containerRef={contactRef} direction="left">
             <GlowCard>
-            <div className="border-primary/20 hover:border-primary/35 from-primary/15 via-primary/5 hover:to-primary/3 to-primary/2 hover:from-primary/17 hover:via-primary/7 flex h-full flex-col rounded-2xl border bg-linear-to-br p-8 transition-colors duration-300">
+            <div className="border-primary/20 hover:border-primary/35 from-primary/15 via-primary/5 hover:to-primary/3 to-primary/2 hover:from-primary/17 hover:via-primary/7 flex flex-col rounded-2xl border bg-linear-to-br p-8 transition-colors duration-300">
               <form
                 name="contact"
                 method="POST"
@@ -373,7 +373,7 @@ export const Contact = () => {
           </ScrollReveal>
 
           {/* Right Column */}
-          <div className="flex flex-col justify-end">
+          <div className="flex flex-col">
               <div className="mb-5 space-y-3">
                 {contactCards.map((card, index) => (
                   <ScrollReveal
@@ -423,11 +423,11 @@ export const Contact = () => {
                       >
                         <div className="from-primary/30 to-primary/15 absolute inset-0 rounded-xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover/social:opacity-95" />
                         <motion.div
-                          className="hover:border-primary/30 relative flex h-16 w-16 items-center justify-center rounded-xl border border-white/10 bg-white/5"
+                          className="hover:border-primary/30 relative flex h-13 w-13 items-center justify-center rounded-xl border border-white/10 bg-white/5"
                           whileHover={{ scale: 1.15, rotate: 5 }}
                           transition={{ type: 'spring', stiffness: 300 }}
                         >
-                          <IconComponent className="group-hover/social:text-primary h-8 w-8 text-white/70 transition-colors duration-300" />
+                          <IconComponent className="group-hover/social:text-primary h-6 w-6 text-white/70 transition-colors duration-300" />
                         </motion.div>
                       </motion.a>
                     )
