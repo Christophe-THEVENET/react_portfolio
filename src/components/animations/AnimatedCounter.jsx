@@ -6,6 +6,7 @@ const AnimatedCounter = ({
   value,
   className = '',
   duration = 2,
+  delay = 0,
   once = true,
 }) => {
   const ref = useRef(null)
@@ -25,17 +26,20 @@ const AnimatedCounter = ({
       hasAnimated.current = true
       const { number, suffix } = parseValue(value)
 
-      const controls = animate(0, number, {
-        duration,
-        ease: [0.25, 0.46, 0.45, 0.94],
-        onUpdate: (latest) => {
-          setDisplayValue(`${Math.round(latest)}${suffix}`)
-        },
-      })
+      const timer = setTimeout(() => {
+        const controls = animate(0, number, {
+          duration,
+          ease: [0.25, 0.46, 0.45, 0.94],
+          onUpdate: (latest) => {
+            setDisplayValue(`${Math.round(latest)}${suffix}`)
+          },
+        })
+        return () => controls.stop()
+      }, delay)
 
-      return () => controls.stop()
+      return () => clearTimeout(timer)
     }
-  }, [isInView, value, duration])
+  }, [isInView, value, duration, delay])
 
   return (
     <motion.div

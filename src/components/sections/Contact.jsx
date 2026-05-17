@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import {
   Mail,
   MapPin,
@@ -14,14 +14,15 @@ import {
 import { PERSONAL_INFO, SOCIAL_LINKS } from '@/utils/constants'
 import { FiGithub } from 'react-icons/fi'
 import FadeIn from '@/components/animations/FadeIn'
-import { FadeInStagger, FadeInStaggerItem } from '@/components/animations/FadeIn'
 import GlowCard from '@/components/animations/GlowCard'
+import ScrollReveal from '@/components/animations/ScrollReveal'
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'motion/react'
 import { FaLinkedinIn, FaFacebookF, FaInstagram } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 
 export const Contact = () => {
+  const contactRef = useRef(null)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -171,9 +172,9 @@ export const Contact = () => {
       </FadeIn>
 
       <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-          {/* Left Column - Form with stagger reveal */}
-          <FadeIn delay={100} className="h-full">
+        <div ref={contactRef} className="grid grid-cols-1 gap-12 md:grid-cols-2">
+          {/* Left Column - Form */}
+          <ScrollReveal index={0} total={2} containerRef={contactRef} direction="left">
             <div className="border-primary/20 hover:border-primary/35 from-primary/15 via-primary/5 hover:to-primary/3 to-primary/2 hover:from-primary/17 hover:via-primary/7 flex h-full flex-col rounded-2xl border bg-linear-to-br p-8 transition-colors duration-300">
               <form
                 name="contact"
@@ -192,9 +193,9 @@ export const Contact = () => {
                   </label>
                 </div>
 
-                <FadeInStagger staggerDelay={0.1} className="flex flex-col gap-8">
+                <div className="flex flex-col gap-8">
                   {/* Name field */}
-                  <FadeInStaggerItem>
+                  <ScrollReveal index={0} total={4} containerRef={contactRef} direction="right">
                     <div className="space-y-2">
                       <label htmlFor="name" className="block text-sm font-medium text-white/80">
                         Nom
@@ -223,10 +224,10 @@ export const Contact = () => {
                         )}
                       </AnimatePresence>
                     </div>
-                  </FadeInStaggerItem>
+                  </ScrollReveal>
 
                   {/* Email field */}
-                  <FadeInStaggerItem>
+                  <ScrollReveal index={1} total={4} containerRef={contactRef} direction="right">
                     <div className="space-y-2">
                       <label htmlFor="email" className="block text-sm font-medium text-white/80">
                         Email
@@ -255,10 +256,10 @@ export const Contact = () => {
                         )}
                       </AnimatePresence>
                     </div>
-                  </FadeInStaggerItem>
+                  </ScrollReveal>
 
                   {/* Message field */}
-                  <FadeInStaggerItem>
+                  <ScrollReveal index={2} total={4} containerRef={contactRef} direction="right">
                     <div className="space-y-2">
                       <label htmlFor="message" className="block text-sm font-medium text-white/80">
                         Message
@@ -287,11 +288,11 @@ export const Contact = () => {
                         )}
                       </AnimatePresence>
                     </div>
-                  </FadeInStaggerItem>
-                </FadeInStagger>
+                  </ScrollReveal>
 
                   {/* Submit button */}
-                  <motion.button
+                  <ScrollReveal index={3} total={4} containerRef={contactRef} direction="right">
+                    <motion.button
                     type="submit"
                     disabled={isSubmitting || !isFormValid}
                     className="from-primary/20 to-primary mt-auto flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-linear-to-r px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
@@ -328,6 +329,8 @@ export const Contact = () => {
                         )}
                       </AnimatePresence>
                     </motion.button>
+                  </ScrollReveal>
+                </div>
 
                   {/* Success notification */}
                   <AnimatePresence>
@@ -365,14 +368,19 @@ export const Contact = () => {
                   </AnimatePresence>
               </form>
             </div>
-          </FadeIn>
+          </ScrollReveal>
 
-          {/* Right Column - Info cards avec stagger */}
-          <FadeIn delay={200} className="h-full">
-            <div className="flex flex-col justify-center">
-              <FadeInStagger staggerDelay={0.06} className="mb-5 space-y-3">
+          {/* Right Column */}
+          <div className="flex flex-col justify-center">
+              <div className="mb-5 space-y-3">
                 {contactCards.map((card, index) => (
-                  <FadeInStaggerItem key={index}>
+                  <ScrollReveal
+                    key={index}
+                    index={index}
+                    total={contactCards.length}
+                    containerRef={contactRef}
+                    direction="right"
+                  >
                     <GlowCard>
                       <div
                         className="group from-primary/0 via-primary/0.5 to-primary/5 border-primary/20 flex items-center gap-4 rounded-xl border bg-linear-to-l p-2.5"
@@ -386,9 +394,9 @@ export const Contact = () => {
                         </div>
                       </div>
                     </GlowCard>
-                  </FadeInStaggerItem>
+                  </ScrollReveal>
                 ))}
-              </FadeInStagger>
+              </div>
 
               <div className="mt-6">
                 <div className="flex gap-3">
@@ -408,10 +416,9 @@ export const Contact = () => {
                       </motion.a>
                     )
                   })}
-                </div>
-              </div>
             </div>
-          </FadeIn>
+          </div>
+        </div>
         </div>
       </div>
     </section>

@@ -1,14 +1,15 @@
-import { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { services } from '@/data/services'
 import * as Icons from 'lucide-react'
 import { Wrench } from 'lucide-react'
 import FadeIn from '@/components/animations/FadeIn'
-import { FadeInStagger, FadeInStaggerItem } from '@/components/animations/FadeIn'
 import GlowCard from '@/components/animations/GlowCard'
+import ScrollReveal from '@/components/animations/ScrollReveal'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'motion/react'
 
 export const Services = () => {
+  const gridRef = useRef(null)
   const [activeCard, setActiveCard] = useState(null)
 
   return (
@@ -48,15 +49,21 @@ export const Services = () => {
           </div>
         </FadeIn>
 
-        <FadeInStagger
-          staggerDelay={0.12}
+        <div
+          ref={gridRef}
           className="mx-auto grid auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2"
         >
-          {services.map((service) => {
+          {services.map((service, index) => {
             const IconComponent = Icons[service.icon] || Icons['Box']
             const isActive = activeCard === service.id
             return (
-              <FadeInStaggerItem key={service.id} className="h-full">
+              <ScrollReveal
+                key={service.id}
+                index={index}
+                total={services.length}
+                containerRef={gridRef}
+                direction={index % 2 === 0 ? 'left' : 'right'}
+              >
                 <GlowCard>
                   <div className="group relative h-full">
                     <div className="from-primary/10 to-primary/5 absolute inset-0 rounded-2xl bg-linear-to-br opacity-10 blur-xl transition-opacity duration-300 group-hover:opacity-50" />
@@ -165,10 +172,10 @@ export const Services = () => {
                     </div>
                   </div>
                 </GlowCard>
-              </FadeInStaggerItem>
+              </ScrollReveal>
             )
           })}
-        </FadeInStagger>
+        </div>
       </div>
     </section>
   )

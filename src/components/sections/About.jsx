@@ -7,8 +7,8 @@ import {
 } from 'lucide-react'
 import { PERSONAL_INFO, ABOUT_STATS, SOCIAL_LINKS } from '@/utils/constants.js'
 import FadeIn from '@/components/animations/FadeIn.jsx'
-import { FadeInStagger, FadeInStaggerItem } from '@/components/animations/FadeIn'
 import GlowCard from '@/components/animations/GlowCard'
+import ScrollReveal from '@/components/animations/ScrollReveal'
 // eslint-disable-next-line no-unused-vars
 import { motion, useScroll, useTransform } from 'motion/react'
 import { IoSchool } from 'react-icons/io5'
@@ -48,21 +48,38 @@ const diplomes = [
   },
 ]
 
+const ScrollRevealCard = ({ children, index, total, containerRef }) => {
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start 80%', 'start 30%'],
+  })
+
+  const start = index / total * 0.5
+  const end = Math.min(start + 0.4, 1)
+  const x = useTransform(scrollYProgress, [start, end], [120, 0])
+  const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
+
+  return (
+    <motion.div style={{ x, opacity }}>
+      {children}
+    </motion.div>
+  )
+}
+
 export const About = () => {
   const sectionRef = useRef(null)
+  const diplomesRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
   })
 
   const textY = useTransform(scrollYProgress, [0, 1], [60, -60])
-  const diplomesY = useTransform(scrollYProgress, [0, 1], [100, -80])
 
   return (
     <section id="about" ref={sectionRef} className="relative overflow-hidden py-24">
       <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
-          {/* Left Column - Parallax */}
           <motion.div className="relative flex flex-col gap-12" style={{ y: textY }}>
             <div className="flex flex-col gap-8">
               <FadeIn delay={60}>
@@ -96,24 +113,25 @@ export const About = () => {
             </div>
           </motion.div>
 
-          {/* Right Column - Parallax opposite */}
-          <motion.div className="relative" style={{ y: diplomesY }}>
+          <div ref={diplomesRef}>
             <div className="flex flex-col gap-6 lg:mt-12">
               <h2 className="mb-2 text-right text-2xl leading-tight font-normal text-white lg:text-2xl">
                 Diplômes Obtenus
               </h2>
 
-              <FadeInStagger
-                staggerDelay={0.12}
-                className="flex flex-col gap-4"
-              >
-                {diplomes.map((diplome) => {
+              <div className="flex flex-col gap-4">
+                {diplomes.map((diplome, index) => {
                   const IconComp = diplome.icon
                   return (
-                    <FadeInStaggerItem key={diplome.year}>
+                    <ScrollReveal
+                      key={diplome.year}
+                      index={index}
+                      total={diplomes.length}
+                      containerRef={diplomesRef}
+                    >
                       <GlowCard>
                         <div className="group relative">
-                          <div className="from-primary/10 to-primary/5 absolute inset-0 bg-linear-to-br opacity-10 blur-xl transition-opacity duration-300 group-hover:opacity-75"></div>
+                          <div className="from-primary/10 to-primary/5 absolute inset-0 bg-linear-to-br opacity-10 blur-xl transition-opacity duration-300 group-hover:opacity-75" />
                           <div className="hover:border-primary/30 bg-primary/5 relative rounded-2xl border border-white/10 px-6 py-3 transition-all duration-300">
                             <div className="flex items-center gap-4">
                               <div className="bg-primary/10 flex flex-col items-center rounded-xl px-4 py-3">
@@ -122,7 +140,6 @@ export const About = () => {
                                   {diplome.year}
                                 </span>
                               </div>
-
                               <div className="flex-1">
                                 <h3 className="mb-2 text-lg font-semibold break-words text-white">
                                   {diplome.title}
@@ -131,7 +148,6 @@ export const About = () => {
                                   {diplome.desc}
                                 </p>
                               </div>
-
                               <a
                                 href={diplome.link}
                                 target="_blank"
@@ -152,15 +168,14 @@ export const About = () => {
                           </div>
                         </div>
                       </GlowCard>
-                    </FadeInStaggerItem>
+                    </ScrollReveal>
                   )
                 })}
-              </FadeInStagger>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Stats & Social */}
         <div className="mt-16 grid grid-cols-1 items-end gap-12 lg:mt-6 lg:grid-cols-2 lg:gap-0">
           <FadeIn delay={200}>
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
