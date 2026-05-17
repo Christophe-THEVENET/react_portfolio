@@ -51,7 +51,7 @@ export const Services = () => {
 
         <div
           ref={gridRef}
-          className="mx-auto grid auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2"
+          className="mx-auto grid auto-rows-fr grid-cols-1 gap-x-6 gap-y-2 md:grid-cols-2"
         >
           {services.map((service, index) => {
             const IconComponent = Icons[service.icon] || Icons['Box']

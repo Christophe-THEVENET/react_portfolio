@@ -374,7 +374,7 @@ export const Contact = () => {
 
           {/* Right Column */}
           <div className="flex flex-col">
-              <div className="mb-5 space-y-3">
+              <div className="mb-5 space-y-4">
                 {contactCards.map((card, index) => (
                   <ScrollReveal
                     key={index}
