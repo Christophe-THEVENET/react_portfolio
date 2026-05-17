@@ -175,6 +175,7 @@ export const Contact = () => {
         <div ref={contactRef} className="grid grid-cols-1 gap-12 md:grid-cols-2">
           {/* Left Column - Form */}
           <ScrollReveal index={0} total={2} containerRef={contactRef} direction="left">
+            <GlowCard>
             <div className="border-primary/20 hover:border-primary/35 from-primary/15 via-primary/5 hover:to-primary/3 to-primary/2 hover:from-primary/17 hover:via-primary/7 flex h-full flex-col rounded-2xl border bg-linear-to-br p-8 transition-colors duration-300">
               <form
                 name="contact"
@@ -368,10 +369,11 @@ export const Contact = () => {
                   </AnimatePresence>
               </form>
             </div>
+            </GlowCard>
           </ScrollReveal>
 
           {/* Right Column */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-end">
               <div className="mb-5 space-y-3">
                 {contactCards.map((card, index) => (
                   <ScrollReveal
@@ -398,7 +400,7 @@ export const Contact = () => {
                 ))}
               </div>
 
-              <div className="mt-6">
+              <div className="mt-auto">
                 <div className="flex gap-3">
                   {SOCIAL_LINKS.map((social, index) => {
                     const IconComponent = socialIcons[social.name.toLowerCase()] || FiGithub
@@ -408,11 +410,25 @@ export const Contact = () => {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/icon hover:border-primary/50 hover:bg-primary/10 flex h-13 w-15 items-center justify-center rounded-lg border border-white/10 bg-black/20"
-                        whileHover={{ scale: 1.15, rotate: 3 }}
-                        transition={{ type: 'spring', stiffness: 300 }}
+                        className="group/social relative"
+                        style={{ '--social-color': social.color }}
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.4,
+                          delay: index * 0.1,
+                          ease: 'easeOut',
+                        }}
                       >
-                        <IconComponent className="group-hover/icon:text-primary h-6 w-6 text-white/70 transition-colors duration-300" />
+                        <div className="from-primary/30 to-primary/15 absolute inset-0 rounded-xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover/social:opacity-95" />
+                        <motion.div
+                          className="hover:border-primary/30 relative flex h-16 w-16 items-center justify-center rounded-xl border border-white/10 bg-white/5"
+                          whileHover={{ scale: 1.15, rotate: 5 }}
+                          transition={{ type: 'spring', stiffness: 300 }}
+                        >
+                          <IconComponent className="group-hover/social:text-primary h-8 w-8 text-white/70 transition-colors duration-300" />
+                        </motion.div>
                       </motion.a>
                     )
                   })}

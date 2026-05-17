@@ -148,22 +148,20 @@ export const About = () => {
                                   {diplome.desc}
                                 </p>
                               </div>
-                              <a
+                              <motion.a
                                 href={diplome.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="group/tooltip relative flex h-6 w-6 items-center justify-center"
+                                whileHover={{ scale: 1.3 }}
+                                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
                               >
-                                <motion.div
-                                  whileHover={{ scale: 1.3 }}
-                                  transition={{ type: 'spring', stiffness: 400 }}
-                                >
-                                  <ExternalLink className="h-full w-full text-white/80" />
-                                </motion.div>
-                                <span className="pointer-events-none absolute right-full mr-2 -translate-y-6 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                                <ExternalLink className="h-full w-full text-white/80" />
+                                <span className="pointer-events-none absolute -top-10 right-0 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                                   {diplome.label}
+                                  <span className="absolute -bottom-[5px] right-2 border-x-[5px] border-t-[5px] border-x-transparent border-t-white/90" />
                                 </span>
-                              </a>
+                              </motion.a>
                             </div>
                           </div>
                         </div>
@@ -209,13 +207,21 @@ export const About = () => {
                 {SOCIAL_LINKS.map((social, index) => {
                   const IconComponent = social.icon
                   return (
-                    <a
+                    <motion.a
                       key={index}
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group/social relative"
                       style={{ '--social-color': social.color }}
+                      initial={{ opacity: 0, x: 30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.4,
+                        delay: index * 0.1,
+                        ease: 'easeOut',
+                      }}
                     >
                       <div className="from-primary/30 to-primary/15 absolute inset-0 rounded-xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover/social:opacity-95"></div>
                       <motion.div
@@ -225,7 +231,7 @@ export const About = () => {
                       >
                         <IconComponent className="group-hover/social:text-primary h-8 w-8 text-white/70 transition-colors duration-300" />
                       </motion.div>
-                    </a>
+                    </motion.a>
                   )
                 })}
               </div>

@@ -70,8 +70,13 @@ export const Navbar = () => {
             <motion.button
               onClick={() => handleNavClick('contact')}
               className="btn-shimmer relative cursor-pointer rounded-[17px] bg-white/75 px-3 py-1.5 text-base font-medium text-[#212121]"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{
+                scale: 1.06,
+
+                boxShadow: '0 8px 25px rgba(47,142,142,0.3)',
+              }}
               whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 15 }}
               style={{ originX: 0.5, originY: 0.5 }}
             >
               Contactez moi
@@ -110,8 +115,13 @@ export const Navbar = () => {
             <motion.button
               onClick={() => handleNavClick('contact')}
               className="btn-shimmer mt-10 w-full cursor-pointer rounded-[17px] bg-white/90 px-5 py-2 text-base font-medium text-[#212121]"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{
+                scale: 1.06,
+
+                boxShadow: '0 8px 25px rgba(47,142,142,0.3)',
+              }}
               whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 15 }}
             >
               Contactez moi
             </motion.button>
