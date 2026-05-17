@@ -84,6 +84,7 @@ export const Hero = () => {
                       value={stat.value}
                       className="text-primary mb-1 font-mono text-2xl font-normal"
                       duration={2.5}
+                      delay={900}
                     />
                     <div className="text-[13px] leading-snug text-white">
                       {stat.label}
@@ -98,9 +99,23 @@ export const Hero = () => {
           <FadeIn delay={600}>
             <motion.div
               className="relative mt-10 w-full md:mt-0 md:flex md:justify-end"
-              initial={{ clipPath: 'circle(0% at 100% 100%)' }}
-              animate={{ clipPath: 'circle(150% at 100% 100%)' }}
-              transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.4 }}
+              initial={{
+                clipPath: 'circle(0% at 100% 100%)',
+                scale: 0.85,
+                filter: 'blur(6px)',
+              }}
+              animate={{
+                clipPath: 'circle(150% at 100% 100%)',
+                scale: 1,
+                filter: 'blur(0px)',
+              }}
+              transition={{
+                type: 'spring',
+                damping: 14,
+                stiffness: 70,
+                delay: 0.5,
+                filter: { duration: 0.8, delay: 0.5 },
+              }}
             >
               <div className="group relative aspect-4/5 w-full max-w-[400px] sm:max-w-[400px] md:max-w-[420px] lg:max-w-[440px]">
                 <div className="absolute inset-0 overflow-hidden rounded-2xl">

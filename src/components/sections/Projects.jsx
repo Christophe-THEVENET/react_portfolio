@@ -158,7 +158,8 @@ export const Projects = () => {
             >
               <FadeInStagger
                 key={activeCategory}
-                staggerDelay={0.06}
+                staggerDelay={0.1}
+                delayChildren={0.2}
                 className="flex gap-6 pb-4"
                 once={true}
               >

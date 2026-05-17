@@ -46,7 +46,7 @@ const FadeIn = ({
 }
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
@@ -62,6 +62,7 @@ export const FadeInStagger = ({
   staggerDelay = 0.08,
   threshold = 0.1,
   className = '',
+  delayChildren = 0.05,
   once = true,
 }) => {
   const ref = useRef(null)
@@ -76,7 +77,7 @@ export const FadeInStagger = ({
     visible: {
       transition: {
         staggerChildren: staggerDelay,
-        delayChildren: 0.05,
+        delayChildren,
       },
     },
   }
