@@ -7,11 +7,14 @@ const GlowCard = ({ children, className = '', glowColor = 'rgba(71,179,177,0.12)
 
   return (
     <motion.div
-      className={`group relative rounded-2xl ${className}`}
+      className={`group relative ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ scale: 1.01 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      whileHover={{
+        scale: 1.01,
+        boxShadow: '0 4px 12px rgba(47,142,142,0.15)',
+      }}
+      transition={{ type: 'spring', stiffness: 400, damping: 15 }}
     >
       <motion.div
         className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-2xl opacity-0 transition-opacity duration-500"

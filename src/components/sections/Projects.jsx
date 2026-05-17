@@ -154,7 +154,7 @@ export const Projects = () => {
           <div className="relative">
             <div
               ref={scrollContainerRef}
-              className="hide-scrollbar snap-x snap-mandatory overflow-x-auto scroll-smooth"
+              className="hide-scrollbar snap-x snap-mandatory overflow-x-auto overflow-y-visible scroll-smooth py-4"
             >
               <FadeInStagger
                 key={activeCategory}

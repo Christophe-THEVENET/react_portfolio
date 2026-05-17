@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { ChevronDown, Star, Play, CodeXml } from 'lucide-react'
 import { SiReact, SiMysql, SiSymfony, SiWordpress, SiClaude } from 'react-icons/si'
 import { PERSONAL_INFO, STATS } from '@/utils/constants.js'
@@ -15,6 +15,43 @@ export const Hero = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const videoRef = useRef(null)
+  const turbulenceRef = useRef(null)
+  const displacementRef = useRef(null)
+
+  const animateLiquid = useCallback(() => {
+    const startDelay = 1100
+    const duration = 1800
+    const startFreq = 0.035
+    const startScale = 40
+
+    const timeout = setTimeout(() => {
+      const start = performance.now()
+      const step = (now) => {
+        const elapsed = now - start
+        const progress = Math.min(elapsed / duration, 1)
+        const eased = 1 - Math.pow(1 - progress, 3)
+
+        const freq = startFreq * (1 - eased)
+        const scale = startScale * (1 - eased)
+
+        if (turbulenceRef.current) {
+          turbulenceRef.current.setAttribute('baseFrequency', `${freq} ${freq * 1.5}`)
+        }
+        if (displacementRef.current) {
+          displacementRef.current.setAttribute('scale', scale)
+        }
+
+        if (progress < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+    }, startDelay)
+
+    return () => clearTimeout(timeout)
+  }, [])
+
+  useEffect(() => {
+    return animateLiquid()
+  }, [animateLiquid])
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
@@ -66,8 +103,13 @@ export const Hero = () => {
               <motion.button
                 className="btn-shimmer mb-12 cursor-pointer rounded-[17px] bg-white/75 px-3 py-1.5 text-base font-medium text-[#212121] transition-all duration-300"
                 onClick={() => scrollToSection('contact')}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{
+                  scale: 1.06,
+
+                  boxShadow: '0 8px 25px rgba(47,142,142,0.3)',
+                }}
                 whileTap={{ scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
               >
                 Besoin d'un site web ?
               </motion.button>
@@ -99,22 +141,12 @@ export const Hero = () => {
           <FadeIn delay={600}>
             <motion.div
               className="relative mt-10 w-full md:mt-0 md:flex md:justify-end"
-              initial={{
-                clipPath: 'circle(0% at 100% 100%)',
-                scale: 0.85,
-                filter: 'blur(6px)',
-              }}
-              animate={{
-                clipPath: 'circle(150% at 100% 100%)',
-                scale: 1,
-                filter: 'blur(0px)',
-              }}
+              style={{ filter: 'url(#liquid-distortion)' }}
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{
-                type: 'spring',
-                damping: 14,
-                stiffness: 70,
-                delay: 0.5,
-                filter: { duration: 0.8, delay: 0.5 },
+                opacity: { duration: 0.6, delay: 0.8, ease: 'easeOut' },
+                scale: { duration: 1.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] },
               }}
             >
               <div className="group relative aspect-4/5 w-full max-w-[400px] sm:max-w-[400px] md:max-w-[420px] lg:max-w-[440px]">
@@ -205,8 +237,9 @@ export const Hero = () => {
                             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
                           >
                             <Icon className="h-full w-full text-white/80" />
-                            <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
+                            <span className="pointer-events-none absolute -top-10 right-0 rounded bg-white/90 px-2 py-1 text-xs font-medium whitespace-nowrap text-black opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100">
                               {label}
+                              <span className="absolute -bottom-[5px] right-2 border-x-[5px] border-t-[5px] border-x-transparent border-t-white/90" />
                             </span>
                           </motion.div>
                           )
@@ -231,6 +264,29 @@ export const Hero = () => {
           <ChevronDown className="text-green h-8 w-8" />
         </motion.button>
       </FadeIn>
+
+      <svg className="absolute h-0 w-0" aria-hidden="true">
+        <defs>
+          <filter id="liquid-distortion">
+            <feTurbulence
+              ref={turbulenceRef}
+              type="fractalNoise"
+              baseFrequency="0.035 0.0525"
+              numOctaves="3"
+              seed="2"
+              result="turbulence"
+            />
+            <feDisplacementMap
+              ref={displacementRef}
+              in="SourceGraphic"
+              in2="turbulence"
+              scale="40"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+      </svg>
     </section>
   )
 }

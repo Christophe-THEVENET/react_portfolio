@@ -6,7 +6,7 @@ import FadeIn from '@/components/animations/FadeIn'
 import GlowCard from '@/components/animations/GlowCard'
 import ScrollReveal from '@/components/animations/ScrollReveal'
 // eslint-disable-next-line no-unused-vars
-import { motion } from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react'
 
 export const Services = () => {
   const gridRef = useRef(null)
@@ -124,12 +124,14 @@ export const Services = () => {
                         </div>
                       </div>
 
-                      <div
-                        className={`absolute inset-0 flex flex-col rounded-2xl border border-white/10 bg-zinc-900/98 p-6 transition-all duration-300 ${
-                          isActive
-                            ? 'translate-y-0 opacity-100'
-                            : 'translate-y-full opacity-0 pointer-events-none'
-                        }`}
+                      <AnimatePresence>
+                      {isActive && (
+                      <motion.div
+                        className="absolute inset-0 flex flex-col rounded-2xl border border-white/10 bg-zinc-900/98 p-6"
+                        initial={{ y: '100%', opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: '100%', opacity: 0 }}
+                        transition={{ type: 'spring', stiffness: 150, damping: 18 }}
                       >
                         <div className="mb-5 flex items-center gap-3 border-b border-white/10 pb-4">
                           <IconComponent className="h-6 w-6 text-primary" />
@@ -145,7 +147,7 @@ export const Services = () => {
                         </div>
 
                         <div className="relative flex-1 overflow-y-auto p-1">
-                          <div className="flex flex-wrap gap-x-2 gap-y-4">
+                          <div className="flex flex-wrap gap-x-1.5 gap-y-2">
                             {service.popup.skills.map((skill, i) => (
                               <motion.span
                                 key={i}
@@ -168,7 +170,9 @@ export const Services = () => {
                             Fermer
                           </motion.button>
                         </div>
-                      </div>
+                      </motion.div>
+                      )}
+                      </AnimatePresence>
                     </div>
                   </div>
                 </GlowCard>
