@@ -373,7 +373,7 @@ export const Contact = () => {
           </ScrollReveal>
 
           {/* Right Column */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-end">
               <div className="mb-5 space-y-3">
                 {contactCards.map((card, index) => (
                   <ScrollReveal
@@ -400,7 +400,7 @@ export const Contact = () => {
                 ))}
               </div>
 
-              <div className="mt-6">
+              <div className="mt-auto">
                 <div className="flex gap-3">
                   {SOCIAL_LINKS.map((social, index) => {
                     const IconComponent = socialIcons[social.name.toLowerCase()] || FiGithub
@@ -423,11 +423,11 @@ export const Contact = () => {
                       >
                         <div className="from-primary/30 to-primary/15 absolute inset-0 rounded-xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover/social:opacity-95" />
                         <motion.div
-                          className="hover:border-primary/30 relative flex h-13 w-15 items-center justify-center rounded-xl border border-white/10 bg-white/5"
+                          className="hover:border-primary/30 relative flex h-16 w-16 items-center justify-center rounded-xl border border-white/10 bg-white/5"
                           whileHover={{ scale: 1.15, rotate: 5 }}
                           transition={{ type: 'spring', stiffness: 300 }}
                         >
-                          <IconComponent className="group-hover/social:text-primary h-6 w-6 text-white/70 transition-colors duration-300" />
+                          <IconComponent className="group-hover/social:text-primary h-8 w-8 text-white/70 transition-colors duration-300" />
                         </motion.div>
                       </motion.a>
                     )
