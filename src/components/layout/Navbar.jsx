@@ -36,19 +36,19 @@ export const Navbar = () => {
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? 'rgba(11,14,14,0.85)' : 'transparent',
+        background: scrolled ? 'rgba(15,18,18,0.82)' : 'transparent',
         backdropFilter: scrolled ? 'blur(12px) saturate(150%)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(12px) saturate(150%)' : 'none',
         borderBottom: scrolled ? '1px solid var(--rule)' : '1px solid transparent',
       }}
     >
-      <div className="flex items-center justify-between px-6 py-4 md:px-16 md:py-5">
+      <div className="flex items-center justify-between px-6 py-3 md:px-16 md:py-3">
         <a href="#hero">
           <img
             src={logoDigitob}
             alt="Digitob"
             className="transition-opacity duration-300 hover:opacity-80"
-            style={{ height: '44px', width: 'auto' }}
+            style={{ height: '38px', width: 'auto' }}
           />
         </a>
 

@@ -84,7 +84,7 @@ export const Hero = () => {
               color: 'var(--ink)',
             }}
           >
-            <Reveal delay={300} as="span" style={{ display: 'block' }}>
+             <Reveal delay={300} as="span" style={{ display: 'block' }}>
               Christophe
             </Reveal>
             <Reveal delay={500} as="span" style={{ display: 'block', fontStyle: 'italic', color: 'var(--accent)' }}>
@@ -251,18 +251,16 @@ export const Hero = () => {
                         >
                           <Icon className="h-full w-full text-white/80" />
                           <span
-                            className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1 opacity-0 shadow-lg transition-all duration-200 group-hover/tooltip:opacity-100"
+                            className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 opacity-0 transition-colors duration-200 group-hover/tooltip:opacity-100"
                             style={{
-                              background: 'rgba(11,14,14,0.85)',
-                              backdropFilter: 'blur(8px)',
-                              border: '1px solid var(--rule)',
-                              color: 'var(--accent)',
+                              background: 'var(--accent)',
+                              color: 'var(--bg)',
                             }}
                           >
                             {label}
                             <span
                               className="absolute -bottom-[5px] right-2 border-x-[5px] border-t-[5px] border-x-transparent"
-                              style={{ borderTopColor: 'rgba(11,14,14,0.85)' }}
+                              style={{ borderTopColor: 'var(--accent)' }}
                             />
                           </span>
                         </motion.div>
