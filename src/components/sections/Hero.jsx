@@ -55,16 +55,21 @@ export const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col gap-8 px-6 pt-28 pb-16 md:px-16 md:pt-32 md:pb-20 mx-auto"
-      style={{ maxWidth: '1600px' }}
+      className="relative h-screen flex flex-col px-6 md:px-16 mx-auto"
+      style={{
+        maxWidth: '1600px',
+        paddingTop: 'clamp(64px, 8vh, 140px)',
+        paddingBottom: 'clamp(24px, 3vh, 60px)',
+      }}
     >
       {/* Main — name + video side by side */}
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:gap-16 items-center mt-8 md:mt-8">
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-[1fr_auto] items-center"
+        style={{ gap: 'clamp(16px, 2vh, 64px)' }}>
         {/* Left — name + text */}
         <div className="text-left">
           <Reveal delay={200}>
             <div
-              className="mono mb-6"
+              className="mono mb-5"
               style={{
                 color: 'var(--accent)',
                 fontSize: '15px',
@@ -72,6 +77,7 @@ export const Hero = () => {
               }}
             >
               Développeur web full-stack
+              <span style={{ color: 'var(--faint)' }}> · Puy-de-Dôme ou distanciel</span>
             </div>
           </Reveal>
           <h1
@@ -97,7 +103,7 @@ export const Hero = () => {
             <p
               className="serif"
               style={{
-                marginTop: '20px',
+                marginTop: 'clamp(8px, 1.2vh, 24px)',
                 fontSize: 'clamp(18px, 1.5vw, 22px)',
                 lineHeight: 1.5,
                 color: 'var(--ink-2)',
@@ -115,7 +121,8 @@ export const Hero = () => {
 
           {/* CTAs */}
           <Reveal delay={900}>
-            <div className="flex flex-col sm:flex-row gap-3 mt-10 items-start">
+            <div className="flex flex-col sm:flex-row gap-3 items-start"
+              style={{ marginTop: 'clamp(16px, 2vh, 40px)' }}>
               <a
                 ref={ctaPrimaryRef}
                 href="#contact"
@@ -164,7 +171,7 @@ export const Hero = () => {
               scale: { duration: 1.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] },
             }}
           >
-            <div className="relative aspect-[4/5] w-[320px] lg:w-[380px] xl:w-[420px]">
+            <div className="relative aspect-[4/5] w-[260px] md:w-[280px] lg:w-[340px] xl:w-[420px]">
               <div className="absolute inset-0 overflow-hidden rounded-2xl">
                 <div className="rotating-border animate-spin-slow absolute inset-[-50%]" />
               </div>
@@ -312,7 +319,7 @@ export const Hero = () => {
       {/* Bottom stats row */}
       <Reveal delay={1100}>
         <div
-          className="mt-auto pt-8 grid grid-cols-2 md:grid-cols-4 gap-6"
+          className="mt-auto pt-4 grid grid-cols-2 md:grid-cols-4 gap-6"
           style={{ borderTop: '1px solid var(--rule)' }}
         >
         {[
@@ -348,16 +355,6 @@ export const Hero = () => {
           </Reveal>
         ))}
       </div>
-      </Reveal>
-
-      {/* Footnote */}
-      <Reveal delay={1700} mode="fade">
-        <div
-          className="mono-sm mt-3 pt-2"
-          style={{ color: 'var(--faint)' }}
-        >
-          Intervention dans le Puy-de-Dôme ou en distanciel
-        </div>
       </Reveal>
 
       {/* Liquid distortion SVG filter */}

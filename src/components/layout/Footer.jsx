@@ -7,8 +7,8 @@ export const Footer = () => {
   return (
     <>
       <footer
-        className="flex flex-col md:flex-row justify-between items-center gap-4 px-6 py-10 md:px-16"
-        style={{ borderTop: '1px solid var(--rule)' }}
+        className="mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-6 py-10 md:px-16"
+        style={{ maxWidth: '1600px', borderTop: '1px solid var(--rule)' }}
       >
         <div className="mono-sm" style={{ color: 'var(--mute)' }}>
           © 2026 — Christophe Thevenet · Digitob
