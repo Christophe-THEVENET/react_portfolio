@@ -28,7 +28,7 @@ const ProjectCard = ({ project }) => {
 
         {/* Category - top left */}
         <div className="absolute top-4 left-4">
-          <span className="rounded-full border border-white/20 bg-black/60 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+          <span className="mono-sm rounded-full border border-white/20 bg-black/60 px-3 py-1 text-ink backdrop-blur-sm">
             {project.category}
           </span>
         </div>
@@ -112,11 +112,11 @@ const ProjectCard = ({ project }) => {
           </h3> */}
           <div className="mb-4 flex items-center gap-3 border-b border-white/10 pb-3">
             <div className="bg-primary/50 h-1 w-6 rounded-full"></div>
-            <h3 className="text-xl font-medium text-white uppercase">
+            <h3 className="text-xl font-medium text-ink uppercase">
               {title}
             </h3>
           </div>
-          <p className="line-clamp-3 text-justify text-sm leading-normal text-white/70">
+          <p className="line-clamp-3 text-justify text-sm leading-normal text-ink-2/70">
             {description}
           </p>
         </div>
@@ -126,7 +126,7 @@ const ProjectCard = ({ project }) => {
           {technologies.map((tech, i) => (
             <span
               key={i}
-              className="text-primary bg-primary/10 border-primary/20 hover:bg-primary/20 rounded-lg border px-2.5 py-1 text-xs font-medium transition-all duration-300"
+              className="mono-sm text-primary bg-primary/10 border-primary/20 hover:bg-primary/20 rounded-lg border px-2.5 py-1.5 transition-all duration-300"
             >
               {tech}
             </span>

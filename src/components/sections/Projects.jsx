@@ -94,15 +94,15 @@ export const Projects = () => {
           <div className="mb-12 text-center">
             <div className="bg-primary/10 border-primary/30 mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2">
               <Briefcase className="text-primary h-4 w-4" />
-              <span className="text-primary text-sm font-medium">
+              <span className="mono-sm text-primary">
                 Mes réalisations
               </span>
             </div>
 
-            <h2 className="mx-auto mb-4 max-w-2xl text-4xl font-normal text-white lg:text-5xl">
+            <h2 className="serif mx-auto mb-4 max-w-2xl text-4xl text-ink lg:text-5xl">
               Projets Représentatifs
             </h2>
-            <p className="mx-auto max-w-xl text-lg text-white/60">
+            <p className="mx-auto max-w-xl text-lg text-ink-2/60">
               Sélection d'applications web, boutiques e-commerce et sites
               vitrines parmi mes projets livrés
             </p>
@@ -115,10 +115,10 @@ export const Projects = () => {
               <motion.button
                 key={category}
                 onClick={() => handleCategoryChange(category)}
-                className={`group relative cursor-pointer rounded-full px-6 py-3 font-medium focus:outline-none ${
+                className={`group relative cursor-pointer rounded-full px-6 py-3 focus:outline-none ${
                   activeCategory === category
-                    ? 'text-white'
-                    : 'text-white/60 hover:text-white'
+                    ? 'text-ink'
+                    : 'text-ink/60 hover:text-ink'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -143,7 +143,7 @@ export const Projects = () => {
                   {React.createElement(categoryIcons[category], {
                     className: 'h-4 w-4',
                   })}
-                  <span className="text-sm">{category}</span>
+                  <span className="mono-sm">{category}</span>
                 </div>
               </motion.button>
             ))}

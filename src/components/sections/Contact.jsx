@@ -1,441 +1,272 @@
-import React, { useState, useRef } from 'react'
-import {
-  Mail,
-  MapPin,
-  Send,
-  AlertCircle,
-  Phone,
-  MapPinHouse,
-  Map,
-  ShieldCheck,
-  Tally4,
-  CheckCircle2,
-} from 'lucide-react'
+import { useState } from 'react'
+import Reveal from '@/components/animations/Reveal'
+import SectionTag from '@/components/ui/SectionTag'
 import { PERSONAL_INFO, SOCIAL_LINKS } from '@/utils/constants'
-import { FiGithub } from 'react-icons/fi'
-import FadeIn from '@/components/animations/FadeIn'
-import GlowCard from '@/components/animations/GlowCard'
-import ScrollReveal from '@/components/animations/ScrollReveal'
-// eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from 'motion/react'
-import { FaLinkedinIn, FaFacebookF, FaInstagram } from 'react-icons/fa'
-import { FaXTwitter } from 'react-icons/fa6'
+
+const projectTypes = [
+  { id: 'mission', label: 'Mission' },
+  { id: 'vitrine', label: 'Vitrine' },
+  { id: 'ecommerce', label: 'E-commerce' },
+  { id: 'app', label: 'Application' },
+]
+
+const contactDetails = [
+  { label: 'Email', value: PERSONAL_INFO.email },
+  { label: 'Téléphone', value: PERSONAL_INFO.telephone },
+  { label: 'Adresse', value: `${PERSONAL_INFO.location}`, extra: 'Distanciel France entière' },
+  { label: 'Siret', value: PERSONAL_INFO.siret },
+  { label: 'RC Pro', value: PERSONAL_INFO.insurance },
+]
+
+function InputField({ type = 'text', placeholder }) {
+  return (
+    <input
+      type={type}
+      placeholder={placeholder}
+      className="w-full outline-none transition-colors duration-150"
+      style={{
+        background: 'transparent',
+        border: '1px solid var(--rule)',
+        padding: '12px 16px',
+        color: 'var(--ink)',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '13px',
+      }}
+      onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+      onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--rule)')}
+    />
+  )
+}
+
+function FieldLabel({ label, children }) {
+  return (
+    <div className="mb-5">
+      <div className="mono-sm mb-2" style={{ color: 'var(--mute)' }}>{label}</div>
+      {children}
+    </div>
+  )
+}
+
+function DetailRow({ label, value, extra }) {
+  return (
+    <div className="pb-4 mb-4" style={{ borderBottom: '1px solid var(--rule)' }}>
+      <div className="mono-sm mb-1.5" style={{ color: 'var(--mute)' }}>{label}</div>
+      <div
+        className="serif"
+        style={{ fontSize: '18px', color: 'var(--ink)', letterSpacing: '-0.005em' }}
+      >
+        {value}
+      </div>
+      {extra && <div className="mono-sm mt-1.5" style={{ color: 'var(--mute)' }}>{extra}</div>}
+    </div>
+  )
+}
 
 export const Contact = () => {
-  const contactRef = useRef(null)
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  })
-  const [errors, setErrors] = useState({})
-  const [touched, setTouched] = useState({})
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [type, setType] = useState('vitrine')
+  const [formData, setFormData] = useState({ name: '', email: '', company: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitError, setSubmitError] = useState(false)
-
-  const socialIcons = {
-    github: FiGithub,
-    linkedin: FaLinkedinIn,
-    facebook: FaFacebookF,
-    instagram: FaInstagram,
-    x: FaXTwitter,
-  }
-
-  const emailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
-
-  const validateField = (name, value) => {
-    switch (name) {
-      case 'name':
-        if (!value.trim()) return 'Le nom est requis'
-        if (value.trim().length < 2) return 'Le nom doit contenir au moins 2 caractères'
-        if (value.trim().length > 50) return 'Le nom ne peut pas dépasser 50 caractères'
-        return ''
-      case 'email':
-        if (!value.trim()) return "L'email est requis"
-        if (!emailRegex.test(value)) return "Format d'email invalide"
-        return ''
-      case 'message':
-        if (!value.trim()) return 'Le message est requis'
-        if (value.trim().length < 10) return 'Le message doit contenir au moins 10 caractères'
-        if (value.trim().length > 1000) return 'Le message ne peut pas dépasser 1000 caractères'
-        return ''
-      default:
-        return ''
-    }
-  }
-
-  const validateForm = () => {
-    const newErrors = {}
-    Object.keys(formData).forEach((field) => {
-      const error = validateField(field, formData[field])
-      if (error) newErrors[field] = error
-    })
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-    if (touched[name]) {
-      const error = validateField(name, value)
-      setErrors((prev) => ({ ...prev, [name]: error }))
-    }
-  }
-
-  const handleBlur = (e) => {
-    const { name, value } = e.target
-    setTouched((prev) => ({ ...prev, [name]: true }))
-    const error = validateField(name, value)
-    setErrors((prev) => ({ ...prev, [name]: error }))
-  }
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setTouched({ name: true, email: true, message: true })
-    if (!validateForm()) return
-
     setIsSubmitting(true)
     const form = e.target
-    const formDataEncoded = new URLSearchParams(new FormData(form)).toString()
+    const encoded = new URLSearchParams(new FormData(form)).toString()
 
     try {
-      setSubmitError(false)
       await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formDataEncoded,
+        body: encoded,
       })
       setIsSubmitted(true)
-      setFormData({ name: '', email: '', message: '' })
-      setTouched({})
-      setErrors({})
+      setFormData({ name: '', email: '', company: '', message: '' })
       setTimeout(() => setIsSubmitted(false), 5000)
-    } catch (error) {
-      console.error("Erreur lors de l'envoi du formulaire:", error)
-      setSubmitError(true)
-      setTimeout(() => setSubmitError(false), 5000)
+    } catch {
+      console.error("Erreur lors de l'envoi")
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  const isFormValid =
-    formData.name.trim() &&
-    formData.email.trim() &&
-    formData.message.trim() &&
-    !errors.name &&
-    !errors.email &&
-    !errors.message
-
-  const getInputClass = (fieldName) => {
-    const baseClass =
-      'w-full rounded-lg border bg-black/30 px-4 py-3 text-white placeholder-white/30 focus:outline-none'
-    const errorClass = 'border-red-500/50 focus:border-red-500/70'
-    const normalClass = 'border-white/10 focus:border-primary/50'
-    return `${baseClass} ${touched[fieldName] && errors[fieldName] ? errorClass : normalClass}`
-  }
-
-  const contactCards = [
-    { icon: Map, label: 'Secteur', value: PERSONAL_INFO.location },
-    { icon: Phone, label: 'Téléphone', value: PERSONAL_INFO.telephone },
-    { icon: Mail, label: 'Email', value: PERSONAL_INFO.email },
-    { icon: MapPinHouse, label: 'Adresse', value: PERSONAL_INFO.address },
-    { icon: ShieldCheck, label: 'Assurance', value: PERSONAL_INFO.insurance },
-    { icon: Tally4, label: 'Siret', value: PERSONAL_INFO.siret },
-  ]
-
   return (
-    <section id="contact" className="relative overflow-hidden py-24">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-white/7 opacity-30 blur-3xl" />
-        <div className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-white/7 opacity-30 blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/7 opacity-30 blur-3xl" />
-      </div>
+    <section
+      id="contact"
+      className="relative px-6 py-24 md:px-16 md:py-40"
+    >
+      <SectionTag
+        num="06"
+        eyebrow="Démarrer"
+        title={
+          <>
+            Discutons
+            <br />
+            <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
+              de votre projet
+            </span>
+            .
+          </>
+        }
+        lead={`Décrivez votre besoin en quelques lignes — réponse sous 24h. Ou plus rapide : un email à ${PERSONAL_INFO.email}.`}
+      />
 
-      <FadeIn delay={0}>
-        <div className="mb-12 px-4 text-center">
-          <div className="bg-primary/10 border-primary/30 mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2">
-            <Mail className="text-primary h-4 w-4" />
-            <span className="text-primary text-sm font-medium">Me contacter</span>
-          </div>
-          <h2 className="mx-auto mb-4 max-w-2xl text-4xl font-normal text-white lg:text-5xl">
-            Un Projet ? Discutons
-          </h2>
-          <p className="mx-auto max-w-xl text-lg text-white/60">
-            Mission freelance, site vitrine ou application sur mesure ? Parlons-en
-            autour d'un café (virtuel ou réel).
-          </p>
-        </div>
-      </FadeIn>
-
-      <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={contactRef} className="grid grid-cols-1 gap-12 md:grid-cols-2">
-          {/* Left Column - Form */}
-          <ScrollReveal index={0} total={2} containerRef={contactRef} direction="left">
-            <GlowCard>
-            <div className="border-primary/20 hover:border-primary/35 from-primary/15 via-primary/5 hover:to-primary/3 to-primary/2 hover:from-primary/17 hover:via-primary/7 flex flex-col rounded-2xl border bg-linear-to-br p-8 transition-colors duration-300">
-              <form
-                name="contact"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
-                onSubmit={handleSubmit}
-                className="flex flex-1 flex-col"
-                noValidate
-              >
-                <input type="hidden" name="form-name" value="contact" />
-                <div className="hidden">
-                  <label>
-                    Ne pas remplir si vous êtes humain:
-                    <input name="bot-field" />
-                  </label>
-                </div>
-
-                <div className="flex flex-col gap-8">
-                  {/* Name field */}
-                  <ScrollReveal index={0} total={4} containerRef={contactRef} direction="right">
-                    <div className="space-y-2">
-                      <label htmlFor="name" className="block text-sm font-medium text-white/80">
-                        Nom
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="Votre nom"
-                        className={getInputClass('name')}
-                      />
-                      <AnimatePresence>
-                        {touched.name && errors.name && (
-                          <motion.p
-                            className="flex items-center gap-1.5 text-sm text-red-400"
-                            initial={{ opacity: 0, y: -8, height: 0 }}
-                            animate={{ opacity: 1, y: 0, height: 'auto' }}
-                            exit={{ opacity: 0, y: -8, height: 0 }}
-                          >
-                            <AlertCircle className="h-4 w-4" />
-                            {errors.name}
-                          </motion.p>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </ScrollReveal>
-
-                  {/* Email field */}
-                  <ScrollReveal index={1} total={4} containerRef={contactRef} direction="right">
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="block text-sm font-medium text-white/80">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="votre@email.com"
-                        className={getInputClass('email')}
-                      />
-                      <AnimatePresence>
-                        {touched.email && errors.email && (
-                          <motion.p
-                            className="flex items-center gap-1.5 text-sm text-red-400"
-                            initial={{ opacity: 0, y: -8, height: 0 }}
-                            animate={{ opacity: 1, y: 0, height: 'auto' }}
-                            exit={{ opacity: 0, y: -8, height: 0 }}
-                          >
-                            <AlertCircle className="h-4 w-4" />
-                            {errors.email}
-                          </motion.p>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </ScrollReveal>
-
-                  {/* Message field */}
-                  <ScrollReveal index={2} total={4} containerRef={contactRef} direction="right">
-                    <div className="space-y-2">
-                      <label htmlFor="message" className="block text-sm font-medium text-white/80">
-                        Message
-                      </label>
-                      <textarea
-                        name="message"
-                        id="message"
-                        rows="5"
-                        value={formData.message}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="Parlez-moi de votre projet..."
-                        className={`${getInputClass('message')} resize-none`}
-                      />
-                      <AnimatePresence>
-                        {touched.message && errors.message && (
-                          <motion.p
-                            className="flex items-center gap-1.5 text-sm text-red-400"
-                            initial={{ opacity: 0, y: -8, height: 0 }}
-                            animate={{ opacity: 1, y: 0, height: 'auto' }}
-                            exit={{ opacity: 0, y: -8, height: 0 }}
-                          >
-                            <AlertCircle className="h-4 w-4" />
-                            {errors.message}
-                          </motion.p>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </ScrollReveal>
-
-                  {/* Submit button */}
-                  <ScrollReveal index={3} total={4} containerRef={contactRef} direction="right">
-                    <motion.button
-                    type="submit"
-                    disabled={isSubmitting || !isFormValid}
-                    className="from-primary/20 to-primary mt-auto flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-linear-to-r px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
-                    whileHover={isFormValid && !isSubmitting ? { scale: 1.02 } : {}}
-                    whileTap={isFormValid && !isSubmitting ? { scale: 0.98 } : {}}
-                  >
-                      <AnimatePresence mode="wait">
-                        {isSubmitting ? (
-                          <motion.span
-                            key="submitting"
-                            className="flex items-center gap-2"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                          >
-                            <motion.div
-                              className="h-5 w-5 rounded-full border-2 border-white border-t-transparent"
-                              animate={{ rotate: 360 }}
-                              transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
-                            />
-                            Envoi en cours...
-                          </motion.span>
-                        ) : (
-                          <motion.span
-                            key="idle"
-                            className="flex items-center gap-2"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                          >
-                            Envoyer le message
-                            <Send className="h-5 w-5" />
-                          </motion.span>
-                        )}
-                      </AnimatePresence>
-                    </motion.button>
-                  </ScrollReveal>
-                </div>
-
-                  {/* Success notification */}
-                  <AnimatePresence>
-                    {isSubmitted && (
-                      <motion.div
-                        className="border-primary/30 bg-primary/10 rounded-lg border p-4"
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                      >
-                        <p className="text-primary flex items-center gap-2 text-sm">
-                          <CheckCircle2 className="h-4 w-4" />
-                          Message envoyé avec succès ! Je vous répondrai rapidement.
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  {/* Error notification */}
-                  <AnimatePresence>
-                    {submitError && (
-                      <motion.div
-                        className="rounded-lg border border-red-500/30 bg-red-500/10 p-4"
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      >
-                        <p className="text-sm text-red-400">
-                          Une erreur est survenue. Veuillez réessayer ou me contacter
-                          directement par email.
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-              </form>
+      <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-12 lg:gap-16">
+        <Reveal>
+          <form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
+            className="p-8 md:p-10"
+            style={{
+              border: '1px solid var(--rule)',
+              background: 'var(--bg-card)',
+            }}
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <div className="hidden">
+              <label>
+                Ne pas remplir si vous êtes humain:
+                <input name="bot-field" />
+              </label>
             </div>
-            </GlowCard>
-          </ScrollReveal>
 
-          {/* Right Column */}
-          <div className="flex flex-col">
-              <div className="mb-5 space-y-4">
-                {contactCards.map((card, index) => (
-                  <ScrollReveal
-                    key={index}
-                    index={index}
-                    total={contactCards.length}
-                    containerRef={contactRef}
-                    direction="right"
+            <FieldLabel label="Type de projet">
+              <div
+                className="grid"
+                style={{
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  border: '1px solid var(--rule)',
+                }}
+              >
+                {projectTypes.map((t, i) => (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => setType(t.id)}
+                    className="mono-sm py-3.5 px-2 transition-all duration-150"
+                    style={{
+                      border: 'none',
+                      borderLeft: i === 0 ? 'none' : '1px solid var(--rule)',
+                      background: type === t.id ? 'var(--accent)' : 'transparent',
+                      color: type === t.id ? 'var(--bg)' : 'var(--ink-2)',
+                    }}
                   >
-                    <GlowCard>
-                      <div
-                        className="group from-primary/0 via-primary/0.5 to-primary/5 border-primary/20 flex items-center gap-4 rounded-xl border bg-linear-to-l p-2.5"
-                      >
-                        <div className="border-primary/30 from-primary/10 to-primary/5 flex h-9.5 w-10 items-center justify-center rounded-xl border bg-linear-to-br">
-                          <card.icon className="text-primary h-5 w-5" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm text-white/60">{card.label}</p>
-                          <p className="font-medium text-white">{card.value}</p>
-                        </div>
-                      </div>
-                    </GlowCard>
-                  </ScrollReveal>
+                    {t.label}
+                  </button>
                 ))}
               </div>
+            </FieldLabel>
+            <input type="hidden" name="type" value={type} />
 
-              <div className="mt-auto">
-                <div className="flex gap-3">
-                  {SOCIAL_LINKS.map((social, index) => {
-                    const IconComponent = socialIcons[social.name.toLowerCase()] || FiGithub
-                    return (
-                      <motion.a
-                        key={index}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/social relative"
-                        style={{ '--social-color': social.color }}
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 0.4,
-                          delay: index * 0.1,
-                          ease: 'easeOut',
-                        }}
-                      >
-                        <div className="from-primary/30 to-primary/15 absolute inset-0 rounded-xl bg-linear-to-br opacity-0 blur-xl transition-opacity duration-300 group-hover/social:opacity-95" />
-                        <motion.div
-                          className="hover:border-primary/30 relative flex h-13 w-13 items-center justify-center rounded-xl border border-white/10 bg-white/5"
-                          whileHover={{ scale: 1.15, rotate: 5 }}
-                          transition={{ type: 'spring', stiffness: 300 }}
-                        >
-                          <IconComponent className="group-hover/social:text-primary h-6 w-6 text-white/70 transition-colors duration-300" />
-                        </motion.div>
-                      </motion.a>
-                    )
-                  })}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <FieldLabel label="Nom — prénom">
+                <InputField
+                  placeholder="C. Thevenet"
+                />
+              </FieldLabel>
+              <FieldLabel label="Email">
+                <InputField type="email" placeholder="vous@exemple.fr" />
+              </FieldLabel>
             </div>
-          </div>
-        </div>
-        </div>
+
+            <FieldLabel label="Société (facultatif)">
+              <InputField placeholder="—" />
+            </FieldLabel>
+
+            <FieldLabel label="Brief">
+              <textarea
+                name="message"
+                rows={5}
+                placeholder="Quelques lignes sur le projet, l'audience, les contraintes connues…"
+                value={formData.message}
+                onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
+                className="w-full outline-none resize-y"
+                style={{
+                  background: 'transparent',
+                  border: '1px solid var(--rule)',
+                  padding: '14px 16px',
+                  color: 'var(--ink)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '13px',
+                  lineHeight: 1.65,
+                }}
+                onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+                onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--rule)')}
+              />
+            </FieldLabel>
+
+            <div
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-8 pt-6"
+              style={{ borderTop: '1px solid var(--rule)' }}
+            >
+              <div className="mono-sm" style={{ color: 'var(--mute)' }}>
+                ↳ Réponse sous 24h ouvrées
+              </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="mono px-7 py-4 border-none cursor-pointer transition-colors duration-200 disabled:opacity-50"
+                style={{
+                  background: 'var(--accent)',
+                  color: 'var(--bg)',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--ink)')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--accent)')}
+              >
+                {isSubmitting ? 'Envoi...' : 'Envoyer →'}
+              </button>
+            </div>
+
+            {isSubmitted && (
+              <div className="mono-sm mt-4 pt-4" style={{ color: 'var(--accent)' }}>
+                ✓ Message envoyé avec succès ! Je vous répondrai rapidement.
+              </div>
+            )}
+          </form>
+        </Reveal>
+
+        <Reveal delay={150}>
+          <aside>
+            <div className="mono mb-5" style={{ color: 'var(--mute)' }}>
+              ⊹ Coordonnées
+            </div>
+            {contactDetails.map((d) => (
+              <DetailRow key={d.label} {...d} />
+            ))}
+
+            <div className="mono mt-8 mb-4" style={{ color: 'var(--mute)' }}>
+              ⊹ Réseaux
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {SOCIAL_LINKS.map((s) => (
+                <a
+                  key={s.name}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mono-sm px-4 py-2.5 transition-all duration-150"
+                  style={{
+                    border: '1px solid var(--rule)',
+                    color: 'var(--ink-2)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--accent)'
+                    e.currentTarget.style.color = 'var(--accent)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--rule)'
+                    e.currentTarget.style.color = 'var(--ink-2)'
+                  }}
+                >
+                  {s.name}
+                </a>
+              ))}
+            </div>
+          </aside>
+        </Reveal>
       </div>
     </section>
   )

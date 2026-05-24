@@ -1,194 +1,143 @@
-import React, { useState, useRef } from 'react'
-import { services } from '@/data/services'
-import * as Icons from 'lucide-react'
-import { Wrench } from 'lucide-react'
-import FadeIn from '@/components/animations/FadeIn'
-import GlowCard from '@/components/animations/GlowCard'
-import ScrollReveal from '@/components/animations/ScrollReveal'
-// eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from 'motion/react'
+import Reveal from '@/components/animations/Reveal'
+import SectionTag from '@/components/ui/SectionTag'
+
+const offers = [
+  {
+    n: '01',
+    label: 'Mission tech',
+    price: '400€',
+    unit: '/ jour',
+    desc: 'Renfort en régie sur vos équipes — Symfony, React, refactoring, debug complexe, mise en production.',
+    bullets: ['À la journée', 'Min. 5 jours', 'Maintenance · 50€/h'],
+  },
+  {
+    n: '02',
+    label: 'Site vitrine',
+    price: '450€',
+    to: '950€',
+    desc: 'Une à cinq pages, design moderne, mobile-first, référencement local, formulaire de contact, hébergement la 1ʳᵉ année.',
+    bullets: ['Livraison 2-3 semaines', 'Formation back-office', 'Garantie 6 mois'],
+  },
+  {
+    n: '03',
+    label: 'E-commerce',
+    price: '1600€',
+    to: '2500€',
+    desc: 'Boutique en ligne complète, paiement sécurisé, gestion stocks, options clients personnalisées et analytics.',
+    bullets: ['WooCommerce ou Symfony', 'Catalogue jusqu’à 50 produits', 'Suivi commandes inclus'],
+  },
+  {
+    n: '04',
+    label: 'Application sur mesure',
+    price: 'sur',
+    to: 'devis',
+    desc: "Application métier complète avec back-office, API, espace membre. De la note d’intention à la livraison itérative.",
+    bullets: ['Cahier des charges co-rédigé', 'Architecture évolutive', 'Sprints 2 semaines'],
+  },
+]
 
 export const Services = () => {
-  const gridRef = useRef(null)
-  const [activeCard, setActiveCard] = useState(null)
-
   return (
-    <section id="services" className="relative overflow-hidden py-24">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="bg-primary/10 absolute top-1/4 left-1/4 h-96 w-96 rounded-full opacity-20 blur-3xl" />
-        <div className="bg-primary/10 absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full opacity-20 blur-3xl" />
-        <div className="bg-primary/10 absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-20 blur-3xl" />
-      </div>
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, white 1px, transparent 1px),
-            linear-gradient(to bottom, white 1px, transparent 1px)
-            `,
-          backgroundSize: `30px 30px`,
-        }}
+    <section
+      id="services"
+      className="relative px-6 py-24 md:px-16 md:py-40"
+    >
+      <SectionTag
+        num="05"
+        eyebrow="Prestations"
+        title={
+          <>
+            Quatre
+            <br />
+            <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
+              points d'entrée
+            </span>
+            .
+          </>
+        }
+        lead="Tarifs publics, garantie de transparence. Tous les projets démarrent par un appel gratuit de 30 minutes pour cadrer le besoin."
       />
 
-      <div className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeIn delay={0}>
-          <div className="mb-16 text-center">
-            <div className="border-primary/30 bg-primary/10 border-primary/30 mb-6 inline-flex items-center gap-2 rounded-full border bg-white/5 px-4 py-2">
-              <Wrench className="text-primary h-4 w-4" />
-              <span className="text-primary text-sm font-medium tracking-wider uppercase">
-                Ce que je propose
-              </span>
-            </div>
-            <h2 className="mx-auto mb-4 max-w-2xl text-4xl font-normal text-white lg:text-5xl">
-              Prestations & Solutions Web
-            </h2>
-            <p className="mx-auto max-w-xl text-lg text-white/60">
-              Développement full-stack pour équipes tech, sites web pour
-              artisans, commerçants et associations
-            </p>
-          </div>
-        </FadeIn>
-
-        <div
-          ref={gridRef}
-          className="mx-auto grid auto-rows-fr grid-cols-1 gap-x-6 gap-y-2 md:grid-cols-2"
-        >
-          {services.map((service, index) => {
-            const IconComponent = Icons[service.icon] || Icons['Box']
-            const isActive = activeCard === service.id
-            return (
-              <ScrollReveal
-                key={service.id}
-                index={index}
-                total={services.length}
-                containerRef={gridRef}
-                direction={index % 2 === 0 ? 'left' : 'right'}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {offers.map((o, i) => (
+          <Reveal key={o.n} delay={i * 90}>
+            <article
+              className="flex flex-col gap-5 p-7 md:p-9 transition-all duration-250"
+              style={{
+                border: '1px solid var(--rule)',
+                background: 'var(--bg-card)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--accent)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--rule)'
+              }}
+            >
+              <div
+                className="mono flex justify-between"
+                style={{ color: 'var(--accent)' }}
               >
-                <GlowCard>
-                  <div className="group relative h-full">
-                    <div className="from-primary/10 to-primary/5 absolute inset-0 rounded-2xl bg-linear-to-br opacity-10 blur-xl transition-opacity duration-300 group-hover:opacity-50" />
-                    <div className="hover:border-primary/40 relative h-full overflow-hidden rounded-2xl border border-primary/25 bg-white/2 p-6 transition-all duration-300">
-                      <div className="flex h-full flex-col">
-                        <div className="mb-5 flex items-center gap-3 border-b border-white/10 pb-4">
-                          <IconComponent className="text-primary h-6 w-6" />
-                          <h3 className="text-2xl font-semibold text-white uppercase">
-                            {service.popup.title}
-                          </h3>
-                        </div>
+                <span>Réf. {o.n}</span>
+                <span>{o.label}</span>
+              </div>
 
-                        <div className="bg-primary/10 mb-6 flex w-full justify-center rounded-lg px-4 py-2">
-                          <span className="text-primary text-md inline-block font-medium tracking-wider uppercase">
-                            {service.subtitle1}
-                          </span>
-                        </div>
+              <div className="flex items-baseline gap-3">
+                <span
+                  className="serif"
+                  style={{
+                    fontSize: 'clamp(48px, 5vw, 72px)',
+                    fontWeight: 300,
+                    letterSpacing: '-0.035em',
+                    lineHeight: 1,
+                    color: 'var(--ink)',
+                  }}
+                >
+                  {o.price}
+                </span>
+                {o.to && (
+                  <>
+                    <span className="mono-sm" style={{ color: 'var(--mute)' }}>→</span>
+                    <span
+                      className="serif italic"
+                      style={{
+                        fontSize: 'clamp(28px, 3vw, 40px)',
+                        fontWeight: 300,
+                        color: 'var(--mute)',
+                        letterSpacing: '-0.025em',
+                      }}
+                    >
+                      {o.to}
+                    </span>
+                  </>
+                )}
+                {o.unit && (
+                  <span className="mono-sm" style={{ color: 'var(--mute)' }}>{o.unit}</span>
+                )}
+              </div>
 
-                        <div className="flex-1 space-y-5 overflow-y-auto">
-                          <div className="rounded-lg">
-                            <div className="mb-2 flex items-center justify-between">
-                              <h4 className="text-md font-semibold tracking-wide text-white uppercase">
-                                {service.title1}
-                              </h4>
-                              <span className="text-primary bg-primary/10 text-md rounded-md px-3 py-1 font-bold">
-                                {Object.values(service.price1)[0]}
-                              </span>
-                            </div>
-                            <p className="text-justify text-sm leading-normal text-white/70">
-                              {service.description1}
-                            </p>
-                          </div>
+              <p style={{ fontSize: '15px', lineHeight: 1.7, color: 'var(--mute)' }}>
+                {o.desc}
+              </p>
 
-                          <div>
-                            <div className="mb-2 flex items-center justify-between">
-                              <h4 className="text-md font-semibold tracking-wide text-white uppercase">
-                                {service.title2}
-                              </h4>
-                              <span className="text-primary bg-primary/10 text-md rounded-md px-3 py-1 font-bold">
-                                {Object.values(service.price2)[0]}
-                              </span>
-                            </div>
-                            <p className="text-justify text-sm leading-normal text-white/70">
-                              {service.description2}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="mt-6 flex justify-end border-t border-white/10 pt-4">
-                          <motion.button
-                            onClick={() => setActiveCard(service.id)}
-                            className="border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 shrink-0 rounded-lg border px-5 py-2 text-sm font-semibold transition-colors hover:cursor-pointer"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            En savoir plus
-                          </motion.button>
-                        </div>
-                      </div>
-
-                      <AnimatePresence mode="wait">
-                      {isActive && (
-                      <motion.div
-                        key={service.id}
-                        className="absolute inset-0 flex flex-col rounded-2xl border border-white/10 bg-zinc-900/98 p-6"
-                        initial={{ y: '100%', opacity: 0 }}
-                        animate={{
-                          y: 0,
-                          opacity: 1,
-                          transition: { type: 'spring', stiffness: 150, damping: 18 },
-                        }}
-                        exit={{
-                          y: '100%',
-                          opacity: 0,
-                          transition: { type: 'spring', stiffness: 150, damping: 18 },
-                        }}
-                      >
-                        <div className="mb-5 flex items-center gap-3 border-b border-white/10 pb-4">
-                          <IconComponent className="h-6 w-6 text-primary" />
-                          <h3 className="text-2xl font-semibold text-white uppercase">
-                            {service.popup.title}
-                          </h3>
-                        </div>
-
-                        <div className="mb-6 flex w-full justify-center rounded-lg bg-white/5 px-4 py-2.5">
-                          <span className="text-sm font-medium tracking-wider text-white/70 uppercase">
-                            {service.popup.subtitle}
-                          </span>
-                        </div>
-
-                        <div className="relative flex-1 overflow-y-auto p-2">
-                          <div className="flex flex-wrap gap-x-1.5 gap-y-2">
-                            {service.popup.skills.map((skill, i) => (
-                              <motion.span
-                                key={i}
-                                className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[12px] text-white/80 uppercase"
-                                whileHover={{ scale: 1.1 }}
-                                transition={{ type: 'spring', stiffness: 400 }}
-                              >
-                                {skill}
-                              </motion.span>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="mt-6 flex justify-end border-t border-white/10 pt-4">
-                          <motion.button
-                            onClick={() => setActiveCard(null)}
-                            className="shrink-0 rounded-lg border border-white/10 bg-white/5 px-5 py-2 text-sm font-medium text-white/70 transition-colors hover:cursor-pointer hover:border-white/20 hover:bg-white/10 hover:text-white"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            Fermer
-                          </motion.button>
-                        </div>
-                      </motion.div>
-                      )}
-                      </AnimatePresence>
-                    </div>
-                  </div>
-                </GlowCard>
-              </ScrollReveal>
-            )
-          })}
-        </div>
+              <ul className="flex flex-col gap-2 list-none p-0 m-0">
+                {o.bullets.map((b) => (
+                  <li
+                    key={b}
+                    className="mono-sm grid gap-2.5"
+                    style={{
+                      color: 'var(--ink-2)',
+                      gridTemplateColumns: '14px 1fr',
+                    }}
+                  >
+                    <span style={{ color: 'var(--accent)' }}>✓</span>
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          </Reveal>
+        ))}
       </div>
     </section>
   )
