@@ -73,7 +73,8 @@ export const About = () => {
                 fontSize: '18px',
                 lineHeight: 1.75,
                 color: 'var(--ink-2)',
-                maxWidth: '580px',
+                maxWidth: '640px',
+                textAlign: 'justify',
               }}
             >
               Issu d'une famille d'artisans, je suis devenu développeur il y a
@@ -89,7 +90,8 @@ export const About = () => {
                 fontSize: '16px',
                 lineHeight: 1.75,
                 color: 'var(--mute)',
-                maxWidth: '580px',
+                maxWidth: '640px',
+                textAlign: 'justify',
               }}
             >
               D'un côté, des <strong style={{ color: 'var(--ink)' }}>missions techniques</strong> en{' '}
@@ -110,7 +112,8 @@ export const About = () => {
                 fontSize: '16px',
                 lineHeight: 1.75,
                 color: 'var(--mute)',
-                maxWidth: '580px',
+                maxWidth: '640px',
+                textAlign: 'justify',
               }}
             >
               Dans les deux cas, la même approche héritée : fabrication
@@ -269,8 +272,16 @@ export const About = () => {
                         boxShadow: '0 4px 12px rgba(47,142,142,0.15)',
                       }}
                       transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                      onMouseEnter={(e) => {
+                        const svg = e.currentTarget.querySelector('svg')
+                        if (svg) svg.style.color = 'rgba(255,255,255,0.85)'
+                      }}
+                      onMouseLeave={(e) => {
+                        const svg = e.currentTarget.querySelector('svg')
+                        if (svg) svg.style.color = 'rgba(230,226,216,0.72)'
+                      }}
                     >
-                      <IconComponent className="h-6 w-6 transition-colors duration-300 group-hover:text-[var(--ink)]" style={{ color: 'rgba(230,226,216,0.72)' }} />
+                      <IconComponent className="h-6 w-6 transition-colors duration-300" style={{ color: 'rgba(230,226,216,0.72)' }} />
                     </motion.a>
                   </motion.div>
                 )

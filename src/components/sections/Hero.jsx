@@ -107,7 +107,8 @@ export const Hero = () => {
                 fontSize: 'clamp(18px, 1.5vw, 22px)',
                 lineHeight: 1.5,
                 color: 'var(--ink-2)',
-                maxWidth: '720px',
+                maxWidth: '780px',
+                textAlign: 'justify',
                 fontWeight: 300,
                 letterSpacing: '-0.005em',
               }}
