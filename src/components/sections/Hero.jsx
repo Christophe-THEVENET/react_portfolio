@@ -258,16 +258,19 @@ export const Hero = () => {
                         >
                           <Icon className="h-full w-full text-white/80" />
                           <span
-                            className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 opacity-0 transition-colors duration-200 group-hover/tooltip:opacity-100"
+                            className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 rounded opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100"
                             style={{
-                              background: 'var(--accent)',
-                              color: 'var(--bg)',
+                              background: 'rgba(11,14,14,0.88)',
+                              backdropFilter: 'blur(12px)',
+                              WebkitBackdropFilter: 'blur(12px)',
+                              border: '1px solid transparent',
+                              color: 'var(--ink)',
                             }}
                           >
                             {label}
                             <span
                               className="absolute -bottom-[5px] right-2 border-x-[5px] border-t-[5px] border-x-transparent"
-                              style={{ borderTopColor: 'var(--accent)' }}
+                              style={{ borderTopColor: 'rgba(11,14,14,0.88)' }}
                             />
                           </span>
                         </motion.div>
