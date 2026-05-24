@@ -52,7 +52,7 @@ export const Skills = () => {
   const cardsRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: cardsRef,
-    offset: ['start 75%', 'start 25%'],
+    offset: ['start 95%', 'start 60%'],
   })
 
   const directions = [

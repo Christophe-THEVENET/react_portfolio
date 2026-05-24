@@ -41,7 +41,7 @@ export const About = () => {
   const diplomesRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: diplomesRef,
-    offset: ['start 80%', 'start 40%'],
+    offset: ['start 90%', 'start 55%'],
   })
 
   return (

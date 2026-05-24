@@ -3,6 +3,7 @@ import { Play } from 'lucide-react'
 import { SiReact, SiSymfony, SiWordpress, SiClaude } from 'react-icons/si'
 import { PiFileSqlLight } from 'react-icons/pi'
 import Reveal from '@/components/animations/Reveal'
+import TextReveal from '@/components/animations/TextReveal'
 import AnimatedNumber from '@/components/animations/AnimatedNumber'
 import { useMagnetic } from '@/hooks/useMagnetic'
 // eslint-disable-next-line no-unused-vars
@@ -90,12 +91,11 @@ export const Hero = () => {
               color: 'var(--ink)',
             }}
           >
-             <Reveal delay={300} as="span" style={{ display: 'block' }}>
+             <TextReveal>
               Christophe
-            </Reveal>
-            <Reveal delay={500} as="span" style={{ display: 'block', fontStyle: 'italic', color: 'var(--accent)' }}>
-              Thévenet
-            </Reveal>
+              <br />
+              <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>Thévenet</span>
+            </TextReveal>
           </h1>
 
           {/* Standfirst */}

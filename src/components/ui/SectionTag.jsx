@@ -1,4 +1,5 @@
 import Reveal from '@/components/animations/Reveal'
+import TextReveal from '@/components/animations/TextReveal'
 
 export default function SectionTag({ num, eyebrow, title, lead }) {
   return (
@@ -19,21 +20,21 @@ export default function SectionTag({ num, eyebrow, title, lead }) {
         </div>
       </Reveal>
 
-      <Reveal delay={100}>
-        <h2
-          className="serif"
-          style={{
-            fontSize: 'clamp(48px, 6vw, 96px)',
-            lineHeight: 1,
-            letterSpacing: '-0.035em',
-            fontWeight: 300,
-            color: 'var(--ink)',
-            maxWidth: '14ch',
-          }}
-        >
+      <h2
+        className="serif"
+        style={{
+          fontSize: 'clamp(48px, 6vw, 96px)',
+          lineHeight: 1,
+          letterSpacing: '-0.035em',
+          fontWeight: 300,
+          color: 'var(--ink)',
+          maxWidth: '14ch',
+        }}
+      >
+        <TextReveal>
           {title}
-        </h2>
-      </Reveal>
+        </TextReveal>
+      </h2>
 
       {lead && (
         <Reveal delay={250}>
