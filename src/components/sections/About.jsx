@@ -62,6 +62,7 @@ export const About = () => {
             </span>
           </>
         }
+        lead="Mon parcours, ma méthode, en quelques lignes."
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-12 lg:gap-24">

@@ -1,7 +1,7 @@
 import { useRef } from 'react'
-import Reveal from '@/components/animations/Reveal'
 import SectionTag from '@/components/ui/SectionTag'
 import GlowCard from '@/components/animations/GlowCard'
+// eslint-disable-next-line no-unused-vars
 import { motion, useScroll, useTransform } from 'motion/react'
 
 const stacks = [
@@ -48,6 +48,89 @@ const stacks = [
   },
 ]
 
+const SkillCard = ({ stack, scrollYProgress, direction, index }) => {
+  const start = (index / stacks.length) * 0.4
+  const end = Math.min(start + 0.55, 1)
+  const transformX = useTransform(scrollYProgress, [start, end], [direction.from, 0])
+  const transformY = useTransform(scrollYProgress, [start, end], [direction.from, 0])
+  const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
+  const x = direction.axis === 'x' ? transformX : 0
+  const y = direction.axis === 'y' ? transformY : 0
+
+  return (
+    <motion.div style={{ x, y, opacity }} className="h-full">
+      <GlowCard className="h-full">
+        <article
+          className="h-full p-7 transition-all duration-300"
+          style={{
+            border: '1px solid transparent',
+            background: '#141818',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#161f1f'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = '#141818'
+          }}
+        >
+          <div className="mono" style={{ color: 'var(--accent)' }}>
+            {stack.label}
+          </div>
+          <h3
+            className="serif italic mt-4 mb-6"
+            style={{
+              fontSize: '26px',
+              color: 'var(--ink)',
+              lineHeight: 1.25,
+              letterSpacing: '-0.01em',
+              fontWeight: 350,
+            }}
+          >
+            {stack.lead}
+          </h3>
+
+          <div className="mono-sm mb-3" style={{ color: 'var(--mute)' }}>
+            ⊹ Ce que je maîtrise
+          </div>
+          <div className="flex flex-wrap gap-1.5 mb-7">
+            {stack.core.map((c) => (
+              <span
+                key={c}
+                className="mono-sm px-3 py-1.5"
+                style={{
+                  background: 'rgba(71,179,177,0.10)',
+                  color: 'var(--accent)',
+                  border: '1px solid rgba(71,179,177,0.2)',
+                }}
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+
+          <div className="mono-sm mb-3" style={{ color: 'var(--mute)' }}>
+            ⊹ &amp; aussi
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {stack.also.map((c) => (
+              <span
+                key={c}
+                className="mono-sm px-3 py-1.5"
+                style={{
+                  color: 'var(--mute)',
+                  border: '1px solid var(--rule)',
+                }}
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+        </article>
+      </GlowCard>
+    </motion.div>
+  )
+}
+
 export const Skills = () => {
   const cardsRef = useRef(null)
   const { scrollYProgress } = useScroll({
@@ -81,86 +164,15 @@ export const Skills = () => {
       />
 
       <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-        {stacks.map((s, i) => {
-              const dir = directions[i]
-              const start = (i / stacks.length) * 0.4
-              const end = Math.min(start + 0.55, 1)
-              const x = dir.axis === 'x' ? useTransform(scrollYProgress, [start, end], [dir.from, 0]) : 0
-              const y = dir.axis === 'y' ? useTransform(scrollYProgress, [start, end], [dir.from, 0]) : 0
-              const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
-
-              return (
-                <motion.div key={s.label} style={{ x, y, opacity }}>
-                  <GlowCard>
-                    <article
-                      className="p-7 transition-all duration-300"
-                      style={{
-                        border: '1px solid transparent',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(71,179,177,0.04)'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent'
-                      }}
-                    >
-              <div className="mono" style={{ color: 'var(--accent)' }}>
-                {s.label}
-              </div>
-              <h3
-                className="serif italic mt-4 mb-6"
-                style={{
-                  fontSize: '26px',
-                  color: 'var(--ink)',
-                  lineHeight: 1.25,
-                  letterSpacing: '-0.01em',
-                  fontWeight: 350,
-                }}
-              >
-                {s.lead}
-              </h3>
-
-              <div className="mono-sm mb-3" style={{ color: 'var(--mute)' }}>
-                ⊹ Ce que je maîtrise
-              </div>
-              <div className="flex flex-wrap gap-1.5 mb-7">
-                {s.core.map((c) => (
-                  <span
-                    key={c}
-                    className="mono-sm px-3 py-1.5"
-                    style={{
-                      background: 'rgba(71,179,177,0.10)',
-                      color: 'var(--accent)',
-                      border: '1px solid rgba(71,179,177,0.2)',
-                    }}
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mono-sm mb-3" style={{ color: 'var(--mute)' }}>
-                ⊹ &amp; aussi
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {s.also.map((c) => (
-                  <span
-                    key={c}
-                    className="mono-sm px-3 py-1.5"
-                    style={{
-                      color: 'var(--mute)',
-                      border: '1px solid var(--rule)',
-                    }}
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </article>
-                  </GlowCard>
-                </motion.div>
-              )
-            })}
+        {stacks.map((s, i) => (
+          <SkillCard
+            key={s.label}
+            stack={s}
+            scrollYProgress={scrollYProgress}
+            direction={directions[i]}
+            index={i}
+          />
+        ))}
       </div>
     </section>
   )

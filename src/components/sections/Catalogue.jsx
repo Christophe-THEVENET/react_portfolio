@@ -166,19 +166,18 @@ export const Catalogue = () => {
       style={{ paddingTop: 'clamp(88px, 11vh, 144px)', paddingBottom: 'clamp(88px, 11vh, 144px)', maxWidth: '1600px' }}
     >
       <SectionTag
-        num="04"
+        num=""
         eyebrow="Réalisations"
         title={
           <>
-            Pièces
+            Projets livrés,
             <br />
             <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
-              livrées
+              résultats concrets
             </span>
-            .
           </>
         }
-        lead="13 références, du mini-jeu autodidacte à la plateforme communautaire en production. Sélection éditée — trois projets phares développés, le reste indexé."
+        lead="Du site vitrine à la plateforme en production."
       />
 
       {/* Featured */}

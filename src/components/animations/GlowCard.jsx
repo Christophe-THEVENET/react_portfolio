@@ -23,7 +23,7 @@ const GlowCard = ({ children, className = '', glowColor = 'rgba(71,179,177,0.12)
           background: `radial-gradient(400px circle at 50% 50%, ${glowColor}, transparent 60%)`,
         }}
       />
-      <div className="relative z-10">{children}</div>
+      <div className="relative z-10 h-full">{children}</div>
     </motion.div>
   )
 }
