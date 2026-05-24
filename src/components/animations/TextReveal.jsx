@@ -55,7 +55,7 @@ const TextReveal = ({
   children,
   className = '',
   staggerDelay = 0.03,
-  once = false,
+  once = true,
 }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once, amount: 0.3 })

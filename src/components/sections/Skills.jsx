@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import SectionTag from '@/components/ui/SectionTag'
-import GlowCard from '@/components/animations/GlowCard'
 // eslint-disable-next-line no-unused-vars
 import { motion, useScroll, useTransform } from 'motion/react'
 
@@ -59,18 +58,11 @@ const SkillCard = ({ stack, scrollYProgress, direction, index }) => {
 
   return (
     <motion.div style={{ x, y, opacity }} className="h-full">
-      <GlowCard className="h-full">
         <article
-          className="h-full p-7 transition-all duration-300"
+          className="h-full p-7"
           style={{
             border: '1px solid transparent',
             background: '#141818',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#161f1f'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#141818'
           }}
         >
           <div className="mono" style={{ color: 'var(--accent)' }}>
@@ -126,7 +118,6 @@ const SkillCard = ({ stack, scrollYProgress, direction, index }) => {
             ))}
           </div>
         </article>
-      </GlowCard>
     </motion.div>
   )
 }

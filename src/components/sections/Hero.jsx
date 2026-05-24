@@ -70,7 +70,7 @@ export const Hero = () => {
         <div className="text-left">
           <Reveal delay={200}>
             <div
-              className="mono mb-5"
+              className="mono mb-8"
               style={{
                 color: 'var(--accent)',
                 fontSize: '15px',
