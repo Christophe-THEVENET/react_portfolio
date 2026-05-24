@@ -4,7 +4,7 @@ import logoDigitob from '@/assets/img/general/logo_digitob.svg'
 
 const links = [
   { id: 'about', label: 'À propos' },
-  { id: 'skills', label: 'Stack' },
+  { id: 'skills', label: 'Compétences' },
   { id: 'catalogue', label: 'Catalogue' },
   { id: 'services', label: 'Prestations' },
   { id: 'contact', label: 'Contact' },

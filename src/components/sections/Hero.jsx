@@ -172,7 +172,7 @@ export const Hero = () => {
               scale: { duration: 1.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] },
             }}
           >
-            <div className="relative aspect-[4/5] w-[260px] md:w-[280px] lg:w-[340px] xl:w-[420px]">
+            <div className="relative aspect-[4/5] w-[280px] md:w-[320px] lg:w-[380px] xl:w-[460px]">
               <div className="absolute inset-0 overflow-hidden">
                 <div className="rotating-border animate-spin-slow absolute inset-[-50%]" />
               </div>
@@ -259,7 +259,7 @@ export const Hero = () => {
                         >
                           <Icon className="h-full w-full text-white/80" />
                           <span
-                            className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 rounded opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100"
+                            className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100"
                             style={{
                               background: 'rgba(11,14,14,0.88)',
                               backdropFilter: 'blur(12px)',

@@ -55,12 +55,11 @@ export const About = () => {
         eyebrow="À propos"
         title={
           <>
-            Le web,
+            Je construis,
             <br />
             <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
-              fait main
+              vous grandissez
             </span>
-            .
           </>
         }
       />
@@ -128,7 +127,7 @@ export const About = () => {
           <Reveal>
             <div className="mono mb-7 flex items-center gap-2" style={{ color: 'var(--mute)' }}>
               <GraduationCap className="h-3.5 w-3.5" />
-              Formation
+              Formations
             </div>
           </Reveal>
           <div className="flex flex-col gap-2">
@@ -190,7 +189,7 @@ export const About = () => {
                       >
                         <ExternalLink className="h-full w-full" />
                         <span
-                          className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 rounded opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100"
+                          className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100"
                           style={{
                             background: 'rgba(11,14,14,0.88)',
                             backdropFilter: 'blur(12px)',
