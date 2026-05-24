@@ -265,7 +265,7 @@ export const About = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group relative flex h-12 w-16 items-center justify-center"
-                      style={{ border: '1px solid transparent', borderRadius: '8px' }}
+                      style={{ border: '1px solid transparent' }}
                       whileHover={{
                         scale: 1.3,
                         background: 'rgba(71,179,177,0.06)',

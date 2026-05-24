@@ -173,10 +173,10 @@ export const Hero = () => {
             }}
           >
             <div className="relative aspect-[4/5] w-[260px] md:w-[280px] lg:w-[340px] xl:w-[420px]">
-              <div className="absolute inset-0 overflow-hidden rounded-2xl">
+              <div className="absolute inset-0 overflow-hidden">
                 <div className="rotating-border animate-spin-slow absolute inset-[-50%]" />
               </div>
-              <div className="absolute inset-[2px] overflow-hidden rounded-2xl bg-black">
+              <div className="absolute inset-[2px] overflow-hidden bg-black">
                 <video
                   ref={videoRef}
                   className="h-full w-full object-cover"
@@ -289,10 +289,10 @@ export const Hero = () => {
       {/* Mobile video block */}
       <Reveal delay={600} className="md:hidden mt-10">
         <div className="relative aspect-[4/5] w-full max-w-[320px] mx-auto">
-          <div className="absolute inset-0 overflow-hidden rounded-2xl">
+          <div className="absolute inset-0 overflow-hidden">
             <div className="rotating-border animate-spin-slow absolute inset-[-50%]" />
           </div>
-          <div className="absolute inset-[2px] overflow-hidden rounded-2xl bg-black">
+          <div className="absolute inset-[2px] overflow-hidden bg-black">
             <video
               className="h-full w-full object-cover"
               preload="none"
