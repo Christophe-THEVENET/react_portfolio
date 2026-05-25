@@ -115,174 +115,46 @@ function FeaturedProject({ p, idx }) {
     <motion.article
       ref={ref}
       style={{ x, opacity }}
-      className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 py-12 items-center"
+      className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-0 pb-8 items-center"
     >
       {!reverse ? (
         <>
           <div
             className="group/img relative overflow-hidden w-full"
-            style={{
-              height: '320px',
-              border: '1px solid var(--rule)',
-            }}
+            style={{ height: '320px', border: '1px solid var(--rule)' }}
           >
-            <img
-              src={p.img}
-              alt={p.name}
-              className="absolute inset-0 h-full w-full object-cover transition-all duration-700 grayscale-40 brightness-75 group-hover/img:grayscale-0 group-hover/img:brightness-100 group-hover/img:scale-105"
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background: 'linear-gradient(to top, rgba(11,14,14,0.6) 0%, transparent 50%)',
-              }}
-            />
+            <img src={p.img} alt={p.name} className="absolute inset-0 h-full w-full object-cover transition-all duration-700 grayscale-40 brightness-75 group-hover/img:grayscale-0 group-hover/img:brightness-100 group-hover/img:scale-105" />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(11,14,14,0.6) 0%, transparent 50%)' }} />
           </div>
           <div>
-            <div className="mono mb-3.5" style={{ color: 'var(--accent)' }}>
-              {p.year} · {p.kind}
-            </div>
-            <h3
-              className="serif"
-              style={{
-                fontSize: 'clamp(32px, 4.5vw, 64px)',
-                lineHeight: 1,
-                letterSpacing: '-0.03em',
-                color: 'var(--ink)',
-                fontWeight: 350,
-              }}
-            >
-              {p.name}
-            </h3>
-            <p
-              className="mt-6"
-              style={{
-                fontSize: '16px',
-                lineHeight: 1.7,
-                color: 'var(--mute)',
-                maxWidth: '540px',
-              }}
-            >
-              {p.desc}
-            </p>
-            <div className="flex flex-wrap gap-1.5 mt-6">
-              {p.stack.map((s) => (
-                <span
-                  key={s}
-                  className="mono-sm py-1 px-2.5"
-                  style={{
-                    color: 'var(--ink-2)',
-                    border: '1px solid var(--rule)',
-                  }}
-                >
-                  {s}
-                </span>
-              ))}
-            </div>
+            <div className="mono mb-3.5" style={{ color: 'var(--accent)' }}>{p.year} · {p.kind}</div>
+            <h3 className="serif" style={{ fontSize: 'clamp(32px, 4.5vw, 64px)', lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--ink)', fontWeight: 350 }}>{p.name}</h3>
+            <p className="mt-6" style={{ fontSize: '16px', lineHeight: 1.7, color: 'var(--mute)', maxWidth: '540px' }}>{p.desc}</p>
+            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: 'var(--ink-2)', border: '1px solid var(--rule)' }}>{s}</span>))}</div>
             <div className="flex flex-wrap gap-6 mt-8">
-              <a
-                href={p.url}
-                target="_blank"
-                rel="noreferrer"
-                className="ed-link mono inline-block"
-              >
-                {p.linkLabel} —&gt;
-              </a>
-              {p.github && (
-                <a
-                  href={p.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ed-link mono inline-block"
-                >
-                  GitHub —&gt;
-                </a>
-              )}
+              <a href={p.url} target="_blank" rel="noreferrer" className="ed-link mono inline-block">{p.linkLabel} —&gt;</a>
+              {p.github && (<a href={p.github} target="_blank" rel="noreferrer" className="ed-link mono inline-block">GitHub —&gt;</a>)}
             </div>
           </div>
         </>
       ) : (
         <>
-          <div>
-            <div className="mono mb-3.5" style={{ color: 'var(--accent)' }}>
-              {p.year} · {p.kind}
-            </div>
-            <h3
-              className="serif"
-              style={{
-                fontSize: 'clamp(32px, 4.5vw, 64px)',
-                lineHeight: 1,
-                letterSpacing: '-0.03em',
-                color: 'var(--ink)',
-                fontWeight: 350,
-              }}
-            >
-              {p.name}
-            </h3>
-            <p
-              className="mt-6"
-              style={{
-                fontSize: '16px',
-                lineHeight: 1.7,
-                color: 'var(--mute)',
-                maxWidth: '540px',
-              }}
-            >
-              {p.desc}
-            </p>
-            <div className="flex flex-wrap gap-1.5 mt-6">
-              {p.stack.map((s) => (
-                <span
-                  key={s}
-                  className="mono-sm py-1 px-2.5"
-                  style={{
-                    color: 'var(--ink-2)',
-                    border: '1px solid var(--rule)',
-                  }}
-                >
-                  {s}
-                </span>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-6 mt-8">
-              <a
-                href={p.url}
-                target="_blank"
-                rel="noreferrer"
-                className="ed-link mono inline-block"
-              >
-                {p.linkLabel} —&gt;
-              </a>
-              {p.github && (
-                <a
-                  href={p.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ed-link mono inline-block"
-                >
-                  GitHub —&gt;
-                </a>
-              )}
-            </div>
-          </div>
           <div
-            className="group/img relative overflow-hidden w-full"
-            style={{
-              height: '320px',
-              border: '1px solid var(--rule)',
-            }}
+            className="group/img relative overflow-hidden w-full md:order-2"
+            style={{ height: '320px', border: '1px solid var(--rule)' }}
           >
-            <img
-              src={p.img}
-              alt={p.name}
-              className="absolute inset-0 h-full w-full object-cover transition-all duration-700 grayscale-40 brightness-75 group-hover/img:grayscale-0 group-hover/img:brightness-100 group-hover/img:scale-105"
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background: 'linear-gradient(to top, rgba(11,14,14,0.6) 0%, transparent 50%)',
-              }}
-            />
+            <img src={p.img} alt={p.name} className="absolute inset-0 h-full w-full object-cover transition-all duration-700 grayscale-40 brightness-75 group-hover/img:grayscale-0 group-hover/img:brightness-100 group-hover/img:scale-105" />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(11,14,14,0.6) 0%, transparent 50%)' }} />
+          </div>
+          <div className="md:order-1">
+            <div className="mono mb-3.5" style={{ color: 'var(--accent)' }}>{p.year} · {p.kind}</div>
+            <h3 className="serif" style={{ fontSize: 'clamp(32px, 4.5vw, 64px)', lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--ink)', fontWeight: 350 }}>{p.name}</h3>
+            <p className="mt-6" style={{ fontSize: '16px', lineHeight: 1.7, color: 'var(--mute)', maxWidth: '540px' }}>{p.desc}</p>
+            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: 'var(--ink-2)', border: '1px solid var(--rule)' }}>{s}</span>))}</div>
+            <div className="flex flex-wrap gap-6 mt-8">
+              <a href={p.url} target="_blank" rel="noreferrer" className="ed-link mono inline-block">{p.linkLabel} —&gt;</a>
+              {p.github && (<a href={p.github} target="_blank" rel="noreferrer" className="ed-link mono inline-block">GitHub —&gt;</a>)}
+            </div>
           </div>
         </>
       )}

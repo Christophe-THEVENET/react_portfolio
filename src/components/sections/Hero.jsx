@@ -56,11 +56,11 @@ export const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative h-screen flex flex-col px-6 md:px-16 mx-auto"
+      className="relative min-h-screen md:h-screen flex flex-col px-6 md:px-16 mx-auto"
       style={{
         maxWidth: '1600px',
-        paddingTop: 'clamp(64px, 8vh, 140px)',
-        paddingBottom: 'clamp(24px, 3vh, 60px)',
+        paddingTop: 'clamp(72px, 9vh, 150px)',
+        paddingBottom: 'clamp(64px, 8vh, 104px)',
       }}
     >
       {/* Main — name + video side by side */}
@@ -78,7 +78,9 @@ export const Hero = () => {
               }}
             >
               Développeur web full-stack
-              <span style={{ color: 'var(--faint)' }}> · Puy-de-Dôme ou distanciel</span>
+              <br className="md:hidden" />
+              <span className="hidden md:inline" style={{ color: 'var(--faint)' }}> · </span>
+              <span style={{ color: 'var(--faint)' }}>Puy-de-Dôme ou distanciel</span>
             </div>
           </Reveal>
           <h1
@@ -287,7 +289,7 @@ export const Hero = () => {
       </div>
 
       {/* Mobile video block */}
-      <Reveal delay={600} className="md:hidden mt-10">
+      <Reveal delay={600} className="md:hidden mt-10 mb-8">
         <div className="relative aspect-[4/5] w-full max-w-[320px] mx-auto">
           <div className="absolute inset-0 overflow-hidden">
             <div className="rotating-border animate-spin-slow absolute inset-[-50%]" />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'motion/react'
 import logoDigitob from '@/assets/img/general/logo_digitob.svg'
 
 const links = [
@@ -34,12 +35,12 @@ export const Navbar = () => {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50"
       style={{
-        background: scrolled ? 'rgba(15,18,18,0.82)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px) saturate(150%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(12px) saturate(150%)' : 'none',
-        boxShadow: scrolled ? '0 1px 20px rgba(0,0,0,0.4)' : 'none',
+        background: (scrolled || menuOpen) ? 'rgba(15,18,18,0.82)' : 'rgba(15,18,18,0)',
+        backdropFilter: (scrolled || menuOpen) ? 'blur(12px) saturate(150%)' : 'none',
+        WebkitBackdropFilter: (scrolled || menuOpen) ? 'blur(12px) saturate(150%)' : 'none',
+        boxShadow: (scrolled || menuOpen) ? '0 1px 20px rgba(0,0,0,0.4)' : 'none',
       }}
     >
       <div className="flex items-center justify-between px-6 py-3 md:px-16 md:py-3">
@@ -91,19 +92,30 @@ export const Navbar = () => {
       </div>
 
       {/* Mobile nav */}
-      {menuOpen && (
-        <nav
-          className="md:hidden flex flex-col px-6 pb-6 gap-1"
-          style={{
-            background: 'rgba(11,14,14,0.95)',
-            backdropFilter: 'blur(12px)',
-          }}
-        >
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="md:hidden flex flex-col px-6 pb-6 gap-1 overflow-hidden"
+            style={{
+              background: 'rgba(11,14,14,0.95)',
+              backdropFilter: 'blur(12px)',
+            }}
+          >
           {links.map((l) => (
             <a
               key={l.id}
               href={'#' + l.id}
-              onClick={() => setMenuOpen(false)}
+              onClick={(e) => {
+                e.preventDefault()
+                setMenuOpen(false)
+                setTimeout(() => {
+                  document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' })
+                }, 300)
+              }}
               className="mono py-3 px-4 rounded-lg transition-colors duration-150"
               style={{
                 color: active === l.id ? 'var(--accent)' : 'var(--ink-2)',
@@ -113,8 +125,9 @@ export const Navbar = () => {
               {l.label}
             </a>
           ))}
-        </nav>
-      )}
+        </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

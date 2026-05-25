@@ -76,7 +76,7 @@ const offers = [
       { name: 'Application web', price: 'sur devis' },
       { name: 'Application mobile', price: 'sur devis' },
     ],
-    desc: 'Un besoin métier qui ne rentre dans aucune case ? Je pilote le projet de bout en bout : analyse, conception, développement et livraison. Architecture découplée, pensée pour évoluer sur le long terme.',
+    desc: 'Un besoin métier qui ne rentre dans aucune case ? Je pilote le projet de bout en bout : analyse, conception, développement et livraison. Architecture découplée, pensée pour évoluer sur le long terme avec agilité et robustesse.',
     included: [
       'Authentification',
       'Back-office perso',
@@ -157,7 +157,7 @@ const ServiceCard = ({ offer, scrollYProgress, direction, index }) => {
           ))}
         </div>
 
-        <p style={{ fontSize: '15px', lineHeight: 1.7, color: 'var(--mute)' }}>
+        <p style={{ fontSize: '15px', lineHeight: 1.7, color: 'var(--mute)', textAlign: 'justify' }}>
           {offer.desc}
         </p>
 
@@ -230,7 +230,7 @@ export const Services = () => {
         lead="Deux axes : renforcer vos équipes tech, ou construire votre présence en ligne."
       />
 
-      <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div ref={cardsRef} className="grid grid-cols-1 min-[910px]:grid-cols-2 gap-6">
         {offers.map((o, i) => (
           <ServiceCard
             key={o.label}

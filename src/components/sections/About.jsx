@@ -49,7 +49,7 @@ export const About = () => {
     <section
       id="about"
       className="relative mx-auto px-6 md:px-16"
-      style={{ paddingTop: 'clamp(160px, 19vh, 232px)', paddingBottom: 'clamp(88px, 11vh, 144px)', maxWidth: '1600px' }}
+      style={{ paddingTop: 'clamp(88px, 11vh, 144px)', paddingBottom: 'clamp(88px, 11vh, 144px)', maxWidth: '1600px' }}
     >
       <SectionTag
         num=""
@@ -245,7 +245,6 @@ export const About = () => {
                 fontWeight: 300,
                 color: 'var(--ink)',
                 letterSpacing: '-0.01em',
-                whiteSpace: 'nowrap',
               }}
             >
               Je fabrique un site internet comme on fabrique un meuble.
