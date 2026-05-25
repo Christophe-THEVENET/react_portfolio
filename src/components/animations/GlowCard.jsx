@@ -2,7 +2,7 @@ import { useState } from 'react'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'motion/react'
 
-const GlowCard = ({ children, className = '', glowColor = 'rgba(71,179,177,0.12)' }) => {
+const GlowCard = ({ children, className = '', glowColor = 'rgba(71,179,177,0.12)', rounded = 'rounded-2xl' }) => {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -17,13 +17,13 @@ const GlowCard = ({ children, className = '', glowColor = 'rgba(71,179,177,0.12)
       transition={{ type: 'spring', stiffness: 400, damping: 15 }}
     >
       <motion.div
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-2xl opacity-0 transition-opacity duration-500"
+        className={`pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-0 transition-opacity duration-500 ${rounded}`}
         animate={{ opacity: isHovered ? 1 : 0 }}
         style={{
           background: `radial-gradient(400px circle at 50% 50%, ${glowColor}, transparent 60%)`,
         }}
       />
-      <div className="relative z-10">{children}</div>
+      <div className="relative z-10 h-full">{children}</div>
     </motion.div>
   )
 }

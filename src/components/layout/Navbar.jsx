@@ -1,133 +1,133 @@
-import logo from '@/assets/img/general/logo_digitob.svg'
-import { Code, Menu, X } from 'lucide-react'
-import { NAV_LINKS, PERSONAL_INFO } from '@/utils/constants.js'
-import React, { useState, useEffect } from 'react'
-import { useScrollSpy, scrollToSection } from '@/hooks/useScrollSpy.js'
-// eslint-disable-next-line no-unused-vars
-import { motion } from 'motion/react'
+import { useState, useEffect } from 'react'
+import { Menu, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'motion/react'
+import logoDigitob from '@/assets/img/general/logo_digitob.svg'
+
+const links = [
+  { id: 'about', label: 'À propos' },
+  { id: 'skills', label: 'Compétences' },
+  { id: 'catalogue', label: 'Réalisations' },
+  { id: 'services', label: 'Prestations' },
+  { id: 'contact', label: 'Contact' },
+]
 
 export const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const activeSection = useScrollSpy(NAV_LINKS.map((link) => link.id))
+  const [scrolled, setScrolled] = useState(false)
+  const [active, setActive] = useState('hero')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 60)
+      const sections = ['hero', 'about', 'skills', 'catalogue', 'services', 'contact']
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i])
+        if (el && el.getBoundingClientRect().top < 200) {
+          setActive(sections[i])
+          return
+        }
+      }
     }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const handleNavClick = (sectionId) => {
-    scrollToSection(sectionId)
-    setIsMenuOpen(false)
-  }
-
   return (
-
     <header
-      className={`fixed top-0 right-0 left-0 z-1000 w-full py-6 transition-all duration-300 ${
-        isScrolled ? ' backdrop-blur-lg' : 'bg-transparent'
-      }`}
-      style={{ transform: 'translate3d(0,0,0)' }}
+      className="fixed top-0 left-0 right-0 z-50"
+      style={{
+        background: (scrolled || menuOpen) ? 'rgba(15,18,18,0.82)' : 'rgba(15,18,18,0)',
+        backdropFilter: (scrolled || menuOpen) ? 'blur(12px) saturate(150%)' : 'none',
+        WebkitBackdropFilter: (scrolled || menuOpen) ? 'blur(12px) saturate(150%)' : 'none',
+        boxShadow: (scrolled || menuOpen) ? '0 1px 20px rgba(0,0,0,0.4)' : 'none',
+      }}
     >
-      <div className="max-w-flux mx-auto sm:px-5">
-        <div className="flex items-center justify-between">
-          {/* logo ************************************** */}
-          <div className="-mt-2 flex items-center">
-            <a href="https://christophethevenet.fr">
-              <img
-                className="hover-hue-rotate-loop w-36 transition-all duration-500"
-                src={logo}
-                alt="logo digitob"
-              />
+      <div className="flex items-center justify-between px-6 py-3 md:px-16 md:py-3">
+        <a href="#hero">
+          <img
+            src={logoDigitob}
+            alt="Digitob"
+            className="transition-opacity duration-300 hover:opacity-80"
+            style={{ height: '38px', width: 'auto' }}
+          />
+        </a>
+
+        {/* Desktop nav */}
+        <nav className="hidden md:flex gap-1">
+          {links.map((l) => (
+            <a
+              key={l.id}
+              href={'#' + l.id}
+              className="mono relative px-3.5 py-2.5 transition-colors duration-150 rounded-lg"
+              style={{
+                color: active === l.id ? 'var(--accent)' : 'var(--ink-2)',
+              }}
+              onMouseEnter={(e) => {
+                if (active !== l.id) e.currentTarget.style.color = 'var(--accent)'
+              }}
+              onMouseLeave={(e) => {
+                if (active !== l.id) e.currentTarget.style.color = 'var(--ink-2)'
+              }}
+            >
+              {l.label}
+              {active === l.id && (
+                <span
+                  className="absolute left-3.5 right-3.5 bottom-1 h-px"
+                  style={{ background: 'var(--accent)' }}
+                />
+              )}
             </a>
-          </div>
-          {/* desktop navigation ************************* */}
-          <nav className="hidden items-center gap-7 md:flex">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handleNavClick(link.id)}
-                className={`cursor-pointer text-base font-medium transition-all duration-300 ${
-                  activeSection === link.id
-                    ? 'text-white'
-                    : 'text-white/70 hover:text-white'
-                }`}
-              >
-                {link.label}
-              </button>
-            ))}
-          </nav>
+          ))}
+        </nav>
 
-          {/* CTA Button ******************************* */}
-          <div className="relative hidden items-center gap-2 md:flex">
-            <motion.button
-              onClick={() => handleNavClick('contact')}
-              className="btn-shimmer relative cursor-pointer rounded-[17px] bg-white/75 px-3 py-1.5 text-base font-medium text-[#212121]"
-              whileHover={{
-                scale: 1.06,
-
-                boxShadow: '0 8px 25px rgba(47,142,142,0.3)',
-              }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-              style={{ originX: 0.5, originY: 0.5 }}
-            >
-              Contactez moi
-            </motion.button>
-          </div>
-
-          {/* mobile hamburger ************************* */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-4 text-white transition-colors duration-300 hover:text-white/80 md:hidden"
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
-        </div>
-
-        {/* mobile navigation ************************* */}
-        <div
-          className={`overflow-hidden transition-all duration-300 ease-out md:hidden ${isMenuOpen ? 'mt-3 max-h-screen opacity-100' : 'mt-0 max-h-0 opacity-0'}`}
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden p-2"
+          style={{ color: 'var(--ink)' }}
         >
-          <div
-            className={`min-h-[80vh] origin-top transform space-y-4 border-t border-b border-white/20 bg-black/95 px-5 pt-6 pb-14 backdrop-blur-lg transition-all duration-300 ${isMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`}
-          >
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handleNavClick(link.id)}
-                className={`block w-full rounded-lg px-4 py-3 text-left font-medium transition-all duration-300 ${activeSection === link.id ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}`}
-              >
-                {link.label}
-              </button>
-            ))}
-            <motion.button
-              onClick={() => handleNavClick('contact')}
-              className="btn-shimmer mt-10 w-full cursor-pointer rounded-[17px] bg-white/90 px-5 py-2 text-base font-medium text-[#212121]"
-              whileHover={{
-                scale: 1.06,
-
-                boxShadow: '0 8px 25px rgba(47,142,142,0.3)',
-              }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-            >
-              Contactez moi
-            </motion.button>
-          </div>
-        </div>
+          {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
+
+      {/* Mobile nav */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="md:hidden flex flex-col px-6 pb-6 gap-1 overflow-hidden"
+            style={{
+              background: 'rgba(11,14,14,0.95)',
+              backdropFilter: 'blur(12px)',
+            }}
+          >
+          {links.map((l) => (
+            <a
+              key={l.id}
+              href={'#' + l.id}
+              onClick={(e) => {
+                e.preventDefault()
+                setMenuOpen(false)
+                setTimeout(() => {
+                  document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' })
+                }, 300)
+              }}
+              className="mono py-3 px-4 rounded-lg transition-colors duration-150"
+              style={{
+                color: active === l.id ? 'var(--accent)' : 'var(--ink-2)',
+                background: active === l.id ? 'rgba(71,179,177,0.08)' : 'transparent',
+              }}
+            >
+              {l.label}
+            </a>
+          ))}
+        </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
