@@ -1,6 +1,34 @@
-import { useRef } from 'react'
-// eslint-disable-next-line no-unused-vars
-import { motion, useScroll, useTransform } from 'motion/react'
+import { useRef, useState, useEffect, useCallback } from 'react'
+import { X, ExternalLink } from 'lucide-react'
+import { FiGithub } from 'react-icons/fi'
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+  useMotionTemplate,
+  AnimatePresence,
+} from 'motion/react'
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: 'spring', stiffness: 100, damping: 15 },
+  },
+}
 import Reveal from '@/components/animations/Reveal'
 import SectionTag from '@/components/ui/SectionTag'
 import imgBoulio from '@/assets/img/projects/boulio.jpg'
@@ -263,34 +291,81 @@ function FeaturedProject({ p, idx }) {
   )
 }
 
-function IndexCard({ p }) {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start 98%', 'start 75%'],
-  })
+function IndexCard({ p, onSelect }) {
+  const cardRef = useRef(null)
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const glowX = useMotionValue(50)
+  const glowY = useMotionValue(50)
+  const glowOpacity = useMotionValue(0)
 
-  const y = useTransform(scrollYProgress, [0, 1], [50, 0])
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1])
+  const springCfg = { stiffness: 300, damping: 20 }
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springCfg)
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springCfg)
+  const scale = useSpring(1, springCfg)
+
+  const glowBackground = useMotionTemplate`radial-gradient(circle at ${glowX}% ${glowY}%, rgba(255,255,255,0.12), transparent 60%)`
+
+  const handleMouseMove = (e) => {
+    if (window.innerWidth < 768) return
+    const rect = cardRef.current.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width - 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5
+    mouseX.set(x)
+    mouseY.set(y)
+    glowX.set(((e.clientX - rect.left) / rect.width) * 100)
+    glowY.set(((e.clientY - rect.top) / rect.height) * 100)
+    glowOpacity.set(1)
+    scale.set(1.03)
+  }
+
+  const handleMouseLeave = () => {
+    mouseX.set(0)
+    mouseY.set(0)
+    glowOpacity.set(0)
+    scale.set(1)
+  }
 
   return (
-    <motion.div ref={ref} style={{ y, opacity }}>
-      <div
-        className="group relative overflow-hidden"
-        style={{ border: '1px solid var(--rule)' }}
+    <motion.div variants={staggerItem} style={{ perspective: 800 }}>
+      <motion.div
+        ref={cardRef}
+        layoutId={`project-${p.name}-${p.kind}`}
+        className="group relative cursor-pointer overflow-hidden"
+        style={{
+          transformStyle: 'preserve-3d',
+          rotateX,
+          rotateY,
+          scale,
+          willChange: 'transform',
+        }}
+        onClick={(e) => {
+          if (e.target.closest('a')) return
+          onSelect(p)
+        }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        transition={{ type: 'spring', stiffness: 200, damping: 30 }}
       >
+        <div className="pointer-events-none absolute inset-0 z-20" style={{ boxShadow: 'inset 0 0 0 1px var(--rule)' }} />
         <div className="relative" style={{ aspectRatio: '3/2' }}>
           <img
             src={p.img}
             alt={p.name}
-            className="absolute inset-0 h-full w-full object-cover grayscale-40 brightness-75"
+            className="absolute inset-0 h-full w-full object-cover grayscale-40 brightness-75 transition-all duration-500 group-hover:grayscale-0 group-hover:brightness-100"
           />
         </div>
 
-        {/* Overlay au hover — blur reveal */}
+        {/* Reflet lumineux qui suit la souris */}
+        <motion.div
+          className="pointer-events-none absolute inset-0 z-10"
+          style={{ background: glowBackground, opacity: glowOpacity }}
+        />
+
+        {/* Overlay au hover */}
         <div
           className="absolute inset-0 flex flex-col p-3.5 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
-          style={{ background: '#141818' }}
+          style={{ background: 'rgba(20,24,24,0.92)' }}
         >
           <h4
             className="serif"
@@ -342,12 +417,168 @@ function IndexCard({ p }) {
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   )
 }
 
+function ProjectModal({ project, onClose }) {
+  const modalRef = useRef(null)
+
+  useEffect(() => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+    document.body.style.overflow = 'hidden'
+    document.body.style.paddingRight = `${scrollbarWidth}px`
+    modalRef.current?.focus()
+    return () => {
+      document.body.style.overflow = ''
+      document.body.style.paddingRight = ''
+    }
+  }, [])
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'Escape') onClose()
+  }, [onClose])
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [handleKeyDown])
+
+  return (
+    <>
+      <motion.div
+        className="fixed inset-0 z-40 flex items-center justify-center p-4 md:p-8"
+        style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+      >
+        <motion.div
+          ref={modalRef}
+          layoutId={`project-${project.name}-${project.kind}`}
+          className="relative w-full max-w-3xl overflow-y-auto outline-none"
+          style={{ background: 'var(--bg)', maxHeight: '90vh' }}
+          role="dialog"
+          aria-modal="true"
+          aria-label={project.name}
+          tabIndex={-1}
+          onClick={(e) => e.stopPropagation()}
+          transition={{ type: 'spring', stiffness: 200, damping: 30 }}
+        >
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full transition-colors"
+            style={{ background: 'rgba(0,0,0,0.5)', color: 'var(--ink)' }}
+            aria-label="Fermer"
+          >
+            <X className="h-5 w-5" />
+          </button>
+
+          <ModalImage src={project.img} alt={project.name} />
+
+          <div className="flex flex-col gap-5 p-6 md:p-8">
+            <div>
+              <div className="mono-sm mb-2" style={{ color: 'var(--accent)' }}>
+                {project.kind} &middot; {project.year}
+              </div>
+              <h3
+                className="serif"
+                style={{
+                  fontSize: 'clamp(28px, 4vw, 48px)',
+                  lineHeight: 1.1,
+                  letterSpacing: '-0.02em',
+                  color: 'var(--ink)',
+                  fontWeight: 350,
+                }}
+              >
+                {project.name}
+              </h3>
+            </div>
+
+            <p style={{ fontSize: '15px', lineHeight: 1.7, color: 'var(--mute)' }}>
+              {project.desc}
+            </p>
+
+            <div className="flex flex-wrap gap-2">
+              {project.stack.map((s) => (
+                <span
+                  key={s}
+                  className="mono-sm py-1.5 px-3"
+                  style={{ color: 'var(--ink-2)', border: '1px solid var(--rule)' }}
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+
+            <div
+              className="flex flex-wrap gap-4 pt-4"
+              style={{ borderTop: '1px solid var(--rule)' }}
+            >
+              {project.url && (
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ed-link mono inline-flex items-center gap-2"
+                  style={{ color: 'var(--accent)' }}
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Voir le projet
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ed-link mono inline-flex items-center gap-2"
+                  style={{ color: 'var(--accent)' }}
+                >
+                  <FiGithub className="h-4 w-4" />
+                  GitHub
+                </a>
+              )}
+              {project.extra && (
+                <a
+                  href={project.extra.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ed-link mono inline-flex items-center gap-2"
+                  style={{ color: 'var(--accent)' }}
+                >
+                  {project.extra.title} &rarr;
+                </a>
+              )}
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </>
+  )
+}
+
+function ModalImage({ src, alt }) {
+  return (
+    <div className="relative shrink-0 overflow-hidden" style={{ aspectRatio: '16/9' }}>
+      <img
+        src={src}
+        alt={alt}
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: 'linear-gradient(to top, var(--bg) 0%, transparent 50%)' }}
+      />
+    </div>
+  )
+}
+
 export const Catalogue = () => {
+  const [selectedProject, setSelectedProject] = useState(null)
+
   return (
     <section
       id="catalogue"
@@ -376,18 +607,32 @@ export const Catalogue = () => {
         ))}
       </div>
 
-      {/* Index — grille 3 colonnes compacte */}
+      {/* Index — grille compacte */}
       <div className="mt-24">
         <div className="mono mb-8" style={{ color: 'var(--mute)' }}>
           Autres projets
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {index.map((p) => (
-            <IndexCard key={p.name} p={p} />
+            <IndexCard key={`${p.name}-${p.kind}`} p={p} onSelect={setSelectedProject} />
           ))}
-        </div>
+        </motion.div>
       </div>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   )
 }
