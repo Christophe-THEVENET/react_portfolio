@@ -24,6 +24,7 @@ function validateField(name, value) {
       if (!value.trim()) return 'Le nom est requis'
       if (value.trim().length < 2) return 'Au moins 2 caractères'
       if (value.trim().length > 50) return '50 caractères maximum'
+      if (/[<>{}]/.test(value)) return 'Caractères non autorisés'
       return ''
     case 'email':
       if (!value.trim()) return "L'email est requis"

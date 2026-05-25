@@ -60,7 +60,7 @@ export const Hero = () => {
       style={{
         maxWidth: '1600px',
         paddingTop: 'clamp(72px, 9vh, 150px)',
-        paddingBottom: 'clamp(64px, 8vh, 104px)',
+        paddingBottom: 'clamp(24px, 3vh, 48px)',
       }}
     >
       {/* Main — name + video side by side */}
@@ -323,9 +323,9 @@ export const Hero = () => {
       </Reveal>
 
       {/* Bottom stats row */}
-      <Reveal delay={1100}>
+      <Reveal delay={1100} className="md:mt-auto">
         <div
-          className="mt-auto pt-4 grid grid-cols-2 md:grid-cols-4 gap-6"
+          className="pt-4 grid grid-cols-2 md:grid-cols-4 gap-6"
           style={{ borderTop: '1px solid var(--rule)' }}
         >
         {[

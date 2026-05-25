@@ -1,6 +1,5 @@
 import {
   SiGithub,
-  SiLinkedin,
   SiFacebook,
   SiInstagram,
 } from 'react-icons/si'

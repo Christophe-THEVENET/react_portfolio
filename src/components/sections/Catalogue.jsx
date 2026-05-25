@@ -132,8 +132,8 @@ function FeaturedProject({ p, idx }) {
             <p className="mt-6" style={{ fontSize: '16px', lineHeight: 1.7, color: 'var(--mute)', maxWidth: '540px' }}>{p.desc}</p>
             <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: 'var(--ink-2)', border: '1px solid var(--rule)' }}>{s}</span>))}</div>
             <div className="flex flex-wrap gap-6 mt-8">
-              <a href={p.url} target="_blank" rel="noreferrer" className="ed-link mono inline-block">{p.linkLabel} —&gt;</a>
-              {p.github && (<a href={p.github} target="_blank" rel="noreferrer" className="ed-link mono inline-block">GitHub —&gt;</a>)}
+              <a href={p.url} target="_blank" rel="noopener noreferrer" className="ed-link mono inline-block">{p.linkLabel} —&gt;</a>
+              {p.github && (<a href={p.github} target="_blank" rel="noopener noreferrer" className="ed-link mono inline-block">GitHub —&gt;</a>)}
             </div>
           </div>
         </>
@@ -152,8 +152,8 @@ function FeaturedProject({ p, idx }) {
             <p className="mt-6" style={{ fontSize: '16px', lineHeight: 1.7, color: 'var(--mute)', maxWidth: '540px' }}>{p.desc}</p>
             <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: 'var(--ink-2)', border: '1px solid var(--rule)' }}>{s}</span>))}</div>
             <div className="flex flex-wrap gap-6 mt-8">
-              <a href={p.url} target="_blank" rel="noreferrer" className="ed-link mono inline-block">{p.linkLabel} —&gt;</a>
-              {p.github && (<a href={p.github} target="_blank" rel="noreferrer" className="ed-link mono inline-block">GitHub —&gt;</a>)}
+              <a href={p.url} target="_blank" rel="noopener noreferrer" className="ed-link mono inline-block">{p.linkLabel} —&gt;</a>
+              {p.github && (<a href={p.github} target="_blank" rel="noopener noreferrer" className="ed-link mono inline-block">GitHub —&gt;</a>)}
             </div>
           </div>
         </>
@@ -272,17 +272,17 @@ function IndexCard({ p, onSelect, isSelected }) {
 
           <div className="flex flex-wrap gap-3 mt-auto pt-2" style={{ borderTop: '1px solid var(--rule)' }}>
             {p.url && (
-              <a href={p.url} target="_blank" rel="noreferrer" className="ed-link mono-sm" style={{ color: 'var(--accent)', fontSize: '10px' }}>
+              <a href={p.url} target="_blank" rel="noopener noreferrer" className="ed-link mono-sm" style={{ color: 'var(--accent)', fontSize: '10px' }}>
                 Voir &rarr;
               </a>
             )}
             {p.github && (
-              <a href={p.github} target="_blank" rel="noreferrer" className="ed-link mono-sm" style={{ color: 'var(--accent)', fontSize: '10px' }}>
+              <a href={p.github} target="_blank" rel="noopener noreferrer" className="ed-link mono-sm" style={{ color: 'var(--accent)', fontSize: '10px' }}>
                 GitHub &rarr;
               </a>
             )}
             {p.extra && (
-              <a href={p.extra.url} target="_blank" rel="noreferrer" className="ed-link mono-sm" style={{ color: 'var(--accent)', fontSize: '10px' }}>
+              <a href={p.extra.url} target="_blank" rel="noopener noreferrer" className="ed-link mono-sm" style={{ color: 'var(--accent)', fontSize: '10px' }}>
                 {p.extra.title} &rarr;
               </a>
             )}
@@ -385,7 +385,7 @@ function ProjectModal({ project, onClose }) {
                 <a
                   href={project.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="ed-link mono inline-flex items-center gap-2"
                   style={{ color: 'var(--accent)' }}
                 >
@@ -397,7 +397,7 @@ function ProjectModal({ project, onClose }) {
                 <a
                   href={project.github}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="ed-link mono inline-flex items-center gap-2"
                   style={{ color: 'var(--accent)' }}
                 >
@@ -409,7 +409,7 @@ function ProjectModal({ project, onClose }) {
                 <a
                   href={project.extra.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="ed-link mono inline-flex items-center gap-2"
                   style={{ color: 'var(--accent)' }}
                 >

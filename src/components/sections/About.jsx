@@ -49,7 +49,7 @@ export const About = () => {
     <section
       id="about"
       className="relative mx-auto px-6 md:px-16"
-      style={{ paddingTop: 'clamp(88px, 11vh, 144px)', paddingBottom: 'clamp(88px, 11vh, 144px)', maxWidth: '1600px' }}
+      style={{ paddingTop: 'clamp(160px, 20vh, 240px)', paddingBottom: 'clamp(88px, 11vh, 144px)', maxWidth: '1600px' }}
     >
       <SectionTag
         num=""
