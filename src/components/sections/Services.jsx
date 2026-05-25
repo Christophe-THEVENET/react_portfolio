@@ -220,7 +220,7 @@ export const Services = () => {
         eyebrow="Prestations"
         title={
           <>
-            À chaque besoin,
+             A chaque besoin,
             <br />
             <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
               sa formule

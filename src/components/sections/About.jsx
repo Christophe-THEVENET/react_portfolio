@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Reveal from '@/components/animations/Reveal'
 import SectionTag from '@/components/ui/SectionTag'
 import GlowCard from '@/components/animations/GlowCard'
@@ -39,6 +39,7 @@ const diplomes = [
 
 export const About = () => {
   const diplomesRef = useRef(null)
+  const [hoveredDiplome, setHoveredDiplome] = useState(null)
   const { scrollYProgress } = useScroll({
     target: diplomesRef,
     offset: ['start 82%', 'start 48%'],
@@ -131,7 +132,7 @@ export const About = () => {
               Formations
             </div>
           </Reveal>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
             {diplomes.map((d, i) => {
               const start = (i / diplomes.length) * 0.5
               const end = Math.min(start + 0.45, 1)
@@ -140,6 +141,16 @@ export const About = () => {
 
               return (
                 <motion.div key={d.year} style={{ x, opacity }}>
+                  {i > 0 && (
+                    <div
+                      className="mx-3 my-1 transition-opacity duration-200"
+                      style={{
+                        height: '1px',
+                        background: 'var(--rule)',
+                        opacity: hoveredDiplome === i || hoveredDiplome === i - 1 ? 0 : 1,
+                      }}
+                    />
+                  )}
                   <GlowCard>
                     <div
                       className="group grid gap-4 items-center py-4 px-3 rounded-xl transition-all duration-300"
@@ -149,9 +160,11 @@ export const About = () => {
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.background = 'rgba(71,179,177,0.04)'
+                        setHoveredDiplome(i)
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = 'transparent'
+                        setHoveredDiplome(null)
                       }}
                     >
                       <div

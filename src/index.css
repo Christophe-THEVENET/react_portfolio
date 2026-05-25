@@ -283,3 +283,10 @@
     animation: none !important;
   }
 }
+
+/* Placeholders */
+input::placeholder,
+textarea::placeholder {
+  color: rgba(230, 226, 216, 0.25) !important;
+  opacity: 1;
+}

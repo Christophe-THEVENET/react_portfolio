@@ -51,7 +51,7 @@ const featured = [
   {
     n: '01',
     name: 'Boulio',
-    kind: 'Plateforme communautaire — full-stack',
+    kind: 'Plateforme full-stack',
     desc: 'Plateforme communautaire dédiée à la pétanque : réseau social, blog contributeurs, forum thématique, chat live, messagerie privée et intégration lives YouTube.',
     stack: ['React', 'Symfony', 'TanStack', 'Mercure', 'PostgreSQL'],
     url: 'https://boulio.com',
@@ -115,14 +115,13 @@ function FeaturedProject({ p, idx }) {
     <motion.article
       ref={ref}
       style={{ x, opacity }}
-      className="grid grid-cols-1 md:grid-cols-[4fr_6fr] gap-8 md:gap-16 py-12 items-center"
+      className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 py-12 items-center"
     >
       {!reverse ? (
         <>
           <div
-            className="group/img relative overflow-hidden"
+            className="group/img relative overflow-hidden w-full"
             style={{
-              aspectRatio: '16/10',
               height: '320px',
               border: '1px solid var(--rule)',
             }}
@@ -267,9 +266,8 @@ function FeaturedProject({ p, idx }) {
             </div>
           </div>
           <div
-            className="group/img relative overflow-hidden"
+            className="group/img relative overflow-hidden w-full"
             style={{
-              aspectRatio: '16/10',
               height: '320px',
               border: '1px solid var(--rule)',
             }}
@@ -619,7 +617,7 @@ export const Catalogue = () => {
           Autres projets
         </div>
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          className="grid grid-cols-1 min-[708px]:grid-cols-2 min-[1150px]:grid-cols-3 min-[1500px]:grid-cols-4 gap-4"
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"

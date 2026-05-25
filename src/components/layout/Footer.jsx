@@ -3,28 +3,28 @@ import { Scale } from 'lucide-react'
 
 export const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const currentYear = new Date().getFullYear()
 
   return (
     <>
       <footer
-        className="mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-6 py-10 md:px-16"
-        style={{ maxWidth: '1600px', borderTop: '1px solid var(--rule)' }}
+        className="relative z-10 py-6"
+        style={{ borderTop: '1px solid var(--rule)' }}
       >
-        <div className="mono-sm" style={{ color: 'var(--mute)' }}>
-          © 2026 — Christophe Thevenet · Digitob
-        </div>
-        <div
-          className="serif italic text-sm hidden md:block"
-          style={{ color: 'var(--mute)' }}
-        >
-          « Je fabrique un site internet comme on fabrique un meuble. »
-        </div>
-        <div className="flex gap-4">
+        <div className="mx-auto flex flex-col items-center gap-2 px-4 text-center sm:flex-row sm:justify-center sm:gap-4">
+          <span style={{ color: 'var(--ink-2)', fontSize: '14px' }}>
+            Christophe THEVENET - Développeur Web
+          </span>
+          <span className="hidden sm:inline" style={{ color: 'var(--faint)' }}>•</span>
+          <span style={{ color: 'var(--mute)', fontSize: '14px' }}>
+            © {currentYear}
+          </span>
+          <span className="hidden sm:inline" style={{ color: 'var(--faint)' }}>•</span>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="mono-sm cursor-pointer transition-colors duration-200"
-            style={{ color: 'var(--mute)', background: 'none', border: 'none' }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent)')}
+            className="cursor-pointer transition-colors duration-200"
+            style={{ color: 'var(--mute)', background: 'none', border: 'none', fontSize: '14px' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ink-2)')}
             onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--mute)')}
           >
             Mentions légales
@@ -32,21 +32,30 @@ export const Footer = () => {
         </div>
       </footer>
 
-      {/* Modal Mentions légales */}
-      {isModalOpen && (
+      <div
+        className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-500 ${
+          isModalOpen
+            ? 'visible opacity-100'
+            : 'invisible opacity-0 pointer-events-none'
+        }`}
+        style={{ background: 'rgba(6,9,10,0.5)', backdropFilter: 'blur(8px)' }}
+        onClick={() => setIsModalOpen(false)}
+      >
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: 'rgba(6,9,10,0.85)', backdropFilter: 'blur(8px)' }}
-          onClick={() => setIsModalOpen(false)}
+          className={`relative flex max-h-[80vh] w-full max-w-3xl flex-col p-6 sm:p-8 transition-all ${
+            isModalOpen
+              ? 'translate-y-0 scale-100 opacity-100 duration-700'
+              : 'translate-y-8 scale-95 opacity-0 duration-300'
+          }`}
+          style={{
+            border: '1px solid var(--rule)',
+            background: 'var(--bg)',
+            transitionTimingFunction: isModalOpen
+              ? 'cubic-bezier(0.2, 1.35, 0.82, 0.92)'
+              : 'cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+          onClick={(e) => e.stopPropagation()}
         >
-          <div
-            className="relative flex max-h-[80vh] w-full max-w-3xl flex-col p-6 sm:p-8"
-            style={{
-              border: '1px solid var(--rule)',
-              background: 'var(--bg)',
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
             <div
               className="mb-5 flex items-center gap-3 pb-4"
               style={{ borderBottom: '1px solid var(--rule)' }}
@@ -154,7 +163,6 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-      )}
     </>
   )
 }

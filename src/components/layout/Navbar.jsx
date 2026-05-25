@@ -39,7 +39,7 @@ export const Navbar = () => {
         background: scrolled ? 'rgba(15,18,18,0.82)' : 'transparent',
         backdropFilter: scrolled ? 'blur(12px) saturate(150%)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(12px) saturate(150%)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--rule)' : '1px solid transparent',
+        boxShadow: scrolled ? '0 1px 20px rgba(0,0,0,0.4)' : 'none',
       }}
     >
       <div className="flex items-center justify-between px-6 py-3 md:px-16 md:py-3">
