@@ -41,7 +41,7 @@ export const About = () => {
   const diplomesRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: diplomesRef,
-    offset: ['start 90%', 'start 55%'],
+    offset: ['start 82%', 'start 48%'],
   })
 
   return (
@@ -135,7 +135,7 @@ export const About = () => {
             {diplomes.map((d, i) => {
               const start = (i / diplomes.length) * 0.5
               const end = Math.min(start + 0.45, 1)
-              const x = useTransform(scrollYProgress, [start, end], [80, 0])
+              const x = useTransform(scrollYProgress, [start, end], [35, 0])
               const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
 
               return (
@@ -268,7 +268,7 @@ export const About = () => {
                       style={{ border: '1px solid transparent' }}
                       whileHover={{
                         scale: 1.3,
-                        background: 'rgba(71,179,177,0.06)',
+                        background: 'rgba(71,179,177,0.10)',
                         boxShadow: '0 4px 12px rgba(47,142,142,0.15)',
                       }}
                       transition={{ type: 'spring', stiffness: 400, damping: 10 }}

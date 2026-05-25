@@ -63,7 +63,7 @@ const SkillCard = ({ stack, scrollYProgress, direction, index }) => {
           className="h-full p-7"
           style={{
             border: '1px solid transparent',
-            background: '#141818',
+                        background: '#161c1c',
           }}
         >
           <div className="mono" style={{ color: 'var(--accent)' }}>
@@ -127,13 +127,13 @@ export const Skills = () => {
   const cardsRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: cardsRef,
-    offset: ['start 95%', 'start 60%'],
+    offset: ['start 87%', 'start 52%'],
   })
 
   const directions = [
-    { axis: 'x', from: -80 },
-    { axis: 'y', from: 60 },
-    { axis: 'x', from: 80 },
+    { axis: 'x', from: -30 },
+    { axis: 'y', from: 25 },
+    { axis: 'x', from: 30 },
   ]
 
   return (

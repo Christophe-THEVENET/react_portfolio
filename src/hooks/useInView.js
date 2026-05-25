@@ -19,7 +19,7 @@ export function useInView(opts = {}) {
       },
       {
         threshold: opts.threshold ?? 0.15,
-        rootMargin: opts.rootMargin ?? '100px 0px',
+        rootMargin: opts.rootMargin ?? '200px 0px',
       },
     )
     obs.observe(ref.current)
