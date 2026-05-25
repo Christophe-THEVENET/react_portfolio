@@ -69,6 +69,7 @@ const TextReveal = ({
     <motion.span
       ref={ref}
       className={className}
+      style={{ position: 'relative', display: 'inline' }}
       variants={{
         hidden: {},
         visible: { transition: { staggerChildren: staggerDelay } },
