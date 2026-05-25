@@ -1,156 +1,148 @@
 import { useEffect, useRef } from 'react'
-import {
-  Group,
-  MathUtils,
-  PerspectiveCamera,
-  Points,
-  PointsMaterial,
-  Scene,
-  TextureLoader,
-  WebGLRenderer,
-  BufferGeometry,
-  Float32BufferAttribute,
-  CanvasTexture,
-} from 'three'
+import * as THREE from 'three'
 
-const PARTICLE_COUNT = 200
-const PARTICLE_DISTANCE = 2
-const PARTICLE_SIZE = 0.01
-
-const createCircleTexture = () => {
-  const canvas = document.createElement('canvas')
-  canvas.width = 32
-  canvas.height = 32
-  const ctx = canvas.getContext('2d')
-  ctx.beginPath()
-  ctx.arc(16, 16, 14, 0, Math.PI * 2)
-  ctx.fillStyle = 'white'
-  ctx.fill()
-  return new CanvasTexture(canvas)
-}
-
-const ParticleField = () => {
+export default function ParticleField() {
   const containerRef = useRef(null)
 
   useEffect(() => {
     const container = containerRef.current
-    if (!container) {
-      return undefined
-    }
+    if (!container) return
 
-    const scene = new Scene()
-    const { clientWidth: initialWidth, clientHeight: initialHeight } = container
-    const startWidth = initialWidth || window.innerWidth
-    const startHeight = initialHeight || window.innerHeight
-    const camera = new PerspectiveCamera(
-      75,
-      startWidth / startHeight,
-      0.8,
-      1000,
+    const T = THREE
+    const accent = new T.Color('#47B3B1')
+    const particleCount = 110
+    const baseOpacity = 0.1
+
+    const scene = new T.Scene()
+    const camera = new T.PerspectiveCamera(
+      52,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      500,
     )
+    camera.position.z = 60
 
-    camera.position.set(0.5, 0.5, 1)
-
-    const renderer = new WebGLRenderer({
-      antialias: true,
-      alpha: true,
-    })
+    const renderer = new T.WebGLRenderer({ alpha: true, antialias: true })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
+    renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setClearColor(0x000000, 0)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setSize(startWidth, startHeight)
     container.appendChild(renderer.domElement)
 
-    const points = new Float32Array(PARTICLE_COUNT * 3)
-    for (let i = 0; i < PARTICLE_COUNT; i += 1) {
-      const stride = i * 3
-      points[stride] = MathUtils.randFloatSpread(PARTICLE_DISTANCE * 2)
-      points[stride + 1] = MathUtils.randFloatSpread(PARTICLE_DISTANCE * 2)
-      points[stride + 2] = MathUtils.randFloatSpread(PARTICLE_DISTANCE * 2)
+    function makeDotTex(hex) {
+      const c = document.createElement('canvas')
+      c.width = 64
+      c.height = 64
+      const ctx = c.getContext('2d')
+      const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 30)
+      grad.addColorStop(0, hex)
+      grad.addColorStop(0.4, hex)
+      grad.addColorStop(1, 'rgba(0,0,0,0)')
+      ctx.fillStyle = grad
+      ctx.beginPath()
+      ctx.arc(32, 32, 30, 0, Math.PI * 2)
+      ctx.fill()
+      const t = new T.CanvasTexture(c)
+      t.needsUpdate = true
+      return t
     }
 
-    const geometry = new BufferGeometry()
-    geometry.setAttribute('position', new Float32BufferAttribute(points, 3))
+    const toCss = (c) =>
+      `rgb(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)})`
 
-    const circleTexture = createCircleTexture()
+    const range = 90
+    const positions = new Float32Array(particleCount * 3)
+    const velocities = new Float32Array(particleCount * 3)
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * range
+      positions[i * 3 + 1] = (Math.random() - 0.5) * range * 0.6
+      positions[i * 3 + 2] = (Math.random() - 0.5) * range * 0.7 - 6
+      velocities[i * 3] = (Math.random() - 0.5) * 0.008
+      velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.008
+      velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.005
+    }
 
-    const pointMaterial = new PointsMaterial({
-      color: 0x335654,
-      size: PARTICLE_SIZE,
-      map: circleTexture,
-      alphaTest: 0.01,
+    const pGeo = new T.BufferGeometry()
+    pGeo.setAttribute('position', new T.BufferAttribute(positions, 3))
+    const dotTex = makeDotTex(toCss(accent))
+    const pMat = new T.PointsMaterial({
+      size: 1.6,
+      map: dotTex,
       transparent: true,
+      opacity: baseOpacity,
+      sizeAttenuation: true,
+      depthWrite: false,
+      blending: T.AdditiveBlending,
     })
+    const points = new T.Points(pGeo, pMat)
+    scene.add(points)
 
-    const particlePoints = new Points(geometry, pointMaterial)
-    const group = new Group()
-    group.add(particlePoints)
-    scene.add(group)
-
-    const mouse = { x: 0, y: 0 }
-    const handleMouseMove = (event) => {
-      mouse.x = event.clientX
-      mouse.y = event.clientY
+    let mx = 0, my = 0, tx = 0, ty = 0
+    const onMouseMove = (e) => {
+      tx = (e.clientX / window.innerWidth - 0.5) * 4
+      ty = -(e.clientY / window.innerHeight - 0.5) * 2
     }
+    window.addEventListener('mousemove', onMouseMove, { passive: true })
 
-    window.addEventListener('mousemove', handleMouseMove)
+    let scrollFade = 1
+    const onScroll = () => {
+      const y = window.scrollY
+      const h = window.innerHeight
+      scrollFade = Math.max(0.08, 1 - y / (h * 0.95))
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
 
-    const handleResize = () => {
-      const bounds = container.getBoundingClientRect()
-      const width = bounds.width
-      const height = bounds.height
-      if (width === 0 || height === 0) {
-        return
-      }
-      camera.aspect = width / height
+    const onResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix()
-      renderer.setSize(width, height)
+      renderer.setSize(window.innerWidth, window.innerHeight)
     }
+    window.addEventListener('resize', onResize)
 
-    const resizeObserver = new ResizeObserver(handleResize)
-    resizeObserver.observe(container)
-
-    let frameId
-    const animate = () => {
-      const bounds = container.getBoundingClientRect()
-      if (bounds.width === 0 || bounds.height === 0) {
-        frameId = requestAnimationFrame(animate)
-        return
+    let animId
+    function tick() {
+      const r = range / 2
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] += velocities[i * 3]
+        positions[i * 3 + 1] += velocities[i * 3 + 1]
+        positions[i * 3 + 2] += velocities[i * 3 + 2]
+        if (Math.abs(positions[i * 3]) > r) velocities[i * 3] *= -1
+        if (Math.abs(positions[i * 3 + 1]) > r * 0.6) velocities[i * 3 + 1] *= -1
+        if (Math.abs(positions[i * 3 + 2]) > r * 0.7) velocities[i * 3 + 2] *= -1
       }
-      const ratioX = ((mouse.x - bounds.left) / bounds.width - 0.5) * 2
-      const ratioY = ((mouse.y - bounds.top) / bounds.height - 0.5) * 2
+      pGeo.attributes.position.needsUpdate = true
 
-      group.rotation.y = ratioX * Math.PI * 0.5
-      group.rotation.x = ratioY * Math.PI * 0.5
-
+      mx += (tx - mx) * 0.035
+      my += (ty - my) * 0.035
+      camera.position.x = mx
+      camera.position.y = my
       camera.lookAt(0, 0, 0)
+
+      container.style.opacity = scrollFade.toFixed(3)
       renderer.render(scene, camera)
-
-      frameId = requestAnimationFrame(animate)
+      animId = requestAnimationFrame(tick)
     }
-
-    animate()
+    tick()
 
     return () => {
-      cancelAnimationFrame(frameId)
-      resizeObserver.disconnect()
-      window.removeEventListener('mousemove', handleMouseMove)
+      cancelAnimationFrame(animId)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onResize)
+      pGeo.dispose()
+      dotTex.dispose()
+      pMat.dispose()
+      renderer.dispose()
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement)
       }
-      geometry.dispose()
-      pointMaterial.dispose()
-      circleTexture.dispose()
-      renderer.dispose()
     }
   }, [])
 
   return (
     <div
       ref={containerRef}
-      className="pointer-events-none absolute inset-x-0 top-0 z-0 h-screen overflow-hidden"
-      aria-hidden="true"
+      className="fixed inset-0 z-0 pointer-events-none"
     />
   )
 }
-
-export default ParticleField
