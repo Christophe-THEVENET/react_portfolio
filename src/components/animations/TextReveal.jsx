@@ -58,7 +58,7 @@ const TextReveal = ({
   once = true,
 }) => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once, amount: 0.2, margin: '150px 0px' })
+  const isInView = useInView(ref, { once, amount: 0.3, margin: '-80px 0px' })
 
   const letters = useMemo(
     () => renderLetters(React.Children.toArray(children)),

@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
-import { X, ExternalLink } from 'lucide-react'
+import { X, ExternalLink, FolderSearch } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
 import {
   motion,
@@ -472,7 +472,7 @@ function ProjectModal({ project, onClose }) {
 
           <ModalImage src={project.img} alt={project.name} />
 
-          <div className="flex flex-col gap-5 p-6 md:p-8">
+          <div className="flex flex-col gap-4 p-5 md:p-6">
             <div>
               <div className="mono-sm mb-2" style={{ color: 'var(--accent)' }}>
                 {project.kind} &middot; {project.year}
@@ -480,7 +480,7 @@ function ProjectModal({ project, onClose }) {
               <h3
                 className="serif"
                 style={{
-                  fontSize: 'clamp(28px, 4vw, 48px)',
+                  fontSize: 'clamp(26px, 3.5vw, 42px)',
                   lineHeight: 1.1,
                   letterSpacing: '-0.02em',
                   color: 'var(--ink)',
@@ -557,7 +557,7 @@ function ProjectModal({ project, onClose }) {
 
 function ModalImage({ src, alt }) {
   return (
-    <div className="relative shrink-0 overflow-hidden" style={{ aspectRatio: '16/9' }}>
+    <div className="relative shrink-0 overflow-hidden" style={{ aspectRatio: '2/1' }}>
       <img
         src={src}
         alt={alt}
@@ -614,7 +614,8 @@ export const Catalogue = () => {
 
       {/* Index — grille compacte */}
       <div className="mt-24">
-        <div className="mono mb-8" style={{ color: 'var(--mute)' }}>
+        <div className="mono mb-8 flex items-center gap-2" style={{ color: 'var(--mute)' }}>
+          <FolderSearch className="h-3.5 w-3.5" />
           Autres projets
         </div>
         <motion.div
