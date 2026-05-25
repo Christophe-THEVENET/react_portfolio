@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import { X, ExternalLink } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
 import {
@@ -291,7 +292,7 @@ function FeaturedProject({ p, idx }) {
   )
 }
 
-function IndexCard({ p, onSelect }) {
+function IndexCard({ p, onSelect, isSelected }) {
   const cardRef = useRef(null)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -327,7 +328,7 @@ function IndexCard({ p, onSelect }) {
   }
 
   return (
-    <motion.div variants={staggerItem} style={{ perspective: 800 }}>
+    <motion.div variants={staggerItem} style={{ perspective: 800, zIndex: isSelected ? 50 : 'auto', position: 'relative' }}>
       <motion.div
         ref={cardRef}
         layoutId={`project-${p.name}-${p.kind}`}
@@ -426,14 +427,7 @@ function ProjectModal({ project, onClose }) {
   const modalRef = useRef(null)
 
   useEffect(() => {
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
-    document.body.style.overflow = 'hidden'
-    document.body.style.paddingRight = `${scrollbarWidth}px`
     modalRef.current?.focus()
-    return () => {
-      document.body.style.overflow = ''
-      document.body.style.paddingRight = ''
-    }
   }, [])
 
   const handleKeyDown = useCallback((e) => {
@@ -445,10 +439,10 @@ function ProjectModal({ project, onClose }) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [handleKeyDown])
 
-  return (
+  return createPortal(
     <>
       <motion.div
-        className="fixed inset-0 z-40 flex items-center justify-center p-4 md:p-8"
+        className="fixed inset-0 z-60 flex items-center justify-center p-4 md:p-8"
         style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -556,7 +550,8 @@ function ProjectModal({ project, onClose }) {
           </div>
         </motion.div>
       </motion.div>
-    </>
+    </>,
+    document.body
   )
 }
 
@@ -578,6 +573,16 @@ function ModalImage({ src, alt }) {
 
 export const Catalogue = () => {
   const [selectedProject, setSelectedProject] = useState(null)
+  const [boostedProject, setBoostedProject] = useState(null)
+
+  const handleSelect = (p) => {
+    setBoostedProject(p)
+    setSelectedProject(p)
+  }
+
+  const handleClose = () => {
+    setSelectedProject(null)
+  }
 
   return (
     <section
@@ -620,16 +625,16 @@ export const Catalogue = () => {
           viewport={{ once: true, amount: 0.1 }}
         >
           {index.map((p) => (
-            <IndexCard key={`${p.name}-${p.kind}`} p={p} onSelect={setSelectedProject} />
+            <IndexCard key={`${p.name}-${p.kind}`} p={p} onSelect={handleSelect} isSelected={boostedProject?.name === p.name && boostedProject?.kind === p.kind} />
           ))}
         </motion.div>
       </div>
 
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={() => setBoostedProject(null)}>
         {selectedProject && (
           <ProjectModal
             project={selectedProject}
-            onClose={() => setSelectedProject(null)}
+            onClose={handleClose}
           />
         )}
       </AnimatePresence>

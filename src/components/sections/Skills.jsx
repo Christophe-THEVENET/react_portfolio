@@ -26,6 +26,7 @@ const stacks = [
       'Next.js',
       'Elementor',
       'SEO local',
+      'Stripe',
       'Shopify',
       'Multi-langue',
       'Accessibilité',
