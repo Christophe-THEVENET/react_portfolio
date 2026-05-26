@@ -23,7 +23,7 @@ export const Navbar = () => {
       const currentY = window.scrollY
       setScrolled(currentY > 60)
 
-      if (currentY > 100 && !menuOpen) {
+      if (currentY > 100 && !menuOpen && window.innerWidth < 768) {
         setHeaderVisible(currentY < lastScrollY.current)
       } else {
         setHeaderVisible(true)
