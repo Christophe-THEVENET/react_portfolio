@@ -75,6 +75,7 @@
   #root {
     position: relative;
     z-index: 2;
+    overflow-x: clip;
   }
 
   ::-webkit-scrollbar {
