@@ -15,6 +15,11 @@ function App() {
   const [scrollOpacity, setScrollOpacity] = useState(0)
 
   useEffect(() => {
+    history.scrollRestoration = 'manual'
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
     const onScroll = () => {
       const progress = Math.min(window.scrollY / 600, 1)
       setScrollOpacity(progress)
