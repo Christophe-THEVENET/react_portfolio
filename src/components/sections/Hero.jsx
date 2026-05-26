@@ -129,6 +129,10 @@ export const Hero = () => {
               <a
                 ref={ctaPrimaryRef}
                 href="#contact"
+                onClick={(e) => {
+                  e.preventDefault()
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                }}
                 className="mono inline-block px-6 py-3.5 transition-colors duration-200"
                 style={{
                   background: 'var(--accent)',
@@ -141,7 +145,11 @@ export const Hero = () => {
               </a>
               <a
                 ref={ctaSecondaryRef}
-                href="#catalogue"
+                href="#realisations"
+                onClick={(e) => {
+                  e.preventDefault()
+                  document.getElementById('realisations')?.scrollIntoView({ behavior: 'smooth' })
+                }}
                 className="mono inline-block px-6 py-3.5 transition-colors duration-200"
                 style={{
                   color: 'var(--ink)',

@@ -14,11 +14,13 @@ const GlowCard = ({ children, className = '', glowColor = 'rgba(71,179,177,0.12)
         scale: 1.01,
         boxShadow: '0 4px 12px rgba(47,142,142,0.15)',
       }}
-      transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 20 }}
     >
       <motion.div
-        className={`pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-0 transition-opacity duration-500 ${rounded}`}
+        className={`pointer-events-none absolute inset-0 z-0 overflow-hidden ${rounded}`}
+        initial={{ opacity: 0 }}
         animate={{ opacity: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
         style={{
           background: `radial-gradient(400px circle at 50% 50%, ${glowColor}, transparent 60%)`,
         }}
