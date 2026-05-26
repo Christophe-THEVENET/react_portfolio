@@ -39,7 +39,7 @@
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
     scrollbar-width: thin;
-    scrollbar-color: var(--accent-deep) transparent;
+    scrollbar-color: rgba(242, 239, 233, 0.22) transparent;
   }
 
   body {
@@ -79,14 +79,18 @@
   }
 
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 4px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--accent-deep);
+    background: rgba(242, 239, 233, 0.22);
     border-radius: 0;
+    transition: background 0.2s;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
   }
 
   @media (max-width: 767px) {
