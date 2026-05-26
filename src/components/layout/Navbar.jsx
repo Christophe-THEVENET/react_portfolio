@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from 'motion/react'
 import logoDigitob from '@/assets/img/general/logo_digitob.svg'
 
 const links = [
-  { id: 'about', label: 'À propos' },
-  { id: 'skills', label: 'Compétences' },
-  { id: 'catalogue', label: 'Réalisations' },
-  { id: 'services', label: 'Prestations' },
+  { id: 'a-propos', label: 'À propos' },
+  { id: 'competences', label: 'Compétences' },
+  { id: 'realisations', label: 'Réalisations' },
+  { id: 'prestations', label: 'Prestations' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -30,7 +30,7 @@ export const Navbar = () => {
       }
       lastScrollY.current = currentY
 
-      const sections = ['hero', 'about', 'skills', 'catalogue', 'services', 'contact']
+      const sections = ['hero', 'a-propos', 'competences', 'realisations', 'prestations', 'contact']
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i])
         if (el && el.getBoundingClientRect().top < 200) {
@@ -57,7 +57,13 @@ export const Navbar = () => {
       }}
     >
       <div className="flex items-center justify-between px-6 py-3 md:px-16 md:py-3">
-        <a href="#hero">
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault()
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }}
+        >
           <img
             src={logoDigitob}
             alt="Digitob"
@@ -72,6 +78,10 @@ export const Navbar = () => {
             <a
               key={l.id}
               href={'#' + l.id}
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' })
+              }}
               className="mono relative px-3.5 py-2.5 transition-colors duration-150 rounded-lg"
               style={{
                 color: active === l.id ? 'var(--accent)' : 'var(--ink-2)',
