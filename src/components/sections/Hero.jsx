@@ -86,7 +86,7 @@ export const Hero = () => {
           <h1
             className="serif ed-shimmer-once"
             style={{
-              fontSize: 'clamp(50px, 9vw, 150px)',
+              fontSize: 'clamp(62px, 9vw, 150px)',
               lineHeight: 0.92,
               fontWeight: 300,
               letterSpacing: '-0.04em',
@@ -338,8 +338,8 @@ export const Hero = () => {
             <div
               className="py-1"
               style={{
-                borderLeft: i === 0 ? 'none' : '1px solid var(--rule-soft)',
-                paddingLeft: i === 0 ? 0 : '24px',
+                borderLeft: i % 2 === 0 ? 'none' : '1px solid var(--rule-soft)',
+                paddingLeft: i % 2 === 0 ? 0 : '24px',
               }}
             >
               <div
