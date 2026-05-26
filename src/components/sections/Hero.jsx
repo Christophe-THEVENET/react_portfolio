@@ -59,7 +59,7 @@ export const Hero = () => {
       className="relative min-h-screen md:h-screen flex flex-col px-6 md:px-16 mx-auto"
       style={{
         maxWidth: '1600px',
-        paddingTop: 'clamp(72px, 9vh, 150px)',
+        paddingTop: 'clamp(88px, 9vh, 150px)',
         paddingBottom: 'clamp(24px, 3vh, 48px)',
       }}
     >

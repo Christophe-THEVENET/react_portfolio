@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
 import logoDigitob from '@/assets/img/general/logo_digitob.svg'
@@ -15,10 +15,21 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState('hero')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [headerVisible, setHeaderVisible] = useState(true)
+  const lastScrollY = useRef(0)
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 60)
+      const currentY = window.scrollY
+      setScrolled(currentY > 60)
+
+      if (currentY > 100 && !menuOpen) {
+        setHeaderVisible(currentY < lastScrollY.current)
+      } else {
+        setHeaderVisible(true)
+      }
+      lastScrollY.current = currentY
+
       const sections = ['hero', 'about', 'skills', 'catalogue', 'services', 'contact']
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i])
@@ -31,7 +42,7 @@ export const Navbar = () => {
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [menuOpen])
 
   return (
     <header
@@ -41,6 +52,8 @@ export const Navbar = () => {
         backdropFilter: (scrolled || menuOpen) ? 'blur(12px) saturate(150%)' : 'none',
         WebkitBackdropFilter: (scrolled || menuOpen) ? 'blur(12px) saturate(150%)' : 'none',
         boxShadow: (scrolled || menuOpen) ? '0 1px 20px rgba(0,0,0,0.4)' : 'none',
+        transform: headerVisible ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease',
       }}
     >
       <div className="flex items-center justify-between px-6 py-3 md:px-16 md:py-3">

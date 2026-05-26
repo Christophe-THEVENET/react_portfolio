@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react'
-import { Map, Phone, Mail, MapPinHouse, ShieldCheck, Tally4, Share2 } from 'lucide-react'
+import { useState, useRef, useCallback } from 'react'
+import { Map, Phone, Mail, MapPinHouse, ShieldCheck, Tally4, Share2, ArrowDownRight } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import Reveal from '@/components/animations/Reveal'
 import GlowCard from '@/components/animations/GlowCard'
@@ -90,6 +90,34 @@ export const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState(false)
   const [hoveredDetail, setHoveredDetail] = useState(null)
+
+  const textareaRef = useRef(null)
+
+  const handleResizeStart = useCallback((e) => {
+    e.preventDefault()
+    const textarea = textareaRef.current
+    if (!textarea) return
+
+    const startY = e.clientY ?? e.touches?.[0]?.clientY
+    const startHeight = textarea.offsetHeight
+
+    const onMove = (moveEvent) => {
+      const currentY = moveEvent.clientY ?? moveEvent.touches?.[0]?.clientY
+      textarea.style.height = Math.max(140, startHeight + (currentY - startY)) + 'px'
+    }
+
+    const onUp = () => {
+      document.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseup', onUp)
+      document.removeEventListener('touchmove', onMove)
+      document.removeEventListener('touchend', onUp)
+    }
+
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseup', onUp)
+    document.addEventListener('touchmove', onMove)
+    document.addEventListener('touchend', onUp)
+  }, [])
 
   const asideRef = useRef(null)
   const { scrollYProgress } = useScroll({
@@ -230,10 +258,11 @@ export const Contact = () => {
               </FieldLabel>
             </div>
 
-            <div className="flex-1 flex flex-col">
+            <div className="flex flex-col">
               <FieldLabel label="Message">
-                <div className="flex-1 flex flex-col">
+                <div className="relative">
                   <textarea
+                    ref={textareaRef}
                     name="message"
                     rows={7}
                     placeholder="Quelques lignes sur le projet, l'audience, les contraintes connues..."
@@ -244,9 +273,9 @@ export const Contact = () => {
                         touched.message && errors.message ? 'rgba(239, 68, 68, 0.5)' : 'var(--rule)'
                       handleBlur(e)
                     }}
-                    className="w-full flex-1 outline-none resize-y"
+                    className="w-full outline-none resize-none"
                     style={{
-          background: 'rgba(0,0,0,0.3)',
+                      background: 'rgba(0,0,0,0.3)',
                       border: `1px solid ${touched.message && errors.message ? 'rgba(239, 68, 68, 0.5)' : 'var(--rule)'}`,
                       padding: '14px 16px',
                       color: 'var(--ink)',
@@ -257,12 +286,19 @@ export const Contact = () => {
                     }}
                     onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
                   />
-                  {touched.message && errors.message && (
-                    <div className="mono-sm mt-1.5" style={{ color: 'rgba(239, 68, 68, 0.8)' }}>
-                      {errors.message}
-                    </div>
-                  )}
+                  <div
+                    className="absolute bottom-1.5 right-1.5 cursor-s-resize select-none touch-none opacity-40 hover:opacity-80 transition-opacity duration-150"
+                    onMouseDown={handleResizeStart}
+                    onTouchStart={handleResizeStart}
+                  >
+                    <ArrowDownRight className="h-4 w-4" style={{ color: 'var(--mute)' }} />
+                  </div>
                 </div>
+                {touched.message && errors.message && (
+                  <div className="mono-sm mt-1.5" style={{ color: 'rgba(239, 68, 68, 0.8)' }}>
+                    {errors.message}
+                  </div>
+                )}
               </FieldLabel>
             </div>
 
