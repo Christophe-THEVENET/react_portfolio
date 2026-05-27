@@ -82,6 +82,68 @@ function FieldLabel({ label, children }) {
   )
 }
 
+function ContactDetailItem({ d, i, scrollYProgress, hoveredDetail, setHoveredDetail }) {
+  const total = contactDetails.length
+  const start = (i / total) * 0.5
+  const end = Math.min(start + 0.45, 1)
+  const x = useTransform(scrollYProgress, [start, end], [35, 0])
+  const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
+  const IconComp = d.icon
+
+  return (
+    <motion.div style={{ x, opacity }}>
+      {i > 0 && (
+        <div
+          className="mx-3 my-1 transition-opacity duration-200"
+          style={{
+            height: '1px',
+            background: 'var(--rule)',
+            opacity: hoveredDetail === i || hoveredDetail === i - 1 ? 0 : 1,
+          }}
+        />
+      )}
+      <GlowCard rounded="rounded-xl">
+        <div
+          className="group grid gap-4 items-center py-4 px-3 rounded-xl transition-all duration-300"
+          style={{
+            gridTemplateColumns: '44px 1fr',
+            border: '1px solid transparent',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(71,179,177,0.04)'
+            setHoveredDetail(i)
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'transparent'
+            setHoveredDetail(null)
+          }}
+        >
+          <div
+            className="flex items-center justify-center py-2 rounded-lg"
+            style={{ background: 'rgba(71,179,177,0.06)' }}
+          >
+            <IconComp
+              className="h-4 w-4"
+              style={{ color: 'var(--accent)' }}
+            />
+          </div>
+          <div>
+            <div
+              className="serif group-hover:text-(--accent) transition-colors duration-300"
+              style={{ fontSize: '17px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
+            >
+              {d.value}
+            </div>
+            <div className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
+              {d.label}
+            </div>
+          </div>
+        </div>
+      </GlowCard>
+    </motion.div>
+  )
+}
+
 export const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [errors, setErrors] = useState({})
@@ -197,10 +259,9 @@ export const Contact = () => {
           <>
             Discutons
             <br />
-            <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
-              de votre projet
-            </span>
-            .
+             <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
+                de votre projet
+              </span>
           </>
         }
         lead="Décrivez votre besoin en quelques lignes."
@@ -352,66 +413,16 @@ export const Contact = () => {
           </Reveal>
 
           <div className="flex flex-col">
-            {contactDetails.map((d, i) => {
-              const start = (i / contactDetails.length) * 0.5
-              const end = Math.min(start + 0.45, 1)
-              const x = useTransform(scrollYProgress, [start, end], [35, 0])
-              const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
-              const IconComp = d.icon
-
-              return (
-                <motion.div key={d.label} style={{ x, opacity }}>
-                  {i > 0 && (
-                    <div
-                      className="mx-3 my-1 transition-opacity duration-200"
-                      style={{
-                        height: '1px',
-                        background: 'var(--rule)',
-                        opacity: hoveredDetail === i || hoveredDetail === i - 1 ? 0 : 1,
-                      }}
-                    />
-                  )}
-                  <GlowCard rounded="rounded-xl">
-                    <div
-                      className="group grid gap-4 items-center py-4 px-3 rounded-xl transition-all duration-300"
-                      style={{
-                        gridTemplateColumns: '44px 1fr',
-                        border: '1px solid transparent',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(71,179,177,0.04)'
-                        setHoveredDetail(i)
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent'
-                        setHoveredDetail(null)
-                      }}
-                    >
-                      <div
-                        className="flex items-center justify-center py-2 rounded-lg"
-                        style={{ background: 'rgba(71,179,177,0.06)' }}
-                      >
-                        <IconComp
-                          className="h-4 w-4"
-                          style={{ color: 'var(--accent)' }}
-                        />
-                      </div>
-                      <div>
-                        <div
-                          className="serif group-hover:text-[var(--accent)] transition-colors duration-300"
-                          style={{ fontSize: '17px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
-                        >
-                          {d.value}
-                        </div>
-                        <div className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
-                          {d.label}
-                        </div>
-                      </div>
-                    </div>
-                  </GlowCard>
-                </motion.div>
-              )
-            })}
+            {contactDetails.map((d, i) => (
+              <ContactDetailItem
+                key={d.label}
+                d={d}
+                i={i}
+                scrollYProgress={scrollYProgress}
+                hoveredDetail={hoveredDetail}
+                setHoveredDetail={setHoveredDetail}
+              />
+            ))}
           </div>
 
           <div className="mt-auto pt-8">

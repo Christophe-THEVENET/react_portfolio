@@ -6,10 +6,10 @@ import Reveal from '@/components/animations/Reveal'
 import TextReveal from '@/components/animations/TextReveal'
 import AnimatedNumber from '@/components/animations/AnimatedNumber'
 import { useMagnetic } from '@/hooks/useMagnetic'
-// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'motion/react'
+import { HERO_STATS, PERSONAL_INFO } from '@/utils/constants'
 
-export const Hero = () => {
+export const Home = () => {
   const ctaPrimaryRef = useMagnetic(0.18)
   const ctaSecondaryRef = useMagnetic(0.18)
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
@@ -55,7 +55,7 @@ export const Hero = () => {
 
   return (
     <section
-      id="hero"
+      id="home"
       className="relative min-h-screen md:h-screen flex flex-col px-6 md:px-16 mx-auto"
       style={{
         maxWidth: '1600px',
@@ -77,10 +77,10 @@ export const Hero = () => {
                 letterSpacing: '0.18em',
               }}
             >
-              Développeur web full-stack
+              {PERSONAL_INFO.title}
               <br className="md:hidden" />
               <span className="hidden md:inline" style={{ color: 'var(--faint)' }}> · </span>
-              <span style={{ color: 'var(--faint)' }}>Puy-de-Dôme ou distanciel</span>
+              <span style={{ color: 'var(--faint)' }}>{PERSONAL_INFO.location}</span>
             </div>
           </Reveal>
           <h1
@@ -171,7 +171,7 @@ export const Hero = () => {
         </div>
 
         {/* Video block */}
-        <Reveal delay={600} className="hidden md:block self-center relative z-[2]">
+        <Reveal delay={600} className="hidden md:block self-center relative z-2">
           <motion.div
             className="relative"
             style={{ filter: 'url(#liquid-distortion)' }}
@@ -182,11 +182,11 @@ export const Hero = () => {
               scale: { duration: 1.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] },
             }}
           >
-            <div className="relative aspect-[4/5] w-[280px] md:w-[320px] lg:w-[380px] xl:w-[460px]">
+            <div className="relative aspect-4/5 w-70 md:w-80 lg:w-95 xl:w-115">
               <div className="absolute inset-0 overflow-hidden">
                 <div className="rotating-border animate-spin-slow absolute inset-[-50%]" />
               </div>
-              <div className="absolute inset-[2px] overflow-hidden bg-black">
+              <div className="absolute inset-0.5 overflow-hidden bg-black">
                 <video
                   ref={videoRef}
                   className="h-full w-full object-cover"
@@ -260,6 +260,7 @@ export const Hero = () => {
                         { Icon: PiFileSqlLight, label: 'SQL' },
                         { Icon: SiWordpress, label: 'WordPress' },
                         { Icon: SiClaude, label: 'Claude Code' },
+                      // eslint-disable-next-line no-unused-vars -- Icon utilisé en JSX (<Icon>)
                       ].map(({ Icon, label }) => (
                         <motion.div
                           key={label}
@@ -280,7 +281,7 @@ export const Hero = () => {
                           >
                             {label}
                             <span
-                              className="absolute -bottom-[5px] right-2 border-x-[5px] border-t-[5px] border-x-transparent"
+                              className="absolute -bottom-1.25 right-2 border-x-1.25 border-t-1.25 border-x-transparent"
                               style={{ borderTopColor: 'rgba(11,14,14,0.88)' }}
                             />
                           </span>
@@ -298,11 +299,11 @@ export const Hero = () => {
 
       {/* Mobile video block */}
       <Reveal delay={600} className="md:hidden mt-10 mb-8">
-        <div className="relative aspect-[4/5] w-full max-w-[320px] mx-auto">
+        <div className="relative aspect-4/5 w-full max-w-80 mx-auto">
           <div className="absolute inset-0 overflow-hidden">
             <div className="rotating-border animate-spin-slow absolute inset-[-50%]" />
           </div>
-          <div className="absolute inset-[2px] overflow-hidden bg-black">
+          <div className="absolute inset-0.5 overflow-hidden bg-black">
             <video
               className="h-full w-full object-cover"
               preload="none"
@@ -336,12 +337,7 @@ export const Hero = () => {
           className="pt-4 grid grid-cols-2 md:grid-cols-4 gap-6"
           style={{ borderTop: '1px solid var(--rule)' }}
         >
-        {[
-          { n: 5, l: "Ans d'expérience", suffix: '+' },
-          { n: 30, l: 'Projets réalisés', suffix: '+' },
-          { n: 3, l: 'Diplômes obtenus', suffix: '+' },
-          { n: 98, l: 'Clients satisfaits', suffix: '%' },
-        ].map((s, i) => (
+        {HERO_STATS.map((s, i) => (
           <Reveal key={s.l} delay={1200 + i * 100}>
             <div
               className="py-1"

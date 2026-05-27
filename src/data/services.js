@@ -1,128 +1,88 @@
-export const services = [
+export const offers = [
   {
-    id: 1,
-    icon: 'MessageCircleCode',
-    title1: 'Taux journalier moyen',
-    subtitle1: 'Renforcez vos équipes',
-    price1: { 'taux journalier': '400€' },
-    description1:
-      "De la conception à la mise en production, j'interviens sur toutes les étapes du développement : architecture robuste, front-end React, back-end Symfony, déploiement et monitoring. Refactoring, optimisation de code, debug complexe, évolution d'applications : ma polyvalence me permet de gérer l'intégralité des enjeux techniques..",
-
-    title2: 'Taux horaire',
-    subtitle2: 'Garantissez la continuité',
-    price2: { 'taux horaire': '50€' },
-    description2:
-      'Votre site ou application nécessite une maintenance régulière ? Je gère la stabilité, la sécurité et la performance de vos applications : corrections de bugs, mises à jour, etc...',
-
-    popup: {
-      title: 'Freelance',
-      subtitle: "Je m'intègre à vos sprints",
-      skills: [
-        'Symfony niveau sénior',
-        'React niveau avancé',
-        'Workflow ia: Copilot + Claude',
-        'Architecture Mvc, Poo',
-        'Bdd Sql avec Merise ou Uml',
-        'Cms Wordpress et Woocommerce',
-        'Maquettage, Ui/Ux (Figma)',
-        'Déploiement continu',
-        'Maintenance, administration',
-        'Refactoring, debug, mise a jour',
-      ],
-    },
+    label: 'Freelance',
+    lead: 'Renforcez vos équipes',
+    tiers: [
+      { name: 'Taux journalier', price: '400€' },
+      { name: 'Maintenance', price: '50€/h' },
+    ],
+    desc: 'Je rejoins vos sprints en renfort : architecture, nouvelles fonctionnalités, refactoring, debug complexe, mise en production. Habitué aux workflows agiles, je suis opérationnel rapidement avec un setup assisté par IA.',
+    included: [
+      'Symfony sénior',
+      'React avancé',
+      'TypeScript',
+      'API REST',
+      'SQL',
+      'Docker',
+    ],
+    also: [
+      'conception bdd',
+      'déploiement continu',
+      'automatisation',
+      'Maquettage',
+    ],
   },
   {
-    id: 2,
-    icon: 'PanelsTopLeft',
-    title1: 'vitrine base',
-    subtitle1: 'Affirmez votre présence web',
-    price1: { tarif: '450€' },
-    description1:
-      'Une page unique pour présenter votre activité et convertir vos visiteurs en clients. Idéal pour artisans, freelances ou petits commerces qui veulent une présence web simple mais efficace : design moderne, optimisation mobile, référencement local et formulaire de contact.',
-
-    title2: 'vitrine complet',
-    subtitle2: '',
-    price2: { tarif: '950€' },
-    description2:
-      'Un véritable site de présentation avec plusieurs pages pour petites et moyennes entreprises. Montrez vos services, vos réalisations et inspirez confiance. Site de 5 pages (au-delà : supplément à la page). Modules complémentaires possibles (blog, calendrier, réservation...).',
-
-    popup: {
-      title: 'Site vitrine',
-      subtitle: 'Formule packagée',
-      skills: [
-        'Livré clé en main',
-        'Charte graphique + logo',
-        'Design avec thème premium',
-        'Optimisation du référencement',
-        'Adapté à tous les écrans',
-        'Site sécurisé + certificat ssl',
-        'Formation administration site',
-        'Formulaire de contact',
-        'blog, chat, calendrier (v2)',
-        'Nombreuses options disponibles',
-      ],
-    },
+    label: 'Site vitrine',
+    lead: 'Affirmez votre présence',
+    tiers: [
+      { name: 'One-page', price: '450€' },
+      { name: 'Site complet (5 pages)', price: '950€' },
+    ],
+    desc: 'One-page : une page unique pour présenter votre activité. Site complet : plusieurs pages structurées (services, réalisations, équipe, contact). Dans les deux cas : design moderne, mobile-first, référencement local, formation back-office inclus.',
+    included: [
+      'Clé en main',
+      'Design premium',
+      'référencement',
+      'sécurité',
+      'Responsive',
+    ],
+    also: [
+      'Livraison 2-3 sem.',
+      'formulaire de contact',
+      'Blog, calendrier',
+      'options',
+    ],
   },
   {
-    id: 3,
-    icon: 'ShoppingCart',
-    title1: 'Boutique minimaliste',
-    subtitle1: 'Développez vos ventes 24/24',
-    price1: { tarif: '1600€' },
-    description1:
-      'Commencez à vendre en ligne sans complexité. Une boutique fonctionnelle avec les essentiels : catalogue produits, panier, paiement sécurisé et gestion de commandes. Parfait pour un petit commerce ou artisan qui souhaite démarrer rapidement avec un investissement maîtrisé.',
-
-    title2: 'Boutique en ligne pro',
-    subtitle2: '',
-    price2: { tarif: '2500€' },
-    description2:
-      "Une véritable solution de vente. Catalogue plus large, gestion avancée de l'inventaire, options clients personnalisées, analytics et outils pour booster vos ventes. Conçue pour les commerces ayant une vraie ambition de croissance en ligne avec un potentiel d'évolution.",
-
-    popup: {
-      title: 'Site e-commerce',
-      subtitle: 'Formule packagée',
-      skills: [
-        'Livré clé en main',
-        'Charte graphique + logo',
-        'Design avec thème premium',
-        'Optimisation du référencement',
-        'Adapté à tous les écrans',
-        'Pages boutique & fiches produits',
-        'Gestion commandes/stock/clients',
-        'Paiements sécurisé + certificat ssl',
-        'Nombreuses options disponibles',
-      ],
-    },
+    label: 'E-commerce',
+    lead: 'Développez vos ventes',
+    tiers: [
+      { name: 'Boutique essentielle', price: '1600€' },
+      { name: 'Boutique pro', price: '2500€' },
+    ],
+    desc: "Essentielle : catalogue jusqu'a 50 produits, panier, paiement sécurisé et gestion de commandes: tout pour démarrer la vente en ligne. Pro : jusqu'a 300 produits, gestion avancée des stocks, variations de produits, coupons, analytics.",
+    included: [
+      'Fiches produits',
+      'référencement',
+      'Gestion commandes/stocks/clients',
+    ],
+    also: [
+      'Suivi commandes',
+      'Responsive',
+      'options disponibles',
+      'Design premium',
+    ],
   },
   {
-    id: 4,
-    icon: 'LayoutPanelLeft',
-    title1: 'Appli simple',
-    subtitle1: 'Automatisez vos processus',
-    price1: { tarif: 'sur devis' },
-    description1:
-      "Vous avez un besoin métier spécifique ? Une appli de base c'est une solution épurée qui répond à ce besoin sans surcharge: authentification, 2 modules fonctionnels, bdd. ex: forum, gestionnaire de livres. planning d'événements.",
-
-    title2: 'Appli complexe',
-    subtitle2: '',
-    price2: { tarif: 'sur devis' },
-    description2:
-      "Une vraie solution métier. Plusieurs modules interconnectés, back-office d'administration, APIs potentielles, et architecture pensée pour l'évolution. ex: plateforme communautaire avec posts, commentaires. gestionnaire de bibliothèque collaborative avec emprunts, retours. Plateforme de critique de films avec discussions et système de notation.",
-
-    popup: {
-      title: 'Application Web',
-      subtitle: 'Réactive, intuitive, sécurisée.',
-      skills: [
-        'Architecture découplée avec api',
-        'Front-end en React',
-        'Back-end en Symfony',
-        'Exploitation de données',
-        'Algorithmes de programmation',
-        "Système d'administration adapté",
-        'Optimisation du référencement',
-        'Adapté à tous les écrans',
-        'Site sécurisé + certificat ssl',
-      ],
-    },
+    label: 'Application full-stack',
+    lead: 'Automatisez vos processus',
+    tiers: [
+      { name: 'Application web', price: 'sur devis' },
+      { name: 'Application mobile', price: 'sur devis' },
+    ],
+    desc: 'Un besoin métier qui ne rentre dans aucune case ? Je pilote le projet de bout en bout : analyse, conception, développement et livraison. Architecture découplée, pensée pour évoluer sur le long terme avec agilité et robustesse.',
+    included: [
+      'Authentification',
+      'Back-office perso',
+      'Espace Membre',
+      'temps réel',
+    ],
+    also: [
+      'Modélisation BDD',
+      'exploitation de données',
+      'algorithmes',
+      'sécurité',
+    ],
   },
 ]

@@ -4,38 +4,101 @@ import SectionTag from '@/components/ui/SectionTag'
 import GlowCard from '@/components/animations/GlowCard'
 import { ExternalLink, Share2, GraduationCap } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'motion/react'
-import { SOCIAL_LINKS } from '@/utils/constants.js'
+import { SOCIAL_LINKS } from '@/utils/constants'
+import { diplomes } from '@/data/diplomes'
 
-const diplomes = [
-  {
-    year: '2025',
-    t: 'Bootcamp avancé Symfony',
-    sub: 'Compétence BCO4 RNCP Concepteur Logiciel',
-    link: 'https://drive.google.com/file/d/1gGJnrjABzNLgi9lt6mCnnkC1gpk29t1U/view',
-    label: 'Voir le diplôme',
-  },
-  {
-    year: '2024',
-    t: 'Développeur Front-End',
-    sub: 'Diplôme Studi',
-    link: 'https://drive.google.com/file/d/1Kd4C5VcA02uW3dFCGXtRRcaPFLmn4sJb/view',
-    label: 'Voir le diplôme',
-  },
-  {
-    year: '2023',
-    t: 'Graduate Web & Web Mobile',
-    sub: 'Titre professionnel RNCP Développeur Web',
-    link: 'https://drive.google.com/file/d/1FNUcDZuMMUKZsfKsdMWJiecGTDWBRh7_/view',
-    label: 'Voir le diplôme',
-  },
-  {
-    year: '2020',
-    t: 'Développeur Web Full-Stack',
-    sub: 'Certifications professionnelles',
-    link: 'https://drive.google.com/drive/folders/1tnrd7ksG92qPS1ucqYy2Lh6I9poaOGpu',
-    label: 'Voir les certificats',
-  },
-]
+function DiplomeItem({ d, i, scrollYProgress, hoveredDiplome, setHoveredDiplome }) {
+  const total = diplomes.length
+  const start = (i / total) * 0.5
+  const end = Math.min(start + 0.45, 1)
+  const x = useTransform(scrollYProgress, [start, end], [35, 0])
+  const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
+
+  return (
+    <motion.div style={{ x, opacity }}>
+      {i > 0 && (
+        <div
+          className="mx-3 my-1 transition-opacity duration-200"
+          style={{
+            height: '1px',
+            background: 'var(--rule)',
+            opacity: hoveredDiplome === i || hoveredDiplome === i - 1 ? 0 : 1,
+          }}
+        />
+      )}
+      <GlowCard>
+        <div
+          className="group grid gap-4 items-center py-4 px-3 rounded-xl transition-all duration-300"
+          style={{
+            gridTemplateColumns: '56px 1fr 24px',
+            border: '1px solid transparent',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(71,179,177,0.04)'
+            setHoveredDiplome(i)
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'transparent'
+            setHoveredDiplome(null)
+          }}
+        >
+          <div
+            className="mono-num flex flex-col items-center gap-1 py-1 rounded-lg"
+            style={{ background: 'rgba(71,179,177,0.06)' }}
+          >
+            <span
+              style={{
+                color: 'var(--accent)',
+                fontSize: '13px',
+                letterSpacing: '0.05em',
+              }}
+            >
+              {d.year}
+            </span>
+          </div>
+          <div>
+            <div
+              className="serif group-hover:text-(--accent) transition-colors duration-300"
+              style={{ fontSize: '18px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
+            >
+              {d.t}
+            </div>
+            <div className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
+              {d.sub}
+            </div>
+          </div>
+          <motion.a
+            href={d.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/tooltip relative flex h-5 w-5 items-center justify-center"
+            style={{ color: 'var(--faint)' }}
+            whileHover={{ scale: 1.3 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+          >
+            <ExternalLink className="h-full w-full" />
+            <span
+              className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100"
+              style={{
+                background: 'rgba(11,14,14,0.88)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid transparent',
+                color: 'var(--ink)',
+              }}
+            >
+              {d.label}
+              <span
+                className="absolute -bottom-1.25 right-2 border-x-1.25 border-t-1.25 border-x-transparent"
+                style={{ borderTopColor: 'rgba(11,14,14,0.88)' }}
+              />
+            </span>
+          </motion.a>
+        </div>
+      </GlowCard>
+    </motion.div>
+  )
+}
 
 export const About = () => {
   const diplomesRef = useRef(null)
@@ -133,97 +196,16 @@ export const About = () => {
             </div>
           </Reveal>
           <div className="flex flex-col">
-            {diplomes.map((d, i) => {
-              const start = (i / diplomes.length) * 0.5
-              const end = Math.min(start + 0.45, 1)
-              const x = useTransform(scrollYProgress, [start, end], [35, 0])
-              const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
-
-              return (
-                <motion.div key={d.year} style={{ x, opacity }}>
-                  {i > 0 && (
-                    <div
-                      className="mx-3 my-1 transition-opacity duration-200"
-                      style={{
-                        height: '1px',
-                        background: 'var(--rule)',
-                        opacity: hoveredDiplome === i || hoveredDiplome === i - 1 ? 0 : 1,
-                      }}
-                    />
-                  )}
-                  <GlowCard>
-                    <div
-                      className="group grid gap-4 items-center py-4 px-3 rounded-xl transition-all duration-300"
-                      style={{
-                        gridTemplateColumns: '56px 1fr 24px',
-                        border: '1px solid transparent',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(71,179,177,0.04)'
-                        setHoveredDiplome(i)
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent'
-                        setHoveredDiplome(null)
-                      }}
-                    >
-                      <div
-                        className="mono-num flex flex-col items-center gap-1 py-1 rounded-lg"
-                        style={{ background: 'rgba(71,179,177,0.06)' }}
-                      >
-                        <span
-                          style={{
-                            color: 'var(--accent)',
-                            fontSize: '13px',
-                            letterSpacing: '0.05em',
-                          }}
-                        >
-                          {d.year}
-                        </span>
-                      </div>
-                      <div>
-                        <div
-                          className="serif group-hover:text-[var(--accent)] transition-colors duration-300"
-                          style={{ fontSize: '18px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
-                        >
-                          {d.t}
-                        </div>
-                        <div className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
-                          {d.sub}
-                        </div>
-                      </div>
-                      <motion.a
-                        href={d.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/tooltip relative flex h-5 w-5 items-center justify-center"
-                        style={{ color: 'var(--faint)' }}
-                        whileHover={{ scale: 1.3 }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                      >
-                        <ExternalLink className="h-full w-full" />
-                        <span
-                          className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100"
-                          style={{
-                            background: 'rgba(11,14,14,0.88)',
-                            backdropFilter: 'blur(12px)',
-                            WebkitBackdropFilter: 'blur(12px)',
-                            border: '1px solid transparent',
-                            color: 'var(--ink)',
-                          }}
-                        >
-                          {d.label}
-                          <span
-                            className="absolute -bottom-[5px] right-2 border-x-[5px] border-t-[5px] border-x-transparent"
-                            style={{ borderTopColor: 'rgba(11,14,14,0.88)' }}
-                          />
-                        </span>
-                      </motion.a>
-                    </div>
-                  </GlowCard>
-                </motion.div>
-              )
-            })}
+            {diplomes.map((d, i) => (
+              <DiplomeItem
+                key={d.year}
+                d={d}
+                i={i}
+                scrollYProgress={scrollYProgress}
+                hoveredDiplome={hoveredDiplome}
+                setHoveredDiplome={setHoveredDiplome}
+              />
+            ))}
           </div>
         </aside>
       </div>

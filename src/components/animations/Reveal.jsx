@@ -4,6 +4,7 @@ export default function Reveal({
   children,
   delay = 0,
   mode = 'reveal',
+  // eslint-disable-next-line no-unused-vars -- utilisé en JSX (<Tag>)
   as: Tag = 'div',
   style,
   className,

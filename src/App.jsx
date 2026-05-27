@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import ParticleField from '@/components/backgrounds/ParticleField'
 import CursorGlow from '@/components/animations/CursorGlow'
 import { Navbar } from '@/components/layout/Navbar'
-import { Hero } from '@/components/sections/Hero'
+import { Home } from '@/components/sections/Home'
 import { About } from '@/components/sections/About'
 import { Skills } from '@/components/sections/Skills'
-import { Catalogue } from '@/components/sections/Catalogue'
+import { Projects } from '@/components/sections/Projects'
 import { Services } from '@/components/sections/Services'
 import { Contact } from '@/components/sections/Contact'
 import { Footer } from '@/components/layout/Footer'
@@ -47,10 +47,10 @@ function App() {
       <ParticleField />
       <Navbar />
       <main>
-        <Hero />
+        <Home />
         <About />
         <Skills />
-        <Catalogue />
+        <Projects />
         <Services />
         <Contact />
       </main>

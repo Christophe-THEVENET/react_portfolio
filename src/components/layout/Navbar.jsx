@@ -2,18 +2,11 @@ import { useState, useEffect, useRef } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
 import logoDigitob from '@/assets/img/general/logo_digitob.svg'
-
-const links = [
-  { id: 'a-propos', label: 'À propos' },
-  { id: 'competences', label: 'Compétences' },
-  { id: 'realisations', label: 'Réalisations' },
-  { id: 'prestations', label: 'Prestations' },
-  { id: 'contact', label: 'Contact' },
-]
+import { NAV_LINKS } from '@/utils/constants'
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
-  const [active, setActive] = useState('hero')
+  const [active, setActive] = useState('home')
   const [menuOpen, setMenuOpen] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(true)
   const lastScrollY = useRef(0)
@@ -30,7 +23,7 @@ export const Navbar = () => {
       }
       lastScrollY.current = currentY
 
-      const sections = ['hero', 'a-propos', 'competences', 'realisations', 'prestations', 'contact']
+      const sections = ['home', ...NAV_LINKS.map((l) => l.id)]
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i])
         if (el && el.getBoundingClientRect().top < 200) {
@@ -74,7 +67,7 @@ export const Navbar = () => {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex gap-1">
-          {links.map((l) => (
+          {NAV_LINKS.map((l) => (
             <a
               key={l.id}
               href={'#' + l.id}
@@ -109,6 +102,7 @@ export const Navbar = () => {
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden p-2"
           style={{ color: 'var(--ink)' }}
+          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
         >
           {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -118,6 +112,7 @@ export const Navbar = () => {
       <AnimatePresence>
         {menuOpen && (
           <motion.nav
+            aria-label="Menu mobile"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -128,7 +123,7 @@ export const Navbar = () => {
               backdropFilter: 'blur(12px)',
             }}
           >
-          {links.map((l) => (
+          {NAV_LINKS.map((l) => (
             <a
               key={l.id}
               href={'#' + l.id}
