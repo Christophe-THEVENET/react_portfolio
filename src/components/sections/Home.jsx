@@ -260,6 +260,7 @@ export const Home = () => {
                         { Icon: PiFileSqlLight, label: 'SQL' },
                         { Icon: SiWordpress, label: 'WordPress' },
                         { Icon: SiClaude, label: 'Claude Code' },
+                      // eslint-disable-next-line no-unused-vars -- Icon utilisé en JSX (<Icon>)
                       ].map(({ Icon, label }) => (
                         <motion.div
                           key={label}

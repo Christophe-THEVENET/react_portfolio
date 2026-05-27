@@ -1,5 +1,4 @@
 import { useState } from 'react'
-// eslint-disable-next-line no-unused-vars
 import { motion } from 'motion/react'
 
 const GlowCard = ({ children, className = '', glowColor = 'rgba(71,179,177,0.12)', rounded = 'rounded-2xl' }) => {
