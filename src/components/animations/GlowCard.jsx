@@ -10,7 +10,6 @@ const GlowCard = ({ children, className = '', glowColor = 'rgba(71,179,177,0.12)
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       whileHover={{
-        scale: 1.01,
         boxShadow: '0 4px 12px rgba(47,142,142,0.15)',
       }}
       transition={{ type: 'spring', stiffness: 400, damping: 20 }}
