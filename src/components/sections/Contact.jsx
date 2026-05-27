@@ -129,7 +129,7 @@ function ContactDetailItem({ d, i, scrollYProgress, hoveredDetail, setHoveredDet
           </div>
           <div>
             <div
-              className="serif group-hover:text-[var(--accent)] transition-colors duration-300"
+              className="serif group-hover:text-(--accent) transition-colors duration-300"
               style={{ fontSize: '17px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
             >
               {d.value}

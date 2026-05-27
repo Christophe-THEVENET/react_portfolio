@@ -171,7 +171,7 @@ export const Home = () => {
         </div>
 
         {/* Video block */}
-        <Reveal delay={600} className="hidden md:block self-center relative z-[2]">
+        <Reveal delay={600} className="hidden md:block self-center relative z-2">
           <motion.div
             className="relative"
             style={{ filter: 'url(#liquid-distortion)' }}
@@ -182,11 +182,11 @@ export const Home = () => {
               scale: { duration: 1.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] },
             }}
           >
-            <div className="relative aspect-[4/5] w-[280px] md:w-[320px] lg:w-[380px] xl:w-[460px]">
+            <div className="relative aspect-4/5 w-70 md:w-80 lg:w-95 xl:w-115">
               <div className="absolute inset-0 overflow-hidden">
                 <div className="rotating-border animate-spin-slow absolute inset-[-50%]" />
               </div>
-              <div className="absolute inset-[2px] overflow-hidden bg-black">
+              <div className="absolute inset-0.5 overflow-hidden bg-black">
                 <video
                   ref={videoRef}
                   className="h-full w-full object-cover"
@@ -281,7 +281,7 @@ export const Home = () => {
                           >
                             {label}
                             <span
-                              className="absolute -bottom-[5px] right-2 border-x-[5px] border-t-[5px] border-x-transparent"
+                              className="absolute -bottom-1.25 right-2 border-x-1.25 border-t-1.25 border-x-transparent"
                               style={{ borderTopColor: 'rgba(11,14,14,0.88)' }}
                             />
                           </span>
@@ -299,11 +299,11 @@ export const Home = () => {
 
       {/* Mobile video block */}
       <Reveal delay={600} className="md:hidden mt-10 mb-8">
-        <div className="relative aspect-[4/5] w-full max-w-[320px] mx-auto">
+        <div className="relative aspect-4/5 w-full max-w-80 mx-auto">
           <div className="absolute inset-0 overflow-hidden">
             <div className="rotating-border animate-spin-slow absolute inset-[-50%]" />
           </div>
-          <div className="absolute inset-[2px] overflow-hidden bg-black">
+          <div className="absolute inset-0.5 overflow-hidden bg-black">
             <video
               className="h-full w-full object-cover"
               preload="none"

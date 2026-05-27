@@ -58,7 +58,7 @@ function DiplomeItem({ d, i, scrollYProgress, hoveredDiplome, setHoveredDiplome 
           </div>
           <div>
             <div
-              className="serif group-hover:text-[var(--accent)] transition-colors duration-300"
+              className="serif group-hover:text-(--accent) transition-colors duration-300"
               style={{ fontSize: '18px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
             >
               {d.t}
@@ -89,7 +89,7 @@ function DiplomeItem({ d, i, scrollYProgress, hoveredDiplome, setHoveredDiplome 
             >
               {d.label}
               <span
-                className="absolute -bottom-[5px] right-2 border-x-[5px] border-t-[5px] border-x-transparent"
+                className="absolute -bottom-1.25 right-2 border-x-1.25 border-t-1.25 border-x-transparent"
                 style={{ borderTopColor: 'rgba(11,14,14,0.88)' }}
               />
             </span>
