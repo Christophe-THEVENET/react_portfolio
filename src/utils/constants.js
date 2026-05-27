@@ -14,12 +14,6 @@ export const PERSONAL_INFO = {
   address: '9 Rue des Colonnes 75002 PARIS',
   insurance: 'RC Pro HISCOX n° HSXIN320041368',
   siret: '97992656500016',
-  bio: [
-    "Développeur Full-Stack avec 5 ans d'expérience, je conçois des applications web robustes en Symfony et React pour équipes techniques, et accompagne artisans, commerçants et associations dans leur digitalisation via WordPress et WooCommerce.",
-    "De l'architecture à la mise en production, je maîtrise l'ensemble de la chaîne : API REST sécurisées, interfaces réactives, back-offices sur mesure et déploiement Docker. Assisté par l'intelligence artificielle pour optimiser ma productivité, je livre des solutions de qualité professionnelle avec une vélocité accrue.",
-    "Projets livrés et maintenus : réservations asynchrones, paniers dynamiques, validation temps réel, calendrier d'évènements, bibliothèque de documents, gestion stocks/commandes, espaces membres avec chat.",
-    "Issu d'une famille d'artisans, j'applique cette philosophie au code : fabrication minutieuse, solutions durables, attention aux détails. Prêt à relever des défis techniques ambitieux.",
-  ],
 }
 
 export const SOCIAL_LINKS = [
@@ -29,12 +23,6 @@ export const SOCIAL_LINKS = [
     url: 'https://github.com/Christophe-THEVENET',
     color: '#ffffff',
   },
- /*  {
-    name: 'LinkedIn',
-    icon: SiLinkedin,
-    url: 'https://linkedin.com/',
-    color: '#0A66C2',
-  }, */
   {
     name: 'Facebook',
     icon: SiFacebook,
@@ -55,23 +43,17 @@ export const SOCIAL_LINKS = [
   },
 ]
 
-export const STATS = [
-  { label: "Ans d'expérience", value: '5+' },
-  { label: 'Projets réalisés', value: '30+' },
-  { label: 'Diplômes obtenus', value: '3+' },
-  { label: 'Clients satisfaits', value: '98%' },
-]
-
-export const ABOUT_STATS = [
-  { label: 'De la conception à la livraison', value: 'App Full-Stack' },
-  { label: 'Donnez de la visibilité à votre activité', value: 'Site vitrine' },
-  { label: 'Vendez vos produits sur internet', value: 'E-commerce' },
+export const HERO_STATS = [
+  { n: 5, l: "Ans d'expérience", suffix: '+' },
+  { n: 30, l: 'Projets réalisés', suffix: '+' },
+  { n: 3, l: 'Diplômes obtenus', suffix: '+' },
+  { n: 98, l: 'Clients satisfaits', suffix: '%' },
 ]
 
 export const NAV_LINKS = [
-  { id: 'a-propos', label: 'A propos' },
+  { id: 'a-propos', label: 'À propos' },
   { id: 'competences', label: 'Compétences' },
-  { id: 'prestations', label: 'Prestations' },
   { id: 'realisations', label: 'Réalisations' },
-  /* { id: 'contact', label: 'Contact'}, */
+  { id: 'prestations', label: 'Prestations' },
+  { id: 'contact', label: 'Contact' },
 ]

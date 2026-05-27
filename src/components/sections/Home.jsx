@@ -6,10 +6,10 @@ import Reveal from '@/components/animations/Reveal'
 import TextReveal from '@/components/animations/TextReveal'
 import AnimatedNumber from '@/components/animations/AnimatedNumber'
 import { useMagnetic } from '@/hooks/useMagnetic'
-// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'motion/react'
+import { HERO_STATS } from '@/utils/constants'
 
-export const Hero = () => {
+export const Home = () => {
   const ctaPrimaryRef = useMagnetic(0.18)
   const ctaSecondaryRef = useMagnetic(0.18)
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
@@ -55,7 +55,7 @@ export const Hero = () => {
 
   return (
     <section
-      id="hero"
+      id="home"
       className="relative min-h-screen md:h-screen flex flex-col px-6 md:px-16 mx-auto"
       style={{
         maxWidth: '1600px',
@@ -336,12 +336,7 @@ export const Hero = () => {
           className="pt-4 grid grid-cols-2 md:grid-cols-4 gap-6"
           style={{ borderTop: '1px solid var(--rule)' }}
         >
-        {[
-          { n: 5, l: "Ans d'expérience", suffix: '+' },
-          { n: 30, l: 'Projets réalisés', suffix: '+' },
-          { n: 3, l: 'Diplômes obtenus', suffix: '+' },
-          { n: 98, l: 'Clients satisfaits', suffix: '%' },
-        ].map((s, i) => (
+        {HERO_STATS.map((s, i) => (
           <Reveal key={s.l} delay={1200 + i * 100}>
             <div
               className="py-1"
