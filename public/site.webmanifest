@@ -2,7 +2,7 @@
   "name": "Christophe THEVENET — Développeur web Freelance",
   "short_name": "C. Thevenet",
   "start_url": "/",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#0b0e0e",
   "theme_color": "#0b0e0e",
   "icons": [
