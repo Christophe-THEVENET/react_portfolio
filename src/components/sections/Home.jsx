@@ -56,6 +56,7 @@ export const Home = () => {
   return (
     <section
       id="home"
+      aria-label="Accueil"
       className="relative min-h-screen md:h-screen flex flex-col px-6 md:px-16 mx-auto"
       style={{
         maxWidth: '1600px',

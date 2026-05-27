@@ -57,7 +57,7 @@ function FeaturedProject({ p, idx }) {
             className="group/img relative overflow-hidden w-full"
             style={{ height: '320px', border: '1px solid var(--rule)' }}
           >
-            <img src={p.img} alt={p.name} className="absolute inset-0 h-full w-full object-cover transition-all duration-700 grayscale-40 brightness-75 group-hover/img:grayscale-0 group-hover/img:brightness-100 group-hover/img:scale-105" />
+            <img src={p.img} alt={p.name} width={800} height={533} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-all duration-700 grayscale-40 brightness-75 group-hover/img:grayscale-0 group-hover/img:brightness-100 group-hover/img:scale-105" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(11,14,14,0.6) 0%, transparent 50%)' }} />
           </div>
           <div>
@@ -77,7 +77,7 @@ function FeaturedProject({ p, idx }) {
             className="group/img relative overflow-hidden w-full md:order-2"
             style={{ height: '320px', border: '1px solid var(--rule)' }}
           >
-            <img src={p.img} alt={p.name} className="absolute inset-0 h-full w-full object-cover transition-all duration-700 grayscale-40 brightness-75 group-hover/img:grayscale-0 group-hover/img:brightness-100 group-hover/img:scale-105" />
+            <img src={p.img} alt={p.name} width={800} height={533} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-all duration-700 grayscale-40 brightness-75 group-hover/img:grayscale-0 group-hover/img:brightness-100 group-hover/img:scale-105" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(11,14,14,0.6) 0%, transparent 50%)' }} />
           </div>
           <div className="md:order-1">
@@ -157,6 +157,9 @@ function IndexCard({ p, onSelect, isSelected }) {
           <img
             src={p.img}
             alt={p.name}
+            width={800}
+            height={533}
+            loading="lazy"
             className="absolute inset-0 h-full w-full object-cover grayscale-40 brightness-75 transition-all duration-500 group-hover:grayscale-0 group-hover:brightness-100"
           />
         </div>
@@ -365,6 +368,8 @@ function ModalImage({ src, alt }) {
       <img
         src={src}
         alt={alt}
+        width={800}
+        height={400}
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div
@@ -391,6 +396,7 @@ export const Projects = () => {
   return (
     <section
       id="realisations"
+      aria-label="Réalisations"
       className="relative mx-auto px-6 md:px-16"
       style={{ paddingTop: 'clamp(88px, 11vh, 144px)', paddingBottom: 'clamp(88px, 11vh, 144px)', maxWidth: '1600px' }}
     >

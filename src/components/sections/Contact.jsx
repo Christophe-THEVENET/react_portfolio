@@ -249,6 +249,7 @@ export const Contact = () => {
   return (
     <section
       id="contact"
+      aria-label="Contact"
       className="relative mx-auto px-6 md:px-16"
       style={{ paddingTop: 'clamp(88px, 11vh, 144px)', paddingBottom: 'clamp(88px, 11vh, 144px)', maxWidth: '1600px' }}
     >

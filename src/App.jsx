@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
-import ParticleField from '@/components/backgrounds/ParticleField'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import CursorGlow from '@/components/animations/CursorGlow'
+
+const ParticleField = lazy(() => import('@/components/backgrounds/ParticleField'))
 import { Navbar } from '@/components/layout/Navbar'
 import { Home } from '@/components/sections/Home'
 import { About } from '@/components/sections/About'
@@ -9,7 +10,7 @@ import { Projects } from '@/components/sections/Projects'
 import { Services } from '@/components/sections/Services'
 import { Contact } from '@/components/sections/Contact'
 import { Footer } from '@/components/layout/Footer'
-import bgImage from '@/assets/img/general/background.jpg'
+import bgImage from '@/assets/img/general/background.webp'
 
 function App() {
   const [scrollOpacity, setScrollOpacity] = useState(0)
@@ -44,7 +45,9 @@ function App() {
         />
       </div>
       <CursorGlow />
-      <ParticleField />
+      <Suspense fallback={null}>
+        <ParticleField />
+      </Suspense>
       <Navbar />
       <main>
         <Home />

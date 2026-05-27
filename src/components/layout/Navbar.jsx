@@ -60,13 +60,15 @@ export const Navbar = () => {
           <img
             src={logoDigitob}
             alt="Digitob"
+            width={38}
+            height={38}
             className="transition-opacity duration-300 hover:opacity-80"
             style={{ height: '38px', width: 'auto' }}
           />
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex gap-1">
+        <nav aria-label="Navigation principale" className="hidden md:flex gap-1">
           {NAV_LINKS.map((l) => (
             <a
               key={l.id}
