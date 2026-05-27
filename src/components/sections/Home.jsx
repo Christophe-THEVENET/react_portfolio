@@ -7,7 +7,7 @@ import TextReveal from '@/components/animations/TextReveal'
 import AnimatedNumber from '@/components/animations/AnimatedNumber'
 import { useMagnetic } from '@/hooks/useMagnetic'
 import { motion, AnimatePresence } from 'motion/react'
-import { HERO_STATS } from '@/utils/constants'
+import { HERO_STATS, PERSONAL_INFO } from '@/utils/constants'
 
 export const Home = () => {
   const ctaPrimaryRef = useMagnetic(0.18)
@@ -77,10 +77,10 @@ export const Home = () => {
                 letterSpacing: '0.18em',
               }}
             >
-              Développeur web full-stack
+              {PERSONAL_INFO.title}
               <br className="md:hidden" />
               <span className="hidden md:inline" style={{ color: 'var(--faint)' }}> · </span>
-              <span style={{ color: 'var(--faint)' }}>Puy-de-Dôme ou distanciel</span>
+              <span style={{ color: 'var(--faint)' }}>{PERSONAL_INFO.location}</span>
             </div>
           </Reveal>
           <h1

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Scale } from 'lucide-react'
+import { PERSONAL_INFO } from '@/utils/constants'
 
 export const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -13,7 +14,7 @@ export const Footer = () => {
       >
         <div className="mx-auto flex flex-col items-center gap-2 px-4 text-center sm:flex-row sm:justify-center sm:gap-4">
           <span style={{ color: 'var(--ink-2)', fontSize: '14px' }}>
-            Christophe THEVENET - Développeur Web
+            {PERSONAL_INFO.name} - {PERSONAL_INFO.title}
           </span>
           <span className="hidden sm:inline" style={{ color: 'var(--faint)' }}>•</span>
           <span style={{ color: 'var(--mute)', fontSize: '14px' }}>

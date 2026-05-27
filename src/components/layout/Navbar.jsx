@@ -23,7 +23,7 @@ export const Navbar = () => {
       }
       lastScrollY.current = currentY
 
-      const sections = ['home', 'a-propos', 'competences', 'realisations', 'prestations', 'contact']
+      const sections = ['home', ...NAV_LINKS.map((l) => l.id)]
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i])
         if (el && el.getBoundingClientRect().top < 200) {
@@ -102,6 +102,7 @@ export const Navbar = () => {
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden p-2"
           style={{ color: 'var(--ink)' }}
+          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
         >
           {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -111,6 +112,7 @@ export const Navbar = () => {
       <AnimatePresence>
         {menuOpen && (
           <motion.nav
+            aria-label="Menu mobile"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
