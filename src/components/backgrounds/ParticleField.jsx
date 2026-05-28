@@ -1,8 +1,14 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 
 export default function ParticleField() {
   const containerRef = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setVisible(true))
+    return () => cancelAnimationFrame(id)
+  }, [])
 
   useEffect(() => {
     const container = containerRef.current
@@ -78,8 +84,8 @@ export default function ParticleField() {
 
     let mx = 0, my = 0, tx = 0, ty = 0
     const onMouseMove = (e) => {
-      tx = (e.clientX / window.innerWidth - 0.5) * 4
-      ty = -(e.clientY / window.innerHeight - 0.5) * 2
+      tx = (e.clientX / window.innerWidth - 0.5) * 8
+      ty = -(e.clientY / window.innerHeight - 0.5) * 4
     }
     window.addEventListener('mousemove', onMouseMove, { passive: true })
 
@@ -112,8 +118,8 @@ export default function ParticleField() {
       }
       pGeo.attributes.position.needsUpdate = true
 
-      mx += (tx - mx) * 0.035
-      my += (ty - my) * 0.035
+      mx += (tx - mx) * 0.05
+      my += (ty - my) * 0.05
       camera.position.x = mx
       camera.position.y = my
       camera.lookAt(0, 0, 0)
@@ -142,7 +148,8 @@ export default function ParticleField() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-0 pointer-events-none"
+      className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1500 ease-out"
+      style={{ opacity: visible ? 1 : 0 }}
     />
   )
 }
