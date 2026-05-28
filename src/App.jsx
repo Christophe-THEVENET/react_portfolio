@@ -14,10 +14,16 @@ import bgImage from '@/assets/img/general/background.webp'
 
 function App() {
   const [scrollOpacity, setScrollOpacity] = useState(0)
+  const [showParticles, setShowParticles] = useState(false)
 
   useEffect(() => {
     history.scrollRestoration = 'manual'
     window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
+    const id = setTimeout(() => setShowParticles(true), 600)
+    return () => clearTimeout(id)
   }, [])
 
   useEffect(() => {
@@ -45,9 +51,11 @@ function App() {
         />
       </div>
       <CursorGlow />
-      <Suspense fallback={null}>
-        <ParticleField />
-      </Suspense>
+      {showParticles && (
+        <Suspense fallback={null}>
+          <ParticleField />
+        </Suspense>
+      )}
       <Navbar />
       <main>
         <Home />
