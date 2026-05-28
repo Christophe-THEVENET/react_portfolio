@@ -50,19 +50,20 @@ function InputField({ type = 'text', placeholder, name, value, onChange, onBlur,
         value={value}
         onChange={onChange}
         onBlur={(e) => {
-          e.currentTarget.style.borderColor = error ? 'rgba(239, 68, 68, 0.5)' : 'var(--rule)'
+          e.currentTarget.style.borderColor = error ? 'rgba(239, 68, 68, 0.5)' : 'transparent'
           onBlur?.(e)
         }}
         className="w-full outline-none transition-colors duration-150"
         style={{
           background: 'rgba(0,0,0,0.3)',
-          border: `1px solid ${error ? 'rgba(239, 68, 68, 0.5)' : 'var(--rule)'}`,
+          border: '1px solid transparent',
           padding: '12px 16px',
           color: 'var(--ink)',
           fontFamily: 'var(--font-mono)',
           fontSize: '13px',
+          textTransform: 'none',
         }}
-        onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+        onFocus={(e) => (e.currentTarget.style.borderColor = 'rgba(71,179,177,0.3)')}
       />
       {error && (
         <div className="mono-sm mt-1.5" style={{ color: 'rgba(239, 68, 68, 0.8)' }}>
@@ -276,16 +277,8 @@ export const Contact = () => {
             data-netlify="true"
             netlify-honeypot="bot-field"
             onSubmit={handleSubmit}
-            className="h-full flex flex-col p-8 md:p-10 transition-all duration-300"
-            style={{ border: '1px solid var(--rule)', background: 'rgba(255, 255, 255, 0.028)' }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(71,179,177,0.2)'
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.042)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--rule)'
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.028)'
-            }}
+            className="h-full flex flex-col p-8 md:p-10"
+            style={{ border: '1px solid transparent', background: '#161c1c' }}
             noValidate
           >
             <input type="hidden" name="form-name" value="contact" />
@@ -320,7 +313,7 @@ export const Contact = () => {
               </FieldLabel>
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-5">
               <FieldLabel label="Message">
                 <div className="relative">
                   <textarea
@@ -332,21 +325,22 @@ export const Contact = () => {
                     onChange={handleChange}
                     onBlur={(e) => {
                       e.currentTarget.style.borderColor =
-                        touched.message && errors.message ? 'rgba(239, 68, 68, 0.5)' : 'var(--rule)'
+                        touched.message && errors.message ? 'rgba(239, 68, 68, 0.5)' : 'transparent'
                       handleBlur(e)
                     }}
                     className="w-full outline-none resize-none"
                     style={{
                       background: 'rgba(0,0,0,0.3)',
-                      border: `1px solid ${touched.message && errors.message ? 'rgba(239, 68, 68, 0.5)' : 'var(--rule)'}`,
+                      border: '1px solid transparent',
                       padding: '14px 16px',
                       color: 'var(--ink)',
                       fontFamily: 'var(--font-mono)',
                       fontSize: '13px',
+                      textTransform: 'none',
                       lineHeight: 1.65,
                       minHeight: '140px',
                     }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = 'rgba(71,179,177,0.3)')}
                   />
                   <div
                     className="absolute bottom-1.5 right-1.5 cursor-s-resize select-none touch-none opacity-40 hover:opacity-80 transition-opacity duration-150"

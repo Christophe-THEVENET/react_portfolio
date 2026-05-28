@@ -293,6 +293,8 @@
 /* Placeholders */
 input::placeholder,
 textarea::placeholder {
-  color: rgba(230, 226, 216, 0.25) !important;
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--faint);
   opacity: 1;
 }
