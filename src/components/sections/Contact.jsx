@@ -278,7 +278,7 @@ export const Contact = () => {
             netlify-honeypot="bot-field"
             onSubmit={handleSubmit}
             className="h-full flex flex-col p-8 md:p-10"
-            style={{ border: '1px solid transparent', background: '#161c1c' }}
+            style={{ border: '1px solid var(--rule-soft)', background: '#192222' }}
             noValidate
           >
             <input type="hidden" name="form-name" value="contact" />

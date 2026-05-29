@@ -62,6 +62,7 @@ export const Home = () => {
         maxWidth: '1600px',
         paddingTop: 'clamp(88px, 9vh, 150px)',
         paddingBottom: 'clamp(24px, 3vh, 48px)',
+        marginBottom: 'clamp(110px, 14vh, 200px)',
       }}
     >
       {/* Main — name + video side by side */}

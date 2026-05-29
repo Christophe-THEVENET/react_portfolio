@@ -25,8 +25,8 @@ const ServiceCard = ({ offer, scrollYProgress, direction, index }) => {
       <article
         className="flex h-full flex-col p-7"
         style={{
-          border: '1px solid transparent',
-          background: '#161c1c',
+          border: '1px solid var(--rule-soft)',
+          background: '#192222',
         }}
       >
         <div className="flex items-baseline justify-between gap-4">
