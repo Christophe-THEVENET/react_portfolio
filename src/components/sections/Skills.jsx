@@ -17,8 +17,8 @@ const SkillCard = ({ stack, scrollYProgress, direction, index }) => {
         <article
           className="h-full p-7"
           style={{
-            border: '1px solid transparent',
-                        background: '#161c1c',
+            border: '1px solid var(--rule-soft)',
+          background: '#192222',
           }}
         >
           <div className="mono" style={{ color: 'var(--accent)' }}>

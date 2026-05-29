@@ -233,7 +233,7 @@
   100% { filter: brightness(1); }
 }
 .ed-shimmer-once {
-  animation: edShimmer 2400ms ease-in-out 600ms 1;
+  animation: edShimmer 2400ms ease-in-out 1200ms 1;
 }
 
 /* Status dot pulse */

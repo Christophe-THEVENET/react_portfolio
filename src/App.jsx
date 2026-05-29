@@ -22,7 +22,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const id = setTimeout(() => setShowParticles(true), 600)
+    const id = setTimeout(() => setShowParticles(true), 1200)
     return () => clearTimeout(id)
   }, [])
 
