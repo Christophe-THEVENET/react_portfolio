@@ -105,6 +105,9 @@ export default function ParticleField() {
     }
     window.addEventListener('resize', onResize)
 
+    // Respecte la préférence « réduire les animations » : rendu statique, sans boucle
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
     let animId
     function tick() {
       const r = range / 2
@@ -128,10 +131,30 @@ export default function ParticleField() {
       renderer.render(scene, camera)
       animId = requestAnimationFrame(tick)
     }
-    tick()
+
+    if (reduceMotion) {
+      // Une seule frame : particules visibles mais figées
+      container.style.opacity = scrollFade.toFixed(3)
+      renderer.render(scene, camera)
+    } else {
+      tick()
+    }
+
+    // Met la boucle en pause quand l'onglet est en arrière-plan (gain CPU/GPU)
+    const onVisibility = () => {
+      if (reduceMotion) return
+      if (document.hidden) {
+        cancelAnimationFrame(animId)
+        animId = null
+      } else if (!animId) {
+        tick()
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibility)
 
     return () => {
       cancelAnimationFrame(animId)
+      document.removeEventListener('visibilitychange', onVisibility)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)

@@ -28,11 +28,19 @@ function App() {
 
   useEffect(() => {
     const onScroll = () => {
-      const progress = Math.min(window.scrollY / 600, 1)
+      // L'assombrissement se termine quand on est entré complètement dans « À propos »
+      const about = document.getElementById('a-propos')
+      const end = about ? about.offsetTop : window.innerHeight
+      const progress = end > 0 ? Math.min(window.scrollY / end, 1) : 0
       setScrollOpacity(progress)
     }
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('resize', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [])
 
   return (

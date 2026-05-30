@@ -44,11 +44,14 @@ function InputField({ type = 'text', placeholder, name, value, onChange, onBlur,
   return (
     <div>
       <input
+        id={name}
         type={type}
         name={name}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        aria-invalid={error ? 'true' : undefined}
+        aria-describedby={error ? `${name}-error` : undefined}
         onBlur={(e) => {
           e.currentTarget.style.borderColor = error ? 'rgba(239, 68, 68, 0.5)' : 'transparent'
           onBlur?.(e)
@@ -66,7 +69,7 @@ function InputField({ type = 'text', placeholder, name, value, onChange, onBlur,
         onFocus={(e) => (e.currentTarget.style.borderColor = 'rgba(71,179,177,0.3)')}
       />
       {error && (
-        <div className="mono-sm mt-1.5" style={{ color: 'rgba(239, 68, 68, 0.8)' }}>
+        <div id={`${name}-error`} role="alert" className="mono-sm mt-1.5" style={{ color: 'rgba(239, 68, 68, 0.8)' }}>
           {error}
         </div>
       )}
@@ -74,10 +77,10 @@ function InputField({ type = 'text', placeholder, name, value, onChange, onBlur,
   )
 }
 
-function FieldLabel({ label, children }) {
+function FieldLabel({ label, htmlFor, children }) {
   return (
     <div className="mb-5">
-      <div className="mono-sm mb-2" style={{ color: 'var(--ink-2)' }}>{label}</div>
+      <label htmlFor={htmlFor} className="mono-sm mb-2 block" style={{ color: 'var(--ink-2)' }}>{label}</label>
       {children}
     </div>
   )
@@ -290,7 +293,7 @@ export const Contact = () => {
             </div>
 
             <div className="flex flex-col gap-5">
-              <FieldLabel label="Nom — prénom">
+              <FieldLabel label="Nom — prénom" htmlFor="name">
                 <InputField
                   name="name"
                   placeholder="C. Thevenet"
@@ -300,7 +303,7 @@ export const Contact = () => {
                   error={touched.name ? errors.name : ''}
                 />
               </FieldLabel>
-              <FieldLabel label="Email">
+              <FieldLabel label="Email" htmlFor="email">
                 <InputField
                   type="email"
                   name="email"
@@ -314,15 +317,18 @@ export const Contact = () => {
             </div>
 
             <div className="flex flex-col mt-5">
-              <FieldLabel label="Message">
+              <FieldLabel label="Message" htmlFor="message">
                 <div className="relative">
                   <textarea
                     ref={textareaRef}
+                    id="message"
                     name="message"
                     rows={7}
                     placeholder="Quelques lignes sur le projet, l'audience, les contraintes connues..."
                     value={formData.message}
                     onChange={handleChange}
+                    aria-invalid={touched.message && errors.message ? 'true' : undefined}
+                    aria-describedby={touched.message && errors.message ? 'message-error' : undefined}
                     onBlur={(e) => {
                       e.currentTarget.style.borderColor =
                         touched.message && errors.message ? 'rgba(239, 68, 68, 0.5)' : 'transparent'
@@ -351,7 +357,7 @@ export const Contact = () => {
                   </div>
                 </div>
                 {touched.message && errors.message && (
-                  <div className="mono-sm mt-1.5" style={{ color: 'rgba(239, 68, 68, 0.8)' }}>
+                  <div id="message-error" role="alert" className="mono-sm mt-1.5" style={{ color: 'rgba(239, 68, 68, 0.8)' }}>
                     {errors.message}
                   </div>
                 )}
