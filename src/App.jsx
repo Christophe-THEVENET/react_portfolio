@@ -28,9 +28,9 @@ function App() {
 
   useEffect(() => {
     const onScroll = () => {
-      // L'assombrissement se termine quand on est entré complètement dans « À propos »
+      // L'assombrissement se termine un peu avant l'entrée dans « À propos »
       const about = document.getElementById('a-propos')
-      const end = about ? about.offsetTop : window.innerHeight
+      const end = (about ? about.offsetTop : window.innerHeight) * 0.7
       const progress = end > 0 ? Math.min(window.scrollY / end, 1) : 0
       setScrollOpacity(progress)
     }
