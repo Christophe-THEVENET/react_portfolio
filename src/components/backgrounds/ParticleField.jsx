@@ -93,7 +93,7 @@ export default function ParticleField() {
     const onScroll = () => {
       const y = window.scrollY
       const h = window.innerHeight
-      scrollFade = Math.max(0.08, 1 - y / (h * 0.95))
+      scrollFade = Math.max(0, 1 - y / (h * 0.55))
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
