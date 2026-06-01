@@ -18,7 +18,6 @@ export const stacks = [
     lead: 'Vitrine, e-commerce, visibilité locale',
     core: ['WordPress', 'WooCommerce', 'Thèmes premium'],
     also: [
-      'Next.js',
       'Elementor',
       'SEO local',
       'Stripe',
@@ -32,13 +31,12 @@ export const stacks = [
     lead: 'Commun aux deux axes',
     core: ['Linux', 'Docker', 'Git', 'api rest'],
     also: [
-      'Sécurité (CSRF/XSS)',
-      'mvc/poo',
-      'Claude AI',
+      'Sécurité',
       'UI/UX design',
-      'Merise',
+      'mvc/poo',
+      'Merise/uml',
       'CI/CD',
-      'Agile/Scrum',
+      'Agile',
     ],
   },
 ]

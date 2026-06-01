@@ -49,7 +49,12 @@ const ServiceCard = ({ offer, scrollYProgress, direction, index }) => {
 
         <div className="mt-5 mb-5 flex flex-col gap-2">
           {offer.tiers.map((tier) => (
-            <div key={tier.name} className="flex items-baseline justify-between gap-4">
+            <div
+              key={tier.name}
+              className="flex items-baseline justify-between gap-4"
+              aria-hidden={tier.placeholder ? 'true' : undefined}
+              style={tier.placeholder ? { visibility: 'hidden' } : undefined}
+            >
               <span className="mono-sm" style={{ color: 'var(--mute)' }}>{tier.name}</span>
               {tier.price && (
                 <span

@@ -2,7 +2,7 @@ export const diplomes = [
   {
     year: '2025',
     t: 'Bootcamp avancé Symfony',
-    sub: 'Compétence BCO4 RNCP Concepteur Logiciel',
+    sub: 'Diplome OpenClassrooms',
     link: 'https://drive.google.com/file/d/1gGJnrjABzNLgi9lt6mCnnkC1gpk29t1U/view',
     label: 'Voir le diplôme',
   },
