@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Play } from 'lucide-react'
-import { SiReact, SiSymfony, SiWordpress, SiClaude } from 'react-icons/si'
+import { SiReact, SiSymfony, SiWordpress } from 'react-icons/si'
 import { PiFileSqlLight } from 'react-icons/pi'
 import Reveal from '@/components/animations/Reveal'
 import TextReveal from '@/components/animations/TextReveal'
@@ -257,11 +257,10 @@ export const Home = () => {
                   <Reveal delay={800}>
                     <div className="flex items-center gap-3">
                       {[
-                        { Icon: SiReact, label: 'React.js' },
                         { Icon: SiSymfony, label: 'Symfony' },
+                        { Icon: SiReact, label: 'React.js' },
                         { Icon: PiFileSqlLight, label: 'SQL' },
                         { Icon: SiWordpress, label: 'WordPress' },
-                        { Icon: SiClaude, label: 'Claude Code' },
                       // eslint-disable-next-line no-unused-vars -- Icon utilisé en JSX (<Icon>)
                       ].map(({ Icon, label }) => (
                         <motion.div

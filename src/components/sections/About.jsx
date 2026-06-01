@@ -160,8 +160,8 @@ export const About = () => {
               }}
             >
               D'un côté, des <strong style={{ color: 'var(--ink)' }}>missions techniques</strong> en{' '}
-              <span style={{ color: 'var(--accent)' }}>React</span> et{' '}
-              <span style={{ color: 'var(--accent)' }}>Symfony</span> pour
+              <span style={{ color: 'var(--accent)' }}>Symfony</span> et{' '}
+              <span style={{ color: 'var(--accent)' }}>React</span> pour
               renforcer des équipes ou lancer des projets. Architecture d'API,
               refactoring, debug complexe, mise en production. De l'autre, des{' '}
               <strong style={{ color: 'var(--ink)' }}>sites vitrines et e-commerce</strong>{' '}

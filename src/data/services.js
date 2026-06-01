@@ -8,9 +8,8 @@ export const offers = [
     ],
     desc: 'Je rejoins vos sprints en renfort : architecture, nouvelles fonctionnalités, refactoring, debug complexe, mise en production. Habitué aux workflows agiles, je suis opérationnel rapidement avec un setup assisté par IA.',
     included: [
-      'Symfony sénior',
-      'React avancé',
-      'TypeScript',
+      'Symfony avancé',
+      'React confirmé',
       'API REST',
       'SQL',
       'Docker',
@@ -18,7 +17,7 @@ export const offers = [
     also: [
       'conception bdd',
       'déploiement continu',
-      'automatisation',
+      'TypeScript',
       'Maquettage',
     ],
   },
@@ -69,7 +68,7 @@ export const offers = [
     lead: 'Automatisez vos processus',
     tiers: [
       { name: 'Application web', price: 'sur devis' },
-      { name: 'Application mobile', price: 'sur devis' },
+      { name: 'Application mobile', price: 'sur devis', placeholder: true },
     ],
     desc: 'Un besoin métier qui ne rentre dans aucune case ? Je pilote le projet de bout en bout : analyse, conception, développement et livraison. Architecture découplée, pensée pour évoluer sur le long terme avec agilité et robustesse.',
     included: [
