@@ -272,7 +272,7 @@ export const Contact = () => {
         lead="Décrivez votre besoin en quelques lignes."
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-12 lg:gap-16 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[53fr_47fr] gap-12 lg:gap-16 items-stretch">
         <Reveal className="h-full">
           <form
             name="contact"
