@@ -57,7 +57,7 @@ export const offers = [
       'Gestion commandes/stocks/clients',
     ],
     also: [
-      'Suivi commandes',
+      'paiement sécurisé',
       'Responsive',
       'options disponibles',
       'Design premium',
