@@ -57,7 +57,7 @@ function FeaturedProject({ p, idx }) {
             className="group/img relative overflow-hidden w-full"
             style={{ height: '320px', border: '1px solid var(--rule)' }}
           >
-            <img src={p.img} alt={p.name} width={800} height={533} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-all duration-700 grayscale-40 brightness-75 group-hover/img:grayscale-0 group-hover/img:brightness-100 group-hover/img:scale-105" />
+            <img src={p.img} alt={p.name} width={800} height={533} loading="lazy" className="absolute inset-0 h-full w-full object-cover grayscale-40 brightness-75" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(11,14,14,0.6) 0%, transparent 50%)' }} />
           </div>
           <div>
@@ -77,7 +77,7 @@ function FeaturedProject({ p, idx }) {
             className="group/img relative overflow-hidden w-full md:order-2"
             style={{ height: '320px', border: '1px solid var(--rule)' }}
           >
-            <img src={p.img} alt={p.name} width={800} height={533} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-all duration-700 grayscale-40 brightness-75 group-hover/img:grayscale-0 group-hover/img:brightness-100 group-hover/img:scale-105" />
+            <img src={p.img} alt={p.name} width={800} height={533} loading="lazy" className="absolute inset-0 h-full w-full object-cover grayscale-40 brightness-75" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(11,14,14,0.6) 0%, transparent 50%)' }} />
           </div>
           <div className="md:order-1">
