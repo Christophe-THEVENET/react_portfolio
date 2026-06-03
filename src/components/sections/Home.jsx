@@ -19,23 +19,23 @@ export const Home = () => {
   const displacementRef = useRef(null)
 
   const animateLiquid = useCallback(() => {
-    const startDelay = 1100
-    const duration = 1800
-    const startFreq = 0.035
-    const startScale = 40
+    const startDelay = 700
+    const duration = 1900
+    const startFreq = 0.02
+    const startScale = 120
 
     const timeout = setTimeout(() => {
       const start = performance.now()
       const step = (now) => {
         const elapsed = now - start
         const progress = Math.min(elapsed / duration, 1)
-        const eased = 1 - Math.pow(1 - progress, 3)
+        const eased = 1 - Math.pow(1 - progress, 4)
 
         const freq = startFreq * (1 - eased)
         const scale = startScale * (1 - eased)
 
         if (turbulenceRef.current) {
-          turbulenceRef.current.setAttribute('baseFrequency', `${freq} ${freq * 1.5}`)
+          turbulenceRef.current.setAttribute('baseFrequency', `${freq} ${freq * 1.4}`)
         }
         if (displacementRef.current) {
           displacementRef.current.setAttribute('scale', scale)
@@ -177,11 +177,11 @@ export const Home = () => {
           <motion.div
             className="relative"
             style={{ filter: 'url(#liquid-distortion)' }}
-            initial={{ opacity: 0, scale: 0.92 }}
+            initial={{ opacity: 0, scale: 0.86 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
-              opacity: { duration: 0.6, delay: 0.8, ease: 'easeOut' },
-              scale: { duration: 1.6, delay: 0.8, ease: [0.22, 1, 0.36, 1] },
+              opacity: { duration: 1.0, delay: 0.6, ease: 'easeOut' },
+              scale: { duration: 1.5, delay: 0.6, ease: [0.16, 1, 0.3, 1] },
             }}
           >
             <div className="relative aspect-4/5 w-70 md:w-80 lg:w-95 xl:w-115">
@@ -375,7 +375,7 @@ export const Home = () => {
             <feTurbulence
               ref={turbulenceRef}
               type="fractalNoise"
-              baseFrequency="0.035 0.0525"
+              baseFrequency="0.02 0.028"
               numOctaves="3"
               seed="2"
               result="turbulence"
@@ -384,7 +384,7 @@ export const Home = () => {
               ref={displacementRef}
               in="SourceGraphic"
               in2="turbulence"
-              scale="40"
+              scale="120"
               xChannelSelector="R"
               yChannelSelector="G"
             />
