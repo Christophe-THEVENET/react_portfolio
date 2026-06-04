@@ -2,7 +2,6 @@ import { useState, useRef, useCallback } from 'react'
 import { Map, Phone, Mail, MapPinHouse, ShieldCheck, Tally4, Share2, ArrowDownRight } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import Reveal from '@/components/animations/Reveal'
-import GlowCard from '@/components/animations/GlowCard'
 import SectionTag from '@/components/ui/SectionTag'
 import { PERSONAL_INFO, SOCIAL_LINKS } from '@/utils/constants'
 import SocialLink from '@/components/ui/SocialLink'
@@ -87,7 +86,7 @@ function FieldLabel({ label, htmlFor, children }) {
   )
 }
 
-function ContactDetailItem({ d, i, scrollYProgress, hoveredDetail, setHoveredDetail }) {
+function ContactDetailItem({ d, i, scrollYProgress }) {
   const total = contactDetails.length
   const start = (i / total) * 0.5
   const end = Math.min(start + 0.45, 1)
@@ -99,52 +98,32 @@ function ContactDetailItem({ d, i, scrollYProgress, hoveredDetail, setHoveredDet
     <motion.div style={{ x, opacity }}>
       {i > 0 && (
         <div
-          className="mx-3 my-1 transition-opacity duration-200"
-          style={{
-            height: '1px',
-            background: 'var(--rule)',
-            opacity: hoveredDetail === i || hoveredDetail === i - 1 ? 0 : 1,
-          }}
+          className="mx-3 my-1"
+          style={{ height: '1px', background: 'var(--rule)' }}
         />
       )}
-      <GlowCard rounded="rounded-xl">
+      <div
+        className="grid gap-4 items-center py-4 px-3"
+        style={{ gridTemplateColumns: '44px 1fr' }}
+      >
         <div
-          className="group grid gap-4 items-center py-4 px-3 rounded-xl transition-all duration-300"
-          style={{
-            gridTemplateColumns: '44px 1fr',
-            border: '1px solid transparent',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(71,179,177,0.04)'
-            setHoveredDetail(i)
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'transparent'
-            setHoveredDetail(null)
-          }}
+          className="flex items-center justify-center py-2 rounded-lg"
+          style={{ background: 'rgba(71,179,177,0.06)' }}
         >
+          <IconComp className="h-4 w-4" style={{ color: 'var(--accent)' }} />
+        </div>
+        <div>
           <div
-            className="flex items-center justify-center py-2 rounded-lg"
-            style={{ background: 'rgba(71,179,177,0.06)' }}
+            className="serif"
+            style={{ fontSize: '17px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
           >
-            <IconComp
-              className="h-4 w-4"
-              style={{ color: 'var(--accent)' }}
-            />
+            {d.value}
           </div>
-          <div>
-            <div
-              className="serif group-hover:text-(--accent) transition-colors duration-300"
-              style={{ fontSize: '17px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
-            >
-              {d.value}
-            </div>
-            <div className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
-              {d.label}
-            </div>
+          <div className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
+            {d.label}
           </div>
         </div>
-      </GlowCard>
+      </div>
     </motion.div>
   )
 }
@@ -156,7 +135,6 @@ export const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState(false)
-  const [hoveredDetail, setHoveredDetail] = useState(null)
 
   const textareaRef = useRef(null)
 
@@ -421,8 +399,6 @@ export const Contact = () => {
                 d={d}
                 i={i}
                 scrollYProgress={scrollYProgress}
-                hoveredDetail={hoveredDetail}
-                setHoveredDetail={setHoveredDetail}
               />
             ))}
           </div>
