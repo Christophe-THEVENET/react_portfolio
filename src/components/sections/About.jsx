@@ -1,13 +1,13 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import Reveal from '@/components/animations/Reveal'
 import SectionTag from '@/components/ui/SectionTag'
-import GlowCard from '@/components/animations/GlowCard'
 import { ExternalLink, Share2, GraduationCap } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { SOCIAL_LINKS } from '@/utils/constants'
+import SocialLink from '@/components/ui/SocialLink'
 import { diplomes } from '@/data/diplomes'
 
-function DiplomeItem({ d, i, scrollYProgress, hoveredDiplome, setHoveredDiplome }) {
+function DiplomeItem({ d, i, scrollYProgress }) {
   const total = diplomes.length
   const start = (i / total) * 0.5
   const end = Math.min(start + 0.45, 1)
@@ -18,91 +18,80 @@ function DiplomeItem({ d, i, scrollYProgress, hoveredDiplome, setHoveredDiplome 
     <motion.div style={{ x, opacity }}>
       {i > 0 && (
         <div
-          className="mx-3 my-1 transition-opacity duration-200"
-          style={{
-            height: '1px',
-            background: 'var(--rule)',
-            opacity: hoveredDiplome === i || hoveredDiplome === i - 1 ? 0 : 1,
-          }}
+          className="mx-3 my-1"
+          style={{ height: '1px', background: 'var(--rule)' }}
         />
       )}
-      <GlowCard>
+      <div
+        className="grid gap-4 items-center py-4 px-3"
+        style={{ gridTemplateColumns: '56px 1fr 24px' }}
+      >
         <div
-          className="group grid gap-4 items-center py-4 px-3 rounded-xl transition-all duration-300"
-          style={{
-            gridTemplateColumns: '56px 1fr 24px',
-            border: '1px solid transparent',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(71,179,177,0.04)'
-            setHoveredDiplome(i)
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'transparent'
-            setHoveredDiplome(null)
-          }}
+          className="mono-num flex flex-col items-center gap-1 py-1 rounded-lg"
+          style={{ background: 'rgba(71,179,177,0.06)' }}
         >
-          <div
-            className="mono-num flex flex-col items-center gap-1 py-1 rounded-lg"
-            style={{ background: 'rgba(71,179,177,0.06)' }}
+          <span
+            style={{
+              color: 'var(--accent)',
+              fontSize: '13px',
+              letterSpacing: '0.05em',
+            }}
           >
-            <span
-              style={{
-                color: 'var(--accent)',
-                fontSize: '13px',
-                letterSpacing: '0.05em',
-              }}
-            >
-              {d.year}
-            </span>
-          </div>
-          <div>
-            <div
-              className="serif group-hover:text-(--accent) transition-colors duration-300"
-              style={{ fontSize: '18px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
-            >
-              {d.t}
-            </div>
-            <div className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
-              {d.sub}
-            </div>
-          </div>
-          <motion.a
-            href={d.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/tooltip relative flex h-5 w-5 items-center justify-center"
-            style={{ color: 'var(--faint)' }}
-            whileHover={{ scale: 1.3 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-          >
-            <ExternalLink className="h-full w-full" />
-            <span
-              className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100"
-              style={{
-                background: 'rgba(11,14,14,0.88)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid transparent',
-                color: 'var(--ink)',
-              }}
-            >
-              {d.label}
-              <span
-                className="absolute -bottom-1.25 right-2 border-x-1.25 border-t-1.25 border-x-transparent"
-                style={{ borderTopColor: 'rgba(11,14,14,0.88)' }}
-              />
-            </span>
-          </motion.a>
+            {d.year}
+          </span>
         </div>
-      </GlowCard>
+        <div>
+          <div
+            className="serif"
+            style={{ fontSize: '18px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
+          >
+            {d.t}
+          </div>
+          <div className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
+            {d.sub}
+          </div>
+        </div>
+        <motion.a
+          href={d.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group/tooltip relative flex h-5 w-5 items-center justify-center"
+          style={{ color: 'var(--faint)' }}
+          whileHover={{ scale: 1.3 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+        >
+          <ExternalLink className="h-full w-full" />
+          <span
+            className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100"
+            style={{
+              background: 'rgba(11,14,14,0.88)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid var(--accent)',
+              color: 'var(--accent)',
+            }}
+          >
+            {d.label}
+            <span
+              className="absolute right-2"
+              style={{
+                bottom: '-5px',
+                width: 0,
+                height: 0,
+                borderLeft: '5px solid transparent',
+                borderRight: '5px solid transparent',
+                borderTop: '5px solid var(--accent)',
+              }}
+            />
+          </span>
+        </motion.a>
+      </div>
     </motion.div>
   )
 }
 
 export const About = () => {
   const diplomesRef = useRef(null)
-  const [hoveredDiplome, setHoveredDiplome] = useState(null)
   const { scrollYProgress } = useScroll({
     target: diplomesRef,
     offset: ['start 82%', 'start 48%'],
@@ -203,8 +192,6 @@ export const About = () => {
                 d={d}
                 i={i}
                 scrollYProgress={scrollYProgress}
-                hoveredDiplome={hoveredDiplome}
-                setHoveredDiplome={setHoveredDiplome}
               />
             ))}
           </div>
@@ -244,43 +231,15 @@ export const About = () => {
               <Share2 className="h-2.5 w-2.5" />
               Réseaux
             </div>
-            <div className="flex flex-wrap justify-end gap-3">
-              {SOCIAL_LINKS.map((social, index) => {
-                const IconComponent = social.icon
-                return (
-                  <motion.div
-                    key={social.name}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.08, ease: 'easeOut' }}
-                  >
-                    <motion.a
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative flex h-12 w-16 items-center justify-center"
-                      style={{ border: '1px solid transparent' }}
-                      whileHover={{
-                        scale: 1.3,
-                        background: 'rgba(71,179,177,0.10)',
-                        boxShadow: '0 4px 12px rgba(47,142,142,0.15)',
-                      }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                      onMouseEnter={(e) => {
-                        const svg = e.currentTarget.querySelector('svg')
-                        if (svg) svg.style.color = 'rgba(255,255,255,0.85)'
-                      }}
-                      onMouseLeave={(e) => {
-                        const svg = e.currentTarget.querySelector('svg')
-                        if (svg) svg.style.color = 'rgba(230,226,216,0.72)'
-                      }}
-                    >
-                      <IconComponent className="h-6 w-6 transition-colors duration-300" style={{ color: 'rgba(230,226,216,0.72)' }} />
-                    </motion.a>
-                  </motion.div>
-                )
-              })}
+            <div className="flex flex-wrap items-end justify-end gap-3">
+              {SOCIAL_LINKS.map((social, index) => (
+                <SocialLink
+                  key={social.name}
+                  social={social}
+                  index={index}
+                  size={social.name === 'GitHub' ? 'lg' : 'md'}
+                />
+              ))}
             </div>
           </div>
         </Reveal>

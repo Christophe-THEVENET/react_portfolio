@@ -276,14 +276,21 @@ export const Home = () => {
                               background: 'rgba(11,14,14,0.88)',
                               backdropFilter: 'blur(12px)',
                               WebkitBackdropFilter: 'blur(12px)',
-                              border: '1px solid transparent',
-                              color: 'var(--ink)',
+                              border: '1px solid var(--accent)',
+                              color: 'var(--accent)',
                             }}
                           >
                             {label}
                             <span
-                              className="absolute -bottom-1.25 right-2 border-x-1.25 border-t-1.25 border-x-transparent"
-                              style={{ borderTopColor: 'rgba(11,14,14,0.88)' }}
+                              className="absolute right-2"
+                              style={{
+                                bottom: '-5px',
+                                width: 0,
+                                height: 0,
+                                borderLeft: '5px solid transparent',
+                                borderRight: '5px solid transparent',
+                                borderTop: '5px solid var(--accent)',
+                              }}
                             />
                           </span>
                         </motion.div>
