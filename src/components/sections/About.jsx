@@ -5,6 +5,7 @@ import GlowCard from '@/components/animations/GlowCard'
 import { ExternalLink, Share2, GraduationCap } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { SOCIAL_LINKS } from '@/utils/constants'
+import SocialLink from '@/components/ui/SocialLink'
 import { diplomes } from '@/data/diplomes'
 
 function DiplomeItem({ d, i, scrollYProgress, hoveredDiplome, setHoveredDiplome }) {
@@ -244,43 +245,15 @@ export const About = () => {
               <Share2 className="h-2.5 w-2.5" />
               Réseaux
             </div>
-            <div className="flex flex-wrap justify-end gap-3">
-              {SOCIAL_LINKS.map((social, index) => {
-                const IconComponent = social.icon
-                return (
-                  <motion.div
-                    key={social.name}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.08, ease: 'easeOut' }}
-                  >
-                    <motion.a
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative flex h-12 w-16 items-center justify-center"
-                      style={{ border: '1px solid transparent' }}
-                      whileHover={{
-                        scale: 1.3,
-                        background: 'rgba(71,179,177,0.10)',
-                        boxShadow: '0 4px 12px rgba(47,142,142,0.15)',
-                      }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                      onMouseEnter={(e) => {
-                        const svg = e.currentTarget.querySelector('svg')
-                        if (svg) svg.style.color = 'rgba(255,255,255,0.85)'
-                      }}
-                      onMouseLeave={(e) => {
-                        const svg = e.currentTarget.querySelector('svg')
-                        if (svg) svg.style.color = 'rgba(230,226,216,0.72)'
-                      }}
-                    >
-                      <IconComponent className="h-6 w-6 transition-colors duration-300" style={{ color: 'rgba(230,226,216,0.72)' }} />
-                    </motion.a>
-                  </motion.div>
-                )
-              })}
+            <div className="flex flex-wrap items-end justify-end gap-3">
+              {SOCIAL_LINKS.map((social, index) => (
+                <SocialLink
+                  key={social.name}
+                  social={social}
+                  index={index}
+                  size={social.name === 'GitHub' ? 'lg' : 'md'}
+                />
+              ))}
             </div>
           </div>
         </Reveal>
