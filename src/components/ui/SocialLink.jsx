@@ -13,13 +13,9 @@ export default function SocialLink({ social, index, size = 'md' }) {
   const magneticRef = useMagnetic(0.3)
   const boxClass = size === 'xl' ? 'h-10 w-20' : size === 'lg' ? 'h-10 w-20' : 'h-10 w-20'
   const iconClass = size === 'xl' ? 'h-5 w-5' : size === 'lg' ? 'h-5 w-5' : 'h-5 w-5'
-  // En « lg », on laisse le bouton dépasser vers le HAUT (marge négative) pour
-  // ne pas augmenter la hauteur de la rangée → la ligne ne se décale pas.
-  const wrapperClass = ''
 
   return (
     <motion.div
-      className={wrapperClass}
       initial={{ opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
