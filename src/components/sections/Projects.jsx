@@ -96,7 +96,7 @@ function FeaturedProject({ p, idx }) {
             <div className="mono mb-3.5" style={{ color: 'var(--accent)' }}>{p.year} · {p.kind}</div>
             <h3 className="serif" style={{ fontSize: 'clamp(32px, 4.5vw, 64px)', lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--ink)', fontWeight: 350 }}>{p.name}</h3>
             <p className="mt-6" style={{ fontSize: '16px', lineHeight: 1.7, color: 'var(--mute)', maxWidth: '540px' }}>{p.desc}</p>
-            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: 'var(--ink-2)', background: 'rgba(230,226,216,0.06)' }}>{s}</span>))}</div>
+            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: '#2F8E8E', background: 'rgba(47,142,142,0.12)' }}>{s}</span>))}</div>
             <div className="flex flex-wrap gap-4 mt-8">
               <ProjectLink href={p.url}>{p.linkLabel} &rarr;</ProjectLink>
               {p.github && <ProjectLink href={p.github}>GitHub &rarr;</ProjectLink>}
@@ -116,7 +116,7 @@ function FeaturedProject({ p, idx }) {
             <div className="mono mb-3.5" style={{ color: 'var(--accent)' }}>{p.year} · {p.kind}</div>
             <h3 className="serif" style={{ fontSize: 'clamp(32px, 4.5vw, 64px)', lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--ink)', fontWeight: 350 }}>{p.name}</h3>
             <p className="mt-6" style={{ fontSize: '16px', lineHeight: 1.7, color: 'var(--mute)', maxWidth: '540px' }}>{p.desc}</p>
-            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: 'var(--ink-2)', background: 'rgba(230,226,216,0.06)' }}>{s}</span>))}</div>
+            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: '#2F8E8E', background: 'rgba(47,142,142,0.12)' }}>{s}</span>))}</div>
             <div className="flex flex-wrap gap-4 mt-8">
               <ProjectLink href={p.url}>{p.linkLabel} &rarr;</ProjectLink>
               {p.github && <ProjectLink href={p.github}>GitHub &rarr;</ProjectLink>}
@@ -196,6 +196,8 @@ function IndexCard({ p, onSelect, isSelected }) {
           />
         </div>
 
+
+
         {/* Reflet lumineux qui suit la souris */}
         <motion.div
           className="pointer-events-none absolute inset-0 z-10"
@@ -232,7 +234,7 @@ function IndexCard({ p, onSelect, isSelected }) {
               <span
                 key={s}
                 className="mono-sm px-1.5 py-0.5"
-                style={{ color: 'var(--ink-2)', background: 'rgba(230,226,216,0.06)', fontSize: '9px' }}
+                style={{ color: '#2F8E8E', background: 'rgba(47,142,142,0.12)', fontSize: '9px' }}
               >
                 {s}
               </span>
@@ -333,7 +335,7 @@ function ProjectModal({ project, onClose }) {
                 <span
                   key={s}
                   className="mono-sm py-1.5 px-3"
-                  style={{ color: 'var(--ink-2)', background: 'rgba(230,226,216,0.06)' }}
+                  style={{ color: '#2F8E8E', background: 'rgba(47,142,142,0.12)' }}
                 >
                   {s}
                 </span>
