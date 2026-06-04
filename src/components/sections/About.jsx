@@ -237,7 +237,7 @@ export const About = () => {
                   key={social.name}
                   social={social}
                   index={index}
-                  size={social.name === 'GitHub' ? 'lg' : 'md'}
+                  size="xl"
                 />
               ))}
             </div>

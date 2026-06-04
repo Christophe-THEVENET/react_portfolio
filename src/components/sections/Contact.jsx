@@ -410,7 +410,7 @@ export const Contact = () => {
             </div>
             <div className="flex flex-wrap gap-3">
               {SOCIAL_LINKS.map((social, index) => (
-                <SocialLink key={social.name} social={social} index={index} />
+                <SocialLink key={social.name} social={social} index={index} size="xl" />
               ))}
             </div>
           </div>

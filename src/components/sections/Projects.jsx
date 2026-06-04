@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
-import { X, ExternalLink, FolderSearch } from 'lucide-react'
-import { FiGithub } from 'react-icons/fi'
+import { X, FolderSearch } from 'lucide-react'
 import {
   motion,
   useScroll,
@@ -11,6 +10,7 @@ import {
   useMotionTemplate,
   AnimatePresence,
 } from 'motion/react'
+import { useMagnetic } from '@/hooks/useMagnetic'
 
 const staggerContainer = {
   hidden: {},
@@ -33,6 +33,38 @@ const staggerItem = {
 import Reveal from '@/components/animations/Reveal'
 import SectionTag from '@/components/ui/SectionTag'
 import { featured, index } from '@/data/projects'
+
+function ProjectLink({ href, children, size = 'md', magnetic = true }) {
+  const magneticRef = useMagnetic(0.25)
+  const isSm = size === 'sm'
+  return (
+    <a
+      ref={magnetic ? magneticRef : undefined}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`mono${isSm ? '-sm' : ''} inline-flex items-center gap-${isSm ? '1.5' : '2'} transition-colors duration-200`}
+      style={{
+        color: 'var(--ink)',
+        fontSize: isSm ? '10px' : undefined,
+        border: '1px solid var(--rule)',
+        padding: isSm ? '6px 10px' : '10px 20px',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = 'var(--accent)'
+        e.currentTarget.style.color = 'var(--accent)'
+        e.currentTarget.querySelectorAll('svg').forEach(s => s.style.color = 'var(--accent)')
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = 'var(--rule)'
+        e.currentTarget.style.color = 'var(--ink)'
+        e.currentTarget.querySelectorAll('svg').forEach(s => s.style.color = 'var(--ink)')
+      }}
+    >
+      {children}
+    </a>
+  )
+}
 
 function FeaturedProject({ p, idx }) {
   const reverse = idx % 2 === 1
@@ -64,10 +96,10 @@ function FeaturedProject({ p, idx }) {
             <div className="mono mb-3.5" style={{ color: 'var(--accent)' }}>{p.year} · {p.kind}</div>
             <h3 className="serif" style={{ fontSize: 'clamp(32px, 4.5vw, 64px)', lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--ink)', fontWeight: 350 }}>{p.name}</h3>
             <p className="mt-6" style={{ fontSize: '16px', lineHeight: 1.7, color: 'var(--mute)', maxWidth: '540px' }}>{p.desc}</p>
-            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: 'var(--ink-2)', border: '1px solid var(--rule)' }}>{s}</span>))}</div>
-            <div className="flex flex-wrap gap-6 mt-8">
-              <a href={p.url} target="_blank" rel="noopener noreferrer" className="ed-link mono inline-block">{p.linkLabel} —&gt;</a>
-              {p.github && (<a href={p.github} target="_blank" rel="noopener noreferrer" className="ed-link mono inline-block">GitHub —&gt;</a>)}
+            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: 'var(--ink-2)', background: 'rgba(230,226,216,0.06)' }}>{s}</span>))}</div>
+            <div className="flex flex-wrap gap-4 mt-8">
+              <ProjectLink href={p.url}>{p.linkLabel} &rarr;</ProjectLink>
+              {p.github && <ProjectLink href={p.github}>GitHub &rarr;</ProjectLink>}
             </div>
           </div>
         </>
@@ -84,10 +116,10 @@ function FeaturedProject({ p, idx }) {
             <div className="mono mb-3.5" style={{ color: 'var(--accent)' }}>{p.year} · {p.kind}</div>
             <h3 className="serif" style={{ fontSize: 'clamp(32px, 4.5vw, 64px)', lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--ink)', fontWeight: 350 }}>{p.name}</h3>
             <p className="mt-6" style={{ fontSize: '16px', lineHeight: 1.7, color: 'var(--mute)', maxWidth: '540px' }}>{p.desc}</p>
-            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: 'var(--ink-2)', border: '1px solid var(--rule)' }}>{s}</span>))}</div>
-            <div className="flex flex-wrap gap-6 mt-8">
-              <a href={p.url} target="_blank" rel="noopener noreferrer" className="ed-link mono inline-block">{p.linkLabel} —&gt;</a>
-              {p.github && (<a href={p.github} target="_blank" rel="noopener noreferrer" className="ed-link mono inline-block">GitHub —&gt;</a>)}
+            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: 'var(--ink-2)', background: 'rgba(230,226,216,0.06)' }}>{s}</span>))}</div>
+            <div className="flex flex-wrap gap-4 mt-8">
+              <ProjectLink href={p.url}>{p.linkLabel} &rarr;</ProjectLink>
+              {p.github && <ProjectLink href={p.github}>GitHub &rarr;</ProjectLink>}
             </div>
           </div>
         </>
@@ -200,28 +232,22 @@ function IndexCard({ p, onSelect, isSelected }) {
               <span
                 key={s}
                 className="mono-sm px-1.5 py-0.5"
-                style={{ color: 'var(--ink-2)', border: '1px solid var(--rule)', fontSize: '9px' }}
+                style={{ color: 'var(--ink-2)', background: 'rgba(230,226,216,0.06)', fontSize: '9px' }}
               >
                 {s}
               </span>
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-3 mt-auto pt-2" style={{ borderTop: '1px solid var(--rule)' }}>
+          <div className="flex flex-wrap gap-2 mt-auto pt-2" style={{ borderTop: '1px solid var(--rule)' }}>
             {p.url && (
-              <a href={p.url} target="_blank" rel="noopener noreferrer" className="ed-link mono-sm" style={{ color: 'var(--accent)', fontSize: '10px' }}>
-                Voir &rarr;
-              </a>
+              <ProjectLink href={p.url} size="sm" magnetic={false}>Voir &rarr;</ProjectLink>
             )}
             {p.github && (
-              <a href={p.github} target="_blank" rel="noopener noreferrer" className="ed-link mono-sm" style={{ color: 'var(--accent)', fontSize: '10px' }}>
-                GitHub &rarr;
-              </a>
+              <ProjectLink href={p.github} size="sm" magnetic={false}>GitHub &rarr;</ProjectLink>
             )}
             {p.extra && (
-              <a href={p.extra.url} target="_blank" rel="noopener noreferrer" className="ed-link mono-sm" style={{ color: 'var(--accent)', fontSize: '10px' }}>
-                {p.extra.title} &rarr;
-              </a>
+              <ProjectLink href={p.extra.url} size="sm" magnetic={false}>{p.extra.title} &rarr;</ProjectLink>
             )}
           </div>
         </div>
@@ -307,7 +333,7 @@ function ProjectModal({ project, onClose }) {
                 <span
                   key={s}
                   className="mono-sm py-1.5 px-3"
-                  style={{ color: 'var(--ink-2)', border: '1px solid var(--rule)' }}
+                  style={{ color: 'var(--ink-2)', background: 'rgba(230,226,216,0.06)' }}
                 >
                   {s}
                 </span>
@@ -319,39 +345,19 @@ function ProjectModal({ project, onClose }) {
               style={{ borderTop: '1px solid var(--rule)' }}
             >
               {project.url && (
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ed-link mono inline-flex items-center gap-2"
-                  style={{ color: 'var(--accent)' }}
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  Voir le projet
-                </a>
+                <ProjectLink href={project.url}>
+                  Voir le projet &rarr;
+                </ProjectLink>
               )}
               {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ed-link mono inline-flex items-center gap-2"
-                  style={{ color: 'var(--accent)' }}
-                >
-                  <FiGithub className="h-4 w-4" />
-                  GitHub
-                </a>
+                <ProjectLink href={project.github}>
+                  GitHub &rarr;
+                </ProjectLink>
               )}
               {project.extra && (
-                <a
-                  href={project.extra.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ed-link mono inline-flex items-center gap-2"
-                  style={{ color: 'var(--accent)' }}
-                >
+                <ProjectLink href={project.extra.url}>
                   {project.extra.title} &rarr;
-                </a>
+                </ProjectLink>
               )}
             </div>
           </div>
