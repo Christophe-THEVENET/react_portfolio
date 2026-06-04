@@ -11,11 +11,11 @@ const ICON_REST = 'rgba(230,226,216,0.72)'
 export default function SocialLink({ social, index, size = 'md' }) {
   const Icon = social.icon
   const magneticRef = useMagnetic(0.3)
-  const boxClass = size === 'lg' ? 'h-16 w-20' : 'h-12 w-16'
-  const iconClass = size === 'lg' ? 'h-8 w-8' : 'h-6 w-6'
+  const boxClass = size === 'xl' ? 'h-10 w-20' : size === 'lg' ? 'h-10 w-20' : 'h-10 w-20'
+  const iconClass = size === 'xl' ? 'h-5 w-5' : size === 'lg' ? 'h-5 w-5' : 'h-5 w-5'
   // En « lg », on laisse le bouton dépasser vers le HAUT (marge négative) pour
   // ne pas augmenter la hauteur de la rangée → la ligne ne se décale pas.
-  const wrapperClass = size === 'lg' ? '-mt-4' : ''
+  const wrapperClass = ''
 
   return (
     <motion.div

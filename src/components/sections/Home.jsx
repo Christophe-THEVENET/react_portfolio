@@ -12,6 +12,7 @@ import { HERO_STATS, PERSONAL_INFO } from '@/utils/constants'
 export const Home = () => {
   const ctaPrimaryRef = useMagnetic(0.18)
   const ctaSecondaryRef = useMagnetic(0.18)
+  const playBtnRef = useMagnetic(0.3)
   const [isVideoPlaying, setIsVideoPlaying] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const videoRef = useRef(null)
@@ -166,7 +167,7 @@ export const Home = () => {
                   e.currentTarget.style.color = 'var(--ink)'
                 }}
               >
-                Voir mes réalisations
+                Voir mes réalisations →
               </a>
             </div>
           </Reveal>
@@ -176,7 +177,6 @@ export const Home = () => {
         <Reveal delay={600} className="hidden md:block self-center relative z-2">
           <motion.div
             className="relative"
-            style={{ filter: 'url(#liquid-distortion)' }}
             initial={{ opacity: 0, scale: 0.86 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
@@ -188,7 +188,7 @@ export const Home = () => {
               <div className="absolute inset-0 overflow-hidden">
                 <div className="rotating-border animate-spin-slow absolute inset-[-50%]" />
               </div>
-              <div className="absolute inset-0.5 overflow-hidden bg-black">
+              <div className="absolute inset-0.5 overflow-hidden bg-black" style={{ filter: 'url(#liquid-distortion)' }}>
                 <video
                   ref={videoRef}
                   className="h-full w-full object-cover"
@@ -220,80 +220,56 @@ export const Home = () => {
                     />
                   )}
                 </AnimatePresence>
-
-                {!isVideoPlaying && (
-                  <motion.button
-                    className="group absolute inset-0 flex cursor-pointer items-center justify-center"
-                    type="button"
-                    aria-label="Lancer la vidéo de présentation"
-                    onClick={() => {
-                      setIsTransitioning(true)
-                      setTimeout(() => {
-                        if (videoRef.current) {
-                          videoRef.current.play()
-                        }
-                        setIsVideoPlaying(true)
-                        setTimeout(() => setIsTransitioning(false), 300)
-                      }, 300)
-                    }}
-                    initial={{ opacity: 1 }}
-                    animate={{ opacity: isTransitioning ? 0 : 1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <span className="animate-ping-slow absolute h-10 w-10 rounded-full border border-white/30" />
-                    <motion.span
-                      className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-white/40 bg-black/20 backdrop-blur-sm"
-                      whileHover={{ scale: 1.1, backgroundColor: 'rgba(0,0,0,0.7)' }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Play className="ml-0.5 h-5 w-5 fill-white/50 text-white/50" />
-                    </motion.span>
-                  </motion.button>
-                )}
               </div>
+
+              {!isVideoPlaying && (
+                <motion.button
+                  className="group absolute inset-0 z-10 flex cursor-pointer items-center justify-center"
+                  type="button"
+                  aria-label="Lancer la vidéo de présentation"
+                  onClick={() => {
+                    setIsTransitioning(true)
+                    setTimeout(() => {
+                      if (videoRef.current) {
+                        videoRef.current.play()
+                      }
+                      setIsVideoPlaying(true)
+                      setTimeout(() => setIsTransitioning(false), 300)
+                    }, 300)
+                  }}
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: isTransitioning ? 0 : 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <span ref={playBtnRef}>
+                    <motion.span
+                      className="flex items-center justify-center px-6 py-3 border border-white/40"
+                      whileHover={{ borderColor: 'rgba(255,255,255,0.9)' }}
+                      animate={{ boxShadow: ['0 0 0px rgba(255,255,255,0)', '0 0 12px rgba(255,255,255,0.3)', '0 0 0px rgba(255,255,255,0)'] }}
+                      transition={{ boxShadow: { duration: 2.5, repeat: Infinity, ease: 'easeInOut' } }}
+                    >
+                      <Play className="h-4 w-4 fill-white/50 text-white/50 transition-colors duration-200 group-hover:fill-white/90 group-hover:text-white/90" />
+                    </motion.span>
+                  </span>
+                </motion.button>
+              )}
 
               {!isVideoPlaying && (
                 <div className="absolute bottom-6 left-6 z-20">
                   <Reveal delay={800}>
                     <div className="flex items-center gap-3">
                       {[
-                        { Icon: SiSymfony, label: 'Symfony' },
-                        { Icon: SiReact, label: 'React.js' },
-                        { Icon: PiFileSqlLight, label: 'SQL' },
-                        { Icon: SiWordpress, label: 'WordPress' },
-                      // eslint-disable-next-line no-unused-vars -- Icon utilisé en JSX (<Icon>)
-                      ].map(({ Icon, label }) => (
-                        <motion.div
-                          key={label}
-                          className="group/tooltip relative flex h-5 w-5 items-center justify-center"
-                          whileHover={{ scale: 1.3 }}
-                          transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                        { Icon: SiSymfony },
+                        { Icon: SiReact },
+                        { Icon: PiFileSqlLight },
+                        { Icon: SiWordpress },
+                      ].map(({ Icon }) => (
+                        <div
+                          key={Icon}
+                          className="flex h-5 w-5 items-center justify-center"
                         >
                           <Icon className="h-full w-full text-white/80" />
-                          <span
-                            className="mono-sm pointer-events-none absolute -top-9 right-0 whitespace-nowrap px-2.5 py-1.5 opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100"
-                            style={{
-                              background: 'rgba(11,14,14,0.88)',
-                              backdropFilter: 'blur(12px)',
-                              WebkitBackdropFilter: 'blur(12px)',
-                              border: '1px solid var(--accent)',
-                              color: 'var(--accent)',
-                            }}
-                          >
-                            {label}
-                            <span
-                              className="absolute right-2"
-                              style={{
-                                bottom: '-5px',
-                                width: 0,
-                                height: 0,
-                                borderLeft: '5px solid transparent',
-                                borderRight: '5px solid transparent',
-                                borderTop: '5px solid var(--accent)',
-                              }}
-                            />
-                          </span>
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
                   </Reveal>
@@ -330,9 +306,8 @@ export const Home = () => {
                 e.currentTarget.style.display = 'none'
               }}
             >
-              <span className="animate-ping-slow absolute h-10 w-10 rounded-full border border-white/30" />
-              <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-white/40 bg-black/20 backdrop-blur-sm">
-                <Play className="ml-0.5 h-5 w-5 fill-white/50 text-white/50" />
+              <span className="relative z-10 flex items-center justify-center px-6 py-3 border border-white/40">
+                <Play className="h-4 w-4 fill-white/50 text-white/50" />
               </span>
             </button>
           </div>
