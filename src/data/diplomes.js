@@ -15,8 +15,8 @@ export const diplomes = [
   },
   {
     year: '2023',
-    t: 'Graduate Web & Web Mobile',
-    sub: 'Titre professionnel RNCP Développeur Web',
+    t: 'Graduate Développeur Web Full-Stack',
+    sub: 'Titre professionnel RNCP niveau 5',
     link: 'https://drive.google.com/file/d/1FNUcDZuMMUKZsfKsdMWJiecGTDWBRh7_/view',
     label: 'Voir le diplôme',
   },
