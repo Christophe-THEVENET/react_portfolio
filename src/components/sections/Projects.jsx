@@ -7,7 +7,6 @@ import {
   useTransform,
   useMotionValue,
   useSpring,
-  useMotionTemplate,
   AnimatePresence,
 } from 'motion/react'
 import { useMagnetic } from '@/hooks/useMagnetic'
@@ -81,7 +80,7 @@ function FeaturedProject({ p, idx }) {
     <motion.article
       ref={ref}
       style={{ x, opacity }}
-      className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-0 pb-8 items-center"
+      className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-0 pb-14 items-center"
     >
       {!reverse ? (
         <>
@@ -132,16 +131,11 @@ function IndexCard({ p, onSelect, isSelected }) {
   const cardRef = useRef(null)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
-  const glowX = useMotionValue(50)
-  const glowY = useMotionValue(50)
-  const glowOpacity = useMotionValue(0)
 
   const springCfg = { stiffness: 300, damping: 20 }
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springCfg)
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springCfg)
   const scale = useSpring(1, springCfg)
-
-  const glowBackground = useMotionTemplate`radial-gradient(circle at ${glowX}% ${glowY}%, rgba(255,255,255,0.12), transparent 60%)`
 
   const handleMouseMove = (e) => {
     if (window.innerWidth < 768) return
@@ -150,16 +144,12 @@ function IndexCard({ p, onSelect, isSelected }) {
     const y = (e.clientY - rect.top) / rect.height - 0.5
     mouseX.set(x)
     mouseY.set(y)
-    glowX.set(((e.clientX - rect.left) / rect.width) * 100)
-    glowY.set(((e.clientY - rect.top) / rect.height) * 100)
-    glowOpacity.set(1)
     scale.set(1.03)
   }
 
   const handleMouseLeave = () => {
     mouseX.set(0)
     mouseY.set(0)
-    glowOpacity.set(0)
     scale.set(1)
   }
 
@@ -197,12 +187,6 @@ function IndexCard({ p, onSelect, isSelected }) {
         </div>
 
 
-
-        {/* Reflet lumineux qui suit la souris */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 z-10"
-          style={{ background: glowBackground, opacity: glowOpacity }}
-        />
 
         {/* Overlay au hover */}
         <div
@@ -288,7 +272,7 @@ function ProjectModal({ project, onClose }) {
           ref={modalRef}
           layoutId={`project-${project.name}-${project.kind}`}
           className="relative w-full max-w-3xl overflow-y-auto outline-none"
-          style={{ background: 'var(--bg)', maxHeight: '90vh' }}
+          style={{ background: 'rgba(20,24,24,0.98)', maxHeight: '90vh' }}
           role="dialog"
           aria-modal="true"
           aria-label={project.name}

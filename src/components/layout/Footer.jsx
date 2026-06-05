@@ -50,7 +50,7 @@ export const Footer = () => {
           }`}
           style={{
             border: '1px solid var(--rule)',
-            background: 'var(--bg)',
+            background: 'rgba(20,24,24,0.98)',
             transitionTimingFunction: isModalOpen
               ? 'cubic-bezier(0.2, 1.35, 0.82, 0.92)'
               : 'cubic-bezier(0.4, 0, 0.2, 1)',
