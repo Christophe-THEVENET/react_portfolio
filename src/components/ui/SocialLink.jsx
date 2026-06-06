@@ -11,11 +11,19 @@ const ICON_REST = 'rgba(230,226,216,0.72)'
 export default function SocialLink({ social, index, size = 'md' }) {
   const Icon = social.icon
   const magneticRef = useMagnetic(0.3)
-  const boxClass = size === 'xl' ? 'h-10 w-22' : size === 'lg' ? 'h-12 w-24' : 'h-11 w-20'
+  // Sur mobile : largeur fluide (les boutons remplissent la ligne à parts égales).
+  // À partir de sm : largeur fixe d'origine.
+  const boxClass =
+    size === 'xl'
+      ? 'h-11 w-full sm:h-10 sm:w-22'
+      : size === 'lg'
+        ? 'h-12 w-full sm:w-24'
+        : 'h-11 w-full sm:w-20'
   const iconClass = size === 'xl' ? 'h-6 w-6' : size === 'lg' ? 'h-6 w-6' : 'h-5 w-5'
 
   return (
     <motion.div
+      className="flex-1 basis-0 sm:flex-none"
       initial={{ opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}

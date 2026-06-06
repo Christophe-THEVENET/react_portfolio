@@ -199,7 +199,7 @@ export const About = () => {
       </div>
 
       {/* Pull-quote + Réseaux */}
-      <div className="mt-20 flex flex-col lg:flex-row items-end justify-between gap-8">
+      <div className="mt-20 flex flex-col lg:flex-row items-stretch lg:items-end justify-between gap-8">
         <Reveal delay={400}>
           <blockquote
             style={{
@@ -225,7 +225,7 @@ export const About = () => {
           </blockquote>
         </Reveal>
 
-        <Reveal delay={500}>
+        <Reveal delay={500} className="w-full lg:w-auto">
           <div className="flex flex-col gap-4">
             <div className="mono flex items-center justify-end gap-2" style={{ color: 'var(--mute)' }}>
               <Share2 className="h-2.5 w-2.5" />
