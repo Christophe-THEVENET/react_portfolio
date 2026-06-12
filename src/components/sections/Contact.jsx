@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from 'react'
 import { Map, Phone, Mail, MapPinHouse, ShieldCheck, Tally4, Share2, ArrowDownRight } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import Reveal from '@/components/animations/Reveal'
+import { useMagnetic } from '@/hooks/useMagnetic'
 import SectionTag from '@/components/ui/SectionTag'
 import { PERSONAL_INFO, SOCIAL_LINKS } from '@/utils/constants'
 import SocialLink from '@/components/ui/SocialLink'
@@ -68,18 +69,25 @@ function InputField({ type = 'text', placeholder, name, value, onChange, onBlur,
         }}
         onFocus={(e) => (e.currentTarget.style.borderColor = 'rgba(71,179,177,0.3)')}
       />
-      {error && (
-        <div id={`${name}-error`} role="alert" className="mono-sm mt-1.5" style={{ color: 'rgba(239, 68, 68, 0.8)' }}>
-          {error}
-        </div>
-      )}
+      <div
+        id={`${name}-error`}
+        role="alert"
+        className="mono-sm mt-1.5"
+        style={{
+          color: 'rgba(239, 68, 68, 0.8)',
+          minHeight: '18px',
+          visibility: error ? 'visible' : 'hidden',
+        }}
+      >
+        {error || '\u00A0'}
+      </div>
     </div>
   )
 }
 
 function FieldLabel({ label, htmlFor, children }) {
   return (
-    <div className="mb-5">
+    <div className="mb-3">
       <label htmlFor={htmlFor} className="mono-sm mb-2 block" style={{ color: 'var(--ink-2)' }}>{label}</label>
       {children}
     </div>
@@ -137,6 +145,7 @@ export const Contact = () => {
   const [submitError, setSubmitError] = useState(false)
 
   const textareaRef = useRef(null)
+  const submitRef = useMagnetic(0.18)
 
   const handleResizeStart = useCallback((e) => {
     e.preventDefault()
@@ -183,14 +192,6 @@ export const Contact = () => {
     setTouched((prev) => ({ ...prev, [name]: true }))
     setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }))
   }
-
-  const isFormValid =
-    formData.name.trim() &&
-    formData.email.trim() &&
-    formData.message.trim() &&
-    !errors.name &&
-    !errors.email &&
-    !errors.message
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -271,7 +272,7 @@ export const Contact = () => {
               </label>
             </div>
 
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-3">
               <FieldLabel label="Nom — prénom" htmlFor="name">
                 <InputField
                   name="name"
@@ -295,7 +296,7 @@ export const Contact = () => {
               </FieldLabel>
             </div>
 
-            <div className="flex flex-col mt-5">
+            <div className="flex flex-col mt-3">
               <FieldLabel label="Message" htmlFor="message">
                 <div className="relative">
                   <textarea
@@ -335,9 +336,13 @@ export const Contact = () => {
                     <ArrowDownRight className="h-4 w-4" style={{ color: 'var(--mute)' }} />
                   </div>
                 </div>
-                {touched.message && errors.message && (
-                  <div id="message-error" role="alert" className="mono-sm mt-1.5" style={{ color: 'rgba(239, 68, 68, 0.8)' }}>
+                {touched.message && errors.message ? (
+                  <div id="message-error" role="alert" className="mono-sm mt-1.5" style={{ color: 'rgba(239, 68, 68, 0.8)', minHeight: '18px' }}>
                     {errors.message}
+                  </div>
+                ) : (
+                  <div className="mono-sm mt-1.5" style={{ minHeight: '18px', visibility: 'hidden' }}>
+                    {'\u00A0'}
                   </div>
                 )}
               </FieldLabel>
@@ -351,13 +356,11 @@ export const Contact = () => {
                 ↳ Réponse sous 24h ouvrées
               </div>
               <button
+                ref={submitRef}
                 type="submit"
-                disabled={isSubmitting || !isFormValid}
-                className="mono px-7 py-4 border-none cursor-pointer transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mono px-7 py-4 border-none cursor-pointer transition-colors duration-200"
                 style={{ background: 'var(--accent)', color: 'var(--bg)' }}
-                onMouseEnter={(e) => {
-                  if (!e.currentTarget.disabled) e.currentTarget.style.background = 'var(--ink)'
-                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--ink)')}
                 onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--accent)')}
               >
                 {isSubmitting ? 'Envoi...' : 'Envoyer →'}
