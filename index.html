@@ -146,6 +146,21 @@
     }
     </script>
 
+    <!-- Pré-configuration de Google Analytics.
+         Le tag GA est injecté par Netlify (snippet injection), donc en fin de
+         <head> ou de <body> : ce script s'exécute forcément avant lui, et les
+         commandes empilées ici sont consommées par gtag à son initialisation.
+         On désactive Google Signals, qui ne sert pas à la mesure d'audience mais
+         au remarketing : ses appels vers stats.g.doubleclick.net et
+         google.<tld>/ads/ga-audiences étaient bloqués par la CSP à la première
+         visite de chaque navigateur. -->
+    <script>
+        window.dataLayer = window.dataLayer || []
+        function gtag() { dataLayer.push(arguments) }
+        gtag('set', 'allow_google_signals', false)
+        gtag('set', 'allow_ad_personalization_signals', false)
+    </script>
+
     <!-- Umami Analytics -->
     <script defer src="https://umami.boulio.com/script.js" data-website-id="b784c539-a95c-43ed-98f3-98ffc0b7fb45"></script>
 </head>
