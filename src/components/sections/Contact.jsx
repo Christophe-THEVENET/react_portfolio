@@ -9,8 +9,13 @@ import SocialLink from '@/components/ui/SocialLink'
 
 const contactDetails = [
   { icon: Map, label: 'Secteur', value: PERSONAL_INFO.location },
-  { icon: Phone, label: 'Téléphone', value: PERSONAL_INFO.telephone },
-  { icon: Mail, label: 'Email', value: PERSONAL_INFO.email },
+  {
+    icon: Phone,
+    label: 'Téléphone',
+    value: PERSONAL_INFO.telephone,
+    href: `tel:+33${PERSONAL_INFO.telephone.replace(/\s/g, '').slice(1)}`,
+  },
+  { icon: Mail, label: 'Email', value: PERSONAL_INFO.email, href: `mailto:${PERSONAL_INFO.email}` },
   { icon: MapPinHouse, label: 'Adresse', value: PERSONAL_INFO.address },
   { icon: ShieldCheck, label: 'Assurance', value: PERSONAL_INFO.insurance },
   { icon: Tally4, label: 'Siret', value: PERSONAL_INFO.siret },
@@ -102,8 +107,15 @@ function ContactDetailItem({ d, i, scrollYProgress }) {
   const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
   const IconComp = d.icon
 
+  const valueStyle = {
+    fontSize: '17px',
+    color: 'var(--ink)',
+    letterSpacing: '-0.01em',
+    lineHeight: 1.3,
+  }
+
   return (
-    <motion.div style={{ x, opacity }}>
+    <motion.li style={{ x, opacity }}>
       {i > 0 && (
         <div
           className="mx-3 my-1"
@@ -118,21 +130,28 @@ function ContactDetailItem({ d, i, scrollYProgress }) {
           className="flex items-center justify-center py-2 rounded-lg"
           style={{ background: 'rgba(71,179,177,0.06)' }}
         >
-          <IconComp className="h-4 w-4" style={{ color: 'var(--accent)' }} />
+          <IconComp className="h-4 w-4" style={{ color: 'var(--accent)' }} aria-hidden="true" />
         </div>
         <div>
-          <div
-            className="serif"
-            style={{ fontSize: '17px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
-          >
-            {d.value}
-          </div>
-          <div className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
+          {d.href ? (
+            <a
+              href={d.href}
+              className="serif block transition-colors duration-200 hover:opacity-80"
+              style={valueStyle}
+            >
+              {d.value}
+            </a>
+          ) : (
+            <p className="serif" style={valueStyle}>
+              {d.value}
+            </p>
+          )}
+          <p className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
             {d.label}
-          </div>
+          </p>
         </div>
       </div>
-    </motion.div>
+    </motion.li>
   )
 }
 
@@ -352,9 +371,9 @@ export const Contact = () => {
               className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-auto pt-6"
               style={{ borderTop: '1px solid var(--rule)' }}
             >
-              <div className="mono-sm" style={{ color: 'var(--mute)' }}>
-                ↳ Réponse sous 24h ouvrées
-              </div>
+              <p className="mono-sm" style={{ color: 'var(--mute)' }}>
+                <span aria-hidden="true">↳ </span>Réponse sous 24h ouvrées
+              </p>
               <button
                 ref={submitRef}
                 type="submit"
@@ -368,54 +387,66 @@ export const Contact = () => {
             </div>
 
             {isSubmitted && (
-              <div
+              <p
+                role="status"
                 className="mono-sm mt-4 pt-4"
                 style={{ color: 'var(--accent)', borderTop: '1px solid var(--rule)' }}
               >
                 Message envoyé avec succès — je vous répondrai rapidement.
-              </div>
+              </p>
             )}
 
             {submitError && (
-              <div
+              <p
+                role="alert"
                 className="mono-sm mt-4 pt-4"
                 style={{ color: 'rgba(239, 68, 68, 0.8)', borderTop: '1px solid var(--rule)' }}
               >
                 Une erreur est survenue. Veuillez réessayer ou me contacter directement par email.
-              </div>
+              </p>
             )}
           </form>
         </Reveal>
 
-        <aside ref={asideRef} className="flex flex-col">
+        <aside ref={asideRef} className="flex flex-col" aria-labelledby="contact-coordonnees">
           <Reveal>
-            <div className="mono mb-5 flex items-center gap-2" style={{ color: 'var(--mute)' }}>
-              <Mail className="h-3.5 w-3.5" />
+            <h3
+              id="contact-coordonnees"
+              className="mono mb-5 flex items-center gap-2"
+              style={{ color: 'var(--mute)' }}
+            >
+              <Mail className="h-3.5 w-3.5" aria-hidden="true" />
               Coordonnées
-            </div>
+            </h3>
           </Reveal>
 
-          <div className="flex flex-col">
-            {contactDetails.map((d, i) => (
-              <ContactDetailItem
-                key={d.label}
-                d={d}
-                i={i}
-                scrollYProgress={scrollYProgress}
-              />
-            ))}
-          </div>
+          <address style={{ fontStyle: 'normal' }}>
+            <ul className="flex flex-col">
+              {contactDetails.map((d, i) => (
+                <ContactDetailItem
+                  key={d.label}
+                  d={d}
+                  i={i}
+                  scrollYProgress={scrollYProgress}
+                />
+              ))}
+            </ul>
+          </address>
 
           <div className="mt-auto pt-8">
-            <div className="mono mb-4 flex items-center gap-2" style={{ color: 'var(--mute)' }}>
-              <Share2 className="h-3.5 w-3.5" />
+            <h3
+              id="contact-reseaux"
+              className="mono mb-4 flex items-center gap-2"
+              style={{ color: 'var(--mute)' }}
+            >
+              <Share2 className="h-3.5 w-3.5" aria-hidden="true" />
               Réseaux
-            </div>
-            <div className="flex flex-wrap gap-3">
+            </h3>
+            <ul aria-labelledby="contact-reseaux" className="flex flex-wrap gap-3">
               {SOCIAL_LINKS.map((social, index) => (
                 <SocialLink key={social.name} social={social} index={index} size="xl" />
               ))}
-            </div>
+            </ul>
           </div>
         </aside>
       </div>

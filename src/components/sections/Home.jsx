@@ -71,21 +71,8 @@ export const Home = () => {
         style={{ gap: 'clamp(16px, 2vh, 64px)' }}>
         {/* Left — name + text */}
         <div className="text-left">
-          <Reveal delay={200}>
-            <div
-              className="mono mb-8"
-              style={{
-                color: 'var(--accent)',
-                fontSize: '15px',
-                letterSpacing: '0.18em',
-              }}
-            >
-              {PERSONAL_INFO.title}
-              <br className="md:hidden" />
-              <span className="hidden md:inline" style={{ color: 'var(--faint)' }}> · </span>
-              <span style={{ color: 'var(--faint)' }}>{PERSONAL_INFO.location}</span>
-            </div>
-          </Reveal>
+          {/* Le métier et la zone d'intervention font partie du h1 : le titre de
+              niveau 1 porte ainsi les mots-clés SEO, sans changer le rendu. */}
           <h1
             className="serif ed-shimmer-once"
             style={{
@@ -96,7 +83,24 @@ export const Home = () => {
               color: 'var(--ink)',
             }}
           >
-             <TextReveal>
+            <Reveal
+              as="span"
+              delay={200}
+              className="mono mb-8 block"
+              style={{
+                color: 'var(--accent)',
+                fontSize: '15px',
+                fontWeight: 400,
+                lineHeight: 1.5,
+                letterSpacing: '0.18em',
+              }}
+            >
+              {PERSONAL_INFO.title}
+              <br className="md:hidden" />
+              <span className="hidden md:inline" style={{ color: 'var(--faint)' }}> · </span>
+              <span style={{ color: 'var(--faint)' }}>{PERSONAL_INFO.location}</span>
+            </Reveal>
+            <TextReveal>
               Christophe
               <br />
               <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>Thévenet</span>
@@ -257,21 +261,28 @@ export const Home = () => {
               {!isVideoPlaying && (
                 <div className="absolute bottom-6 left-6 z-20">
                   <Reveal delay={800}>
-                    <div className="flex items-center gap-3">
+                    <ul aria-label="Technologies principales" className="flex items-center gap-3">
                       {[
-                        { Icon: SiSymfony },
-                        { Icon: SiReact },
-                        { Icon: PiFileSqlLight },
-                        { Icon: SiWordpress },
-                      ].map(({ Icon }) => (
-                        <div
-                          key={Icon}
-                          className="flex h-5 w-5 items-center justify-center"
-                        >
-                          <Icon className="h-full w-full text-white/80" />
-                        </div>
-                      ))}
-                    </div>
+                        { Icon: SiSymfony, name: 'Symfony' },
+                        { Icon: SiReact, name: 'React' },
+                        { Icon: PiFileSqlLight, name: 'SQL' },
+                        { Icon: SiWordpress, name: 'WordPress' },
+                      ].map((tech) => {
+                        const TechIcon = tech.Icon
+                        return (
+                          <li
+                            key={tech.name}
+                            className="flex h-5 w-5 items-center justify-center"
+                          >
+                            <TechIcon
+                              role="img"
+                              aria-label={tech.name}
+                              className="h-full w-full text-white/80"
+                            />
+                          </li>
+                        )
+                      })}
+                    </ul>
                   </Reveal>
                 </div>
               )}
@@ -316,20 +327,26 @@ export const Home = () => {
 
       {/* Bottom stats row */}
       <Reveal delay={1100} className="md:mt-auto">
-        <div
+        {/* Liste de définitions : le libellé (dt) précède la valeur (dd) dans le
+            DOM, l'ordre visuel est inversé via flex-col-reverse. */}
+        <dl
           className="pt-4 grid grid-cols-2 md:grid-cols-4 gap-6"
           style={{ borderTop: '1px solid var(--rule)' }}
         >
-        {HERO_STATS.map((s, i) => (
-          <Reveal key={s.l} delay={1200 + i * 100}>
-            <div
-              className="py-1"
+          {HERO_STATS.map((s, i) => (
+            <Reveal
+              key={s.l}
+              delay={1200 + i * 100}
+              className="py-1 flex flex-col-reverse"
               style={{
                 borderLeft: i % 2 === 0 ? 'none' : '1px solid var(--rule-soft)',
                 paddingLeft: i % 2 === 0 ? 0 : '24px',
               }}
             >
-              <div
+              <dt className="mono-sm mt-2.5" style={{ color: 'var(--mute)' }}>
+                {s.l}
+              </dt>
+              <dd
                 className="serif"
                 style={{
                   fontSize: '48px',
@@ -340,14 +357,10 @@ export const Home = () => {
                 }}
               >
                 <AnimatedNumber n={s.n} duration={2000} delay={1400 + i * 100} suffix={s.suffix} />
-              </div>
-              <div className="mono-sm mt-2.5" style={{ color: 'var(--mute)' }}>
-                {s.l}
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
+              </dd>
+            </Reveal>
+          ))}
+        </dl>
       </Reveal>
 
       {/* Liquid distortion SVG filter */}

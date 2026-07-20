@@ -22,7 +22,7 @@ export default function SocialLink({ social, index, size = 'md' }) {
   const iconClass = size === 'xl' ? 'h-6 w-6' : size === 'lg' ? 'h-6 w-6' : 'h-5 w-5'
 
   return (
-    <motion.div
+    <motion.li
       className="flex-1 basis-0 sm:flex-none"
       initial={{ opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
@@ -53,6 +53,6 @@ export default function SocialLink({ social, index, size = 'md' }) {
           style={{ color: ICON_REST }}
         />
       </a>
-    </motion.div>
+    </motion.li>
   )
 }
