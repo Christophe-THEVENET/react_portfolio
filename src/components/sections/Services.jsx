@@ -21,7 +21,7 @@ const ServiceCard = ({ offer, scrollYProgress, direction, index }) => {
   const y = direction.axis === 'y' ? transformY : 0
 
   return (
-    <motion.div style={{ x, y, opacity }} className="h-full">
+    <motion.li style={{ x, y, opacity }} className="h-full">
       <article
         className="flex h-full flex-col p-7"
         style={{
@@ -47,7 +47,7 @@ const ServiceCard = ({ offer, scrollYProgress, direction, index }) => {
           </div>
         </div>
 
-        <div className="mt-5 mb-5 flex flex-col gap-2">
+        <dl className="mt-5 mb-5 flex flex-col gap-2">
           {offer.tiers.map((tier) => (
             <div
               key={tier.name}
@@ -55,34 +55,32 @@ const ServiceCard = ({ offer, scrollYProgress, direction, index }) => {
               aria-hidden={tier.placeholder ? 'true' : undefined}
               style={tier.placeholder ? { visibility: 'hidden' } : undefined}
             >
-              <span className="mono-sm" style={{ color: 'var(--mute)' }}>{tier.name}</span>
-              {tier.price && (
-                <span
-                  className="serif"
-                  style={{
-                    fontSize: '28px',
-                    fontWeight: 300,
-                    letterSpacing: '-0.02em',
-                    color: 'var(--ink)',
-                  }}
-                >
-                  {tier.price}
-                </span>
-              )}
+              <dt className="mono-sm" style={{ color: 'var(--mute)' }}>{tier.name}</dt>
+              <dd
+                className="serif"
+                style={{
+                  fontSize: '28px',
+                  fontWeight: 300,
+                  letterSpacing: '-0.02em',
+                  color: 'var(--ink)',
+                }}
+              >
+                {tier.price}
+              </dd>
             </div>
           ))}
-        </div>
+        </dl>
 
         <p style={{ fontSize: '15px', lineHeight: 1.7, color: 'var(--mute)', textAlign: 'justify' }}>
           {offer.desc}
         </p>
 
-        <div className="mono-sm mt-6 mb-3" style={{ color: 'var(--mute)' }}>
-          ⊹ Inclus
-        </div>
-        <div className="flex flex-wrap gap-1.5 mb-6">
+        <p className="mono-sm mt-6 mb-3" style={{ color: 'var(--mute)' }}>
+          <span aria-hidden="true">⊹ </span>Inclus
+        </p>
+        <ul className="flex flex-wrap gap-1.5 mb-6">
           {offer.included.map((item) => (
-            <span
+            <li
               key={item}
               className="mono-sm px-3 py-1.5"
               style={{
@@ -92,16 +90,16 @@ const ServiceCard = ({ offer, scrollYProgress, direction, index }) => {
               }}
             >
               {item}
-            </span>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className="mono-sm mb-3" style={{ color: 'var(--mute)' }}>
-          ⊹ &amp; aussi
-        </div>
-        <div className="flex flex-wrap gap-1.5">
+        <p className="mono-sm mb-3" style={{ color: 'var(--mute)' }}>
+          <span aria-hidden="true">⊹ </span>&amp; aussi
+        </p>
+        <ul className="flex flex-wrap gap-1.5">
           {offer.also.map((item) => (
-            <span
+            <li
               key={item}
               className="mono-sm px-3 py-1.5"
               style={{
@@ -110,11 +108,11 @@ const ServiceCard = ({ offer, scrollYProgress, direction, index }) => {
               }}
             >
               {item}
-            </span>
+            </li>
           ))}
-        </div>
+        </ul>
       </article>
-    </motion.div>
+    </motion.li>
   )
 }
 
@@ -147,7 +145,7 @@ export const Services = () => {
         lead="Deux axes : renforcer vos équipes tech, ou construire votre présence en ligne."
       />
 
-      <div ref={cardsRef} className="grid grid-cols-1 min-[910px]:grid-cols-2 gap-6">
+      <ul ref={cardsRef} className="grid grid-cols-1 min-[910px]:grid-cols-2 gap-6">
         {offers.map((o, i) => (
           <ServiceCard
             key={o.label}
@@ -157,7 +155,7 @@ export const Services = () => {
             index={i}
           />
         ))}
-      </div>
+      </ul>
     </section>
   )
 }

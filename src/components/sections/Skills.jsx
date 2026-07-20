@@ -13,7 +13,7 @@ const SkillCard = ({ stack, scrollYProgress, direction, index }) => {
   const y = direction.axis === 'y' ? transformY : 0
 
   return (
-    <motion.div style={{ x, y, opacity }} className="h-full">
+    <motion.li style={{ x, y, opacity }} className="h-full">
         <article
           className="h-full p-7"
           style={{
@@ -37,12 +37,12 @@ const SkillCard = ({ stack, scrollYProgress, direction, index }) => {
             {stack.lead}
           </h3>
 
-          <div className="mono-sm mb-3" style={{ color: 'var(--mute)' }}>
-            ⊹ Ce que je maîtrise
-          </div>
-          <div className="flex flex-wrap gap-1.5 mb-7">
+          <p className="mono-sm mb-3" style={{ color: 'var(--mute)' }}>
+            <span aria-hidden="true">⊹ </span>Ce que je maîtrise
+          </p>
+          <ul className="flex flex-wrap gap-1.5 mb-7">
             {stack.core.map((c) => (
-              <span
+              <li
                 key={c}
                 className="mono-sm px-3 py-1.5"
                 style={{
@@ -52,16 +52,16 @@ const SkillCard = ({ stack, scrollYProgress, direction, index }) => {
                 }}
               >
                 {c}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
 
-          <div className="mono-sm mb-3" style={{ color: 'var(--mute)' }}>
-            ⊹ &amp; aussi
-          </div>
-          <div className="flex flex-wrap gap-1.5">
+          <p className="mono-sm mb-3" style={{ color: 'var(--mute)' }}>
+            <span aria-hidden="true">⊹ </span>&amp; aussi
+          </p>
+          <ul className="flex flex-wrap gap-1.5">
             {stack.also.map((c) => (
-              <span
+              <li
                 key={c}
                 className="mono-sm px-3 py-1.5"
                 style={{
@@ -70,11 +70,11 @@ const SkillCard = ({ stack, scrollYProgress, direction, index }) => {
                 }}
               >
                 {c}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </article>
-    </motion.div>
+    </motion.li>
   )
 }
 
@@ -111,7 +111,7 @@ export const Skills = () => {
         lead="Ce que j'utilise, selon le type de mission."
       />
 
-      <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+      <ul ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
         {stacks.map((s, i) => (
           <SkillCard
             key={s.label}
@@ -121,7 +121,7 @@ export const Skills = () => {
             index={i}
           />
         ))}
-      </div>
+      </ul>
     </section>
   )
 }

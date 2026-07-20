@@ -15,7 +15,7 @@ function DiplomeItem({ d, i, scrollYProgress }) {
   const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
 
   return (
-    <motion.div style={{ x, opacity }}>
+    <motion.li style={{ x, opacity }}>
       {i > 0 && (
         <div
           className="mx-3 my-1"
@@ -30,7 +30,8 @@ function DiplomeItem({ d, i, scrollYProgress }) {
           className="mono-num flex flex-col items-center gap-1 py-1 rounded-lg"
           style={{ background: 'rgba(71,179,177,0.06)' }}
         >
-          <span
+          <time
+            dateTime={d.year}
             style={{
               color: 'var(--accent)',
               fontSize: '13px',
@@ -38,18 +39,18 @@ function DiplomeItem({ d, i, scrollYProgress }) {
             }}
           >
             {d.year}
-          </span>
+          </time>
         </div>
         <div>
-          <div
+          <h4
             className="serif"
             style={{ fontSize: '18px', color: 'var(--ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}
           >
             {d.t}
-          </div>
-          <div className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
+          </h4>
+          <p className="mono-sm mt-1" style={{ color: 'var(--mute)' }}>
             {d.sub}
-          </div>
+          </p>
         </div>
         <motion.a
           href={d.link}
@@ -86,7 +87,7 @@ function DiplomeItem({ d, i, scrollYProgress }) {
           </span>
         </motion.a>
       </div>
-    </motion.div>
+    </motion.li>
   )
 }
 
@@ -178,14 +179,18 @@ export const About = () => {
         </div>
 
         {/* Diplômes */}
-        <aside ref={diplomesRef}>
+        <aside ref={diplomesRef} aria-labelledby="a-propos-formations">
           <Reveal>
-            <div className="mono mb-7 flex items-center gap-2" style={{ color: 'var(--mute)' }}>
-              <GraduationCap className="h-3.5 w-3.5" />
+            <h3
+              id="a-propos-formations"
+              className="mono mb-7 flex items-center gap-2"
+              style={{ color: 'var(--mute)' }}
+            >
+              <GraduationCap className="h-3.5 w-3.5" aria-hidden="true" />
               Formations
-            </div>
+            </h3>
           </Reveal>
-          <div className="flex flex-col">
+          <ol className="flex flex-col">
             {diplomes.map((d, i) => (
               <DiplomeItem
                 key={d.year}
@@ -194,44 +199,53 @@ export const About = () => {
                 scrollYProgress={scrollYProgress}
               />
             ))}
-          </div>
+          </ol>
         </aside>
       </div>
 
       {/* Pull-quote + Réseaux */}
       <div className="mt-20 flex flex-col lg:flex-row items-stretch lg:items-end justify-between gap-8">
         <Reveal delay={400}>
-          <blockquote
+          <figure
             style={{
               paddingLeft: '32px',
               borderLeft: '1px solid var(--accent)',
             }}
           >
-            <p
-              className="serif italic"
-              style={{
-                fontSize: 'clamp(22px, 2.5vw, 36px)',
-                lineHeight: 1.3,
-                fontWeight: 300,
-                color: 'var(--ink)',
-                letterSpacing: '-0.01em',
-              }}
-            >
-              Je fabrique un site internet comme on fabrique un meuble.
-            </p>
-            <footer className="mono-sm mt-4" style={{ color: 'var(--mute)' }}>
+            <blockquote>
+              <p
+                className="serif italic"
+                style={{
+                  fontSize: 'clamp(22px, 2.5vw, 36px)',
+                  lineHeight: 1.3,
+                  fontWeight: 300,
+                  color: 'var(--ink)',
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                Je fabrique un site internet comme on fabrique un meuble.
+              </p>
+            </blockquote>
+            <figcaption className="mono-sm mt-4" style={{ color: 'var(--mute)' }}>
               — Philosophie
-            </footer>
-          </blockquote>
+            </figcaption>
+          </figure>
         </Reveal>
 
         <Reveal delay={500} className="w-full lg:w-auto">
           <div className="flex flex-col gap-4">
-            <div className="mono flex items-center justify-end gap-2" style={{ color: 'var(--mute)' }}>
-              <Share2 className="h-2.5 w-2.5" />
+            <h3
+              id="a-propos-reseaux"
+              className="mono flex items-center justify-end gap-2"
+              style={{ color: 'var(--mute)' }}
+            >
+              <Share2 className="h-2.5 w-2.5" aria-hidden="true" />
               Réseaux
-            </div>
-            <div className="flex flex-wrap items-end justify-end gap-3">
+            </h3>
+            <ul
+              aria-labelledby="a-propos-reseaux"
+              className="flex flex-wrap items-end justify-end gap-3"
+            >
               {SOCIAL_LINKS.map((social, index) => (
                 <SocialLink
                   key={social.name}
@@ -240,7 +254,7 @@ export const About = () => {
                   size="xl"
                 />
               ))}
-            </div>
+            </ul>
           </div>
         </Reveal>
       </div>

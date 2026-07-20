@@ -77,11 +77,12 @@ function FeaturedProject({ p, idx }) {
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   return (
-    <motion.article
-      ref={ref}
-      style={{ x, opacity }}
-      className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-0 pb-14 items-center"
-    >
+    <li>
+      <motion.article
+        ref={ref}
+        style={{ x, opacity }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-0 pb-14 items-center"
+      >
       {!reverse ? (
         <>
           <div
@@ -92,10 +93,10 @@ function FeaturedProject({ p, idx }) {
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(11,14,14,0.6) 0%, transparent 50%)' }} />
           </div>
           <div>
-            <div className="mono mb-3.5" style={{ color: 'var(--accent)' }}>{p.year} · {p.kind}</div>
+            <p className="mono mb-3.5" style={{ color: 'var(--accent)' }}><time dateTime={p.year}>{p.year}</time> · {p.kind}</p>
             <h3 className="serif" style={{ fontSize: 'clamp(32px, 4.5vw, 64px)', lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--ink)', fontWeight: 350 }}>{p.name}</h3>
             <p className="mt-6" style={{ fontSize: '16px', lineHeight: 1.7, color: 'var(--mute)', maxWidth: '540px' }}>{p.desc}</p>
-            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: '#2F8E8E', background: 'rgba(47,142,142,0.12)' }}>{s}</span>))}</div>
+            <ul aria-label="Technologies utilisées" className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<li key={s} className="mono-sm py-1 px-2.5" style={{ color: '#2F8E8E', background: 'rgba(47,142,142,0.12)' }}>{s}</li>))}</ul>
             <div className="flex flex-wrap gap-4 mt-8">
               <ProjectLink href={p.url}>{p.linkLabel} &rarr;</ProjectLink>
               {p.github && <ProjectLink href={p.github}>GitHub &rarr;</ProjectLink>}
@@ -112,10 +113,10 @@ function FeaturedProject({ p, idx }) {
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(11,14,14,0.6) 0%, transparent 50%)' }} />
           </div>
           <div className="md:order-1">
-            <div className="mono mb-3.5" style={{ color: 'var(--accent)' }}>{p.year} · {p.kind}</div>
+            <p className="mono mb-3.5" style={{ color: 'var(--accent)' }}><time dateTime={p.year}>{p.year}</time> · {p.kind}</p>
             <h3 className="serif" style={{ fontSize: 'clamp(32px, 4.5vw, 64px)', lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--ink)', fontWeight: 350 }}>{p.name}</h3>
             <p className="mt-6" style={{ fontSize: '16px', lineHeight: 1.7, color: 'var(--mute)', maxWidth: '540px' }}>{p.desc}</p>
-            <div className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<span key={s} className="mono-sm py-1 px-2.5" style={{ color: '#2F8E8E', background: 'rgba(47,142,142,0.12)' }}>{s}</span>))}</div>
+            <ul aria-label="Technologies utilisées" className="flex flex-wrap gap-1.5 mt-6">{p.stack.map((s) => (<li key={s} className="mono-sm py-1 px-2.5" style={{ color: '#2F8E8E', background: 'rgba(47,142,142,0.12)' }}>{s}</li>))}</ul>
             <div className="flex flex-wrap gap-4 mt-8">
               <ProjectLink href={p.url}>{p.linkLabel} &rarr;</ProjectLink>
               {p.github && <ProjectLink href={p.github}>GitHub &rarr;</ProjectLink>}
@@ -123,7 +124,8 @@ function FeaturedProject({ p, idx }) {
           </div>
         </>
       )}
-    </motion.article>
+      </motion.article>
+    </li>
   )
 }
 
@@ -154,8 +156,8 @@ function IndexCard({ p, onSelect, isSelected }) {
   }
 
   return (
-    <motion.div variants={staggerItem} style={{ perspective: 800, zIndex: isSelected ? 50 : 'auto', position: 'relative' }}>
-      <motion.div
+    <motion.li variants={staggerItem} style={{ perspective: 800, zIndex: isSelected ? 50 : 'auto', position: 'relative' }}>
+      <motion.article
         ref={cardRef}
         layoutId={`project-${p.name}-${p.kind}`}
         className="group relative cursor-pointer overflow-hidden"
@@ -205,25 +207,25 @@ function IndexCard({ p, onSelect, isSelected }) {
           >
             {p.name}
           </h4>
-          <div className="mono-sm mt-1" style={{ color: 'var(--accent)', fontSize: '10px' }}>
-            {p.kind} &middot; {p.year}
-          </div>
+          <p className="mono-sm mt-1" style={{ color: 'var(--accent)', fontSize: '10px' }}>
+            {p.kind} &middot; <time dateTime={p.year}>{p.year}</time>
+          </p>
 
           <p className="mt-2" style={{ fontSize: '11px', lineHeight: 1.45, color: 'var(--mute)' }}>
             {p.desc}
           </p>
 
-          <div className="flex flex-wrap gap-1 mt-2">
+          <ul aria-label="Technologies utilisées" className="flex flex-wrap gap-1 mt-2">
             {p.stack.map((s) => (
-              <span
+              <li
                 key={s}
                 className="mono-sm px-1.5 py-0.5"
                 style={{ color: '#2F8E8E', background: 'rgba(47,142,142,0.12)', fontSize: '9px' }}
               >
                 {s}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
 
           <div className="flex flex-wrap gap-2 mt-auto pt-2" style={{ borderTop: '1px solid var(--rule)' }}>
             {p.url && (
@@ -237,8 +239,8 @@ function IndexCard({ p, onSelect, isSelected }) {
             )}
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </motion.article>
+    </motion.li>
   )
 }
 
@@ -293,9 +295,9 @@ function ProjectModal({ project, onClose }) {
 
           <div className="flex flex-col gap-4 p-5 md:p-6">
             <div>
-              <div className="mono-sm mb-2" style={{ color: 'var(--accent)' }}>
-                {project.kind} &middot; {project.year}
-              </div>
+              <p className="mono-sm mb-2" style={{ color: 'var(--accent)' }}>
+                {project.kind} &middot; <time dateTime={project.year}>{project.year}</time>
+              </p>
               <h3
                 className="serif"
                 style={{
@@ -314,17 +316,17 @@ function ProjectModal({ project, onClose }) {
               {project.desc}
             </p>
 
-            <div className="flex flex-wrap gap-2">
+            <ul aria-label="Technologies utilisées" className="flex flex-wrap gap-2">
               {project.stack.map((s) => (
-                <span
+                <li
                   key={s}
                   className="mono-sm py-1.5 px-3"
                   style={{ color: '#2F8E8E', background: 'rgba(47,142,142,0.12)' }}
                 >
                   {s}
-                </span>
+                </li>
               ))}
-            </div>
+            </ul>
 
             <div
               className="flex flex-wrap gap-4 pt-4"
@@ -408,19 +410,20 @@ export const Projects = () => {
       />
 
       {/* Featured */}
-      <div className="flex flex-col">
+      <ol className="flex flex-col">
         {featured.map((p, i) => (
           <FeaturedProject key={p.n} p={p} idx={i} />
         ))}
-      </div>
+      </ol>
 
       {/* Index — grille compacte */}
       <div className="mt-24">
-        <div className="mono mb-8 flex items-center gap-2" style={{ color: 'var(--mute)' }}>
-          <FolderSearch className="h-3.5 w-3.5" />
+        <h3 id="autres-projets" className="mono mb-8 flex items-center gap-2" style={{ color: 'var(--mute)' }}>
+          <FolderSearch className="h-3.5 w-3.5" aria-hidden="true" />
           Autres projets
-        </div>
-        <motion.div
+        </h3>
+        <motion.ul
+          aria-labelledby="autres-projets"
           className="grid grid-cols-1 min-[708px]:grid-cols-2 min-[1150px]:grid-cols-3 min-[1500px]:grid-cols-4 gap-4"
           variants={staggerContainer}
           initial="hidden"
@@ -430,7 +433,7 @@ export const Projects = () => {
           {index.map((p) => (
             <IndexCard key={`${p.name}-${p.kind}`} p={p} onSelect={handleSelect} isSelected={boostedProject?.name === p.name && boostedProject?.kind === p.kind} />
           ))}
-        </motion.div>
+        </motion.ul>
       </div>
 
       <AnimatePresence onExitComplete={() => setBoostedProject(null)}>

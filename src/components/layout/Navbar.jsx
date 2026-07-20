@@ -51,7 +51,8 @@ export const Navbar = () => {
     >
       <div className="flex items-center justify-between px-6 py-3 md:px-16 md:py-3">
         <a
-          href="#"
+          href="#home"
+          aria-label="Retour en haut de page"
           onClick={(e) => {
             e.preventDefault()
             window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -68,35 +69,39 @@ export const Navbar = () => {
         </a>
 
         {/* Desktop nav */}
-        <nav aria-label="Navigation principale" className="hidden md:flex gap-1">
-          {NAV_LINKS.map((l) => (
-            <a
-              key={l.id}
-              href={'#' + l.id}
-              onClick={(e) => {
-                e.preventDefault()
-                document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' })
-              }}
-              className="mono relative px-3.5 py-2.5 transition-colors duration-150 rounded-lg"
-              style={{
-                color: active === l.id ? 'var(--accent)' : 'var(--ink-2)',
-              }}
-              onMouseEnter={(e) => {
-                if (active !== l.id) e.currentTarget.style.color = 'var(--accent)'
-              }}
-              onMouseLeave={(e) => {
-                if (active !== l.id) e.currentTarget.style.color = 'var(--ink-2)'
-              }}
-            >
-              {l.label}
-              {active === l.id && (
-                <span
-                  className="absolute left-3.5 right-3.5 bottom-1 h-px"
-                  style={{ background: 'var(--accent)' }}
-                />
-              )}
-            </a>
-          ))}
+        <nav aria-label="Navigation principale" className="hidden md:block">
+          <ul className="flex gap-1">
+            {NAV_LINKS.map((l) => (
+              <li key={l.id}>
+                <a
+                  href={'#' + l.id}
+                  aria-current={active === l.id ? 'true' : undefined}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' })
+                  }}
+                  className="mono relative block px-3.5 py-2.5 transition-colors duration-150 rounded-lg"
+                  style={{
+                    color: active === l.id ? 'var(--accent)' : 'var(--ink-2)',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (active !== l.id) e.currentTarget.style.color = 'var(--accent)'
+                  }}
+                  onMouseLeave={(e) => {
+                    if (active !== l.id) e.currentTarget.style.color = 'var(--ink-2)'
+                  }}
+                >
+                  {l.label}
+                  {active === l.id && (
+                    <span
+                      className="absolute left-3.5 right-3.5 bottom-1 h-px"
+                      style={{ background: 'var(--accent)' }}
+                    />
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
 
         {/* Mobile hamburger */}
@@ -119,32 +124,36 @@ export const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="md:hidden flex flex-col px-6 pb-6 gap-1 overflow-hidden"
+            className="md:hidden px-6 pb-6 overflow-hidden"
             style={{
               background: 'rgba(11,14,14,0.95)',
               backdropFilter: 'blur(12px)',
             }}
           >
-          {NAV_LINKS.map((l) => (
-            <a
-              key={l.id}
-              href={'#' + l.id}
-              onClick={(e) => {
-                e.preventDefault()
-                setMenuOpen(false)
-                setTimeout(() => {
-                  document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' })
-                }, 300)
-              }}
-              className="mono py-3 px-4 rounded-lg transition-colors duration-150"
-              style={{
-                color: active === l.id ? 'var(--accent)' : 'var(--ink-2)',
-                background: active === l.id ? 'rgba(71,179,177,0.08)' : 'transparent',
-              }}
-            >
-              {l.label}
-            </a>
-          ))}
+          <ul className="flex flex-col gap-1">
+            {NAV_LINKS.map((l) => (
+              <li key={l.id}>
+                <a
+                  href={'#' + l.id}
+                  aria-current={active === l.id ? 'true' : undefined}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setMenuOpen(false)
+                    setTimeout(() => {
+                      document.getElementById(l.id)?.scrollIntoView({ behavior: 'smooth' })
+                    }, 300)
+                  }}
+                  className="mono block py-3 px-4 rounded-lg transition-colors duration-150"
+                  style={{
+                    color: active === l.id ? 'var(--accent)' : 'var(--ink-2)',
+                    background: active === l.id ? 'rgba(71,179,177,0.08)' : 'transparent',
+                  }}
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </motion.nav>
         )}
       </AnimatePresence>
