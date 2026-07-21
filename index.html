@@ -146,19 +146,29 @@
     }
     </script>
 
-    <!-- Pré-configuration de Google Analytics.
+    <!-- Pré-configuration de Google Analytics (Consent Mode v2).
          Le tag GA est injecté par Netlify (snippet injection), donc en fin de
          <head> ou de <body> : ce script s'exécute forcément avant lui, et les
          commandes empilées ici sont consommées par gtag à son initialisation.
-         On désactive Google Signals, qui ne sert pas à la mesure d'audience mais
-         au remarketing : ses appels vers stats.g.doubleclick.net et
-         google.<tld>/ads/ga-audiences étaient bloqués par la CSP à la première
-         visite de chaque navigateur. -->
+         Le consentement doit impérativement être déclaré avant le premier
+         'config', sans quoi ad_storage vaut « granted » par défaut.
+
+         On refuse le stockage publicitaire, ce qui supprime les appels vers
+         stats.g.doubleclick.net et google.<tld>/ads/ga-audiences, bloqués par la
+         CSP à la première visite de chaque navigateur. Ces appels servent au
+         remarketing, pas à la mesure d'audience.
+
+         analytics_storage reste accordé : le comptage des vues continue de
+         remonter dans GA, en parallèle d'Umami. -->
     <script>
         window.dataLayer = window.dataLayer || []
         function gtag() { dataLayer.push(arguments) }
-        gtag('set', 'allow_google_signals', false)
-        gtag('set', 'allow_ad_personalization_signals', false)
+        gtag('consent', 'default', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: 'granted'
+        })
     </script>
 
     <!-- Umami Analytics -->
