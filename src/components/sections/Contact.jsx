@@ -211,7 +211,11 @@ export const Contact = () => {
     const siteKey = __RECAPTCHA_SITE_KEY__
     if (!siteKey) return
 
+    // Sans envoi en attente, il n'y a rien à abandonner : le jeton expire ~2 min
+    // après avoir été obtenu, donc bien après une soumission déjà partie.
+    // Signaler cette expiration afficherait une erreur sur un message reçu.
     const abandonChallenge = () => {
+      if (!pendingFormRef.current) return
       pendingFormRef.current = null
       setIsSubmitting(false)
       setCaptchaError(true)
@@ -353,6 +357,7 @@ export const Contact = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-[53fr_47fr] gap-12 lg:gap-16 items-stretch">
         <Reveal className="h-full">
+          <div className="h-full flex flex-col">
           <form
             name="contact"
             method="POST"
@@ -360,7 +365,7 @@ export const Contact = () => {
             netlify-honeypot="bot-field"
             data-netlify-recaptcha="true"
             onSubmit={handleSubmit}
-            className="h-full flex flex-col p-8 md:p-10"
+            className="flex-1 flex flex-col p-8 md:p-10"
             style={{ border: '1px solid var(--rule-soft)', background: '#192222' }}
             noValidate
           >
@@ -486,20 +491,6 @@ export const Contact = () => {
               </button>
             </div>
 
-            {/* Mention imposée par Google dès lors que le badge reCAPTCHA est
-                masqué visuellement. */}
-            <p className="mono-sm mt-8 -mb-6 md:-mb-8" style={{ color: 'var(--faint)' }}>
-              Protégé par reCAPTCHA —{' '}
-              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="ed-link">
-                confidentialité
-              </a>{' '}
-              et{' '}
-              <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="ed-link">
-                conditions
-              </a>{' '}
-              Google.
-            </p>
-
             {isSubmitted && (
               <p
                 role="status"
@@ -520,6 +511,22 @@ export const Contact = () => {
               </p>
             )}
           </form>
+
+          {/* Hors du <form> : la mention est une note de bas de carte, elle ne
+              doit pas s'intercaler entre le bouton et les messages de statut.
+              Google l'impose dès lors que le badge reCAPTCHA est masqué. */}
+          <p className="mono-sm mt-4" style={{ color: 'var(--faint)' }}>
+            Protégé par reCAPTCHA —{' '}
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="ed-link">
+              confidentialité
+            </a>{' '}
+            et{' '}
+            <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="ed-link">
+              conditions
+            </a>{' '}
+            Google.
+          </p>
+          </div>
         </Reveal>
 
         <aside ref={asideRef} className="flex flex-col" aria-labelledby="contact-coordonnees">
