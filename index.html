@@ -34,12 +34,19 @@
         content="Développeur fullstack Symfony, React & WordPress. Je conçois vos applications et sites web de A à Z. Puy-de-Dôme ou distanciel." />
     <meta name="twitter:image" content="https://christophethevenet.fr/og-image.jpg" />
 
-    <!-- Favicon & mobile icons -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <!-- Favicon & mobile icons.
+         URL versionnées (-v2) : Google indexe le favicon par URL et conserve
+         ses rendus 16→128 px (ceux affichés dans les résultats de recherche)
+         en cache très longtemps, indépendamment de la réindexation de la page.
+         Un nom de fichier neuf le force à re-télécharger l'icône au lieu de
+         resservir l'ancien logo DIGITOB.
+         /favicon.ico n'est plus déclaré : son URL date de l'ancien logo, et on
+         évite que Google le préfère aux PNG. Le fichier reste dans public/,
+         les navigateurs le demandent implicitement à la racine. -->
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48-v2.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96-v2.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192-v2.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-v2.png" />
 
     <!-- JSON-LD Schema.org -->
     <script type="application/ld+json">
