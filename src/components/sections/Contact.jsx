@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { Map, Phone, Mail, MapPinHouse, ShieldCheck, Tally4, Share2, ArrowDownRight } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import Reveal from '@/components/animations/Reveal'
@@ -162,9 +162,94 @@ export const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState(false)
+  const [captchaError, setCaptchaError] = useState(false)
 
   const textareaRef = useRef(null)
   const submitRef = useMagnetic(0.18)
+
+  const captchaRef = useRef(null)
+  const captchaWidgetId = useRef(null)
+  const pendingFormRef = useRef(null)
+
+  // Envoi réel, séparé de handleSubmit : en reCAPTCHA invisible la soumission
+  // n'a lieu qu'une fois le jeton obtenu, donc depuis le callback de Google.
+  const postForm = useCallback(async (form) => {
+    setIsSubmitting(true)
+    setSubmitError(false)
+    // FormData embarque le champ g-recaptcha-response que le widget injecte
+    // dans le formulaire — c'est lui que Netlify valide côté serveur.
+    const encoded = new URLSearchParams(new FormData(form)).toString()
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encoded,
+      })
+      // fetch ne rejette que sur erreur réseau : sans ce test, un refus de
+      // Netlify (captcha invalide, formulaire non détecté) afficherait quand
+      // même « message envoyé ».
+      if (!response.ok) throw new Error(`Soumission refusée (HTTP ${response.status})`)
+      setIsSubmitted(true)
+      setFormData({ name: '', email: '', message: '' })
+      setTouched({})
+      setErrors({})
+      setTimeout(() => setIsSubmitted(false), 5000)
+    } catch (err) {
+      console.error("Erreur lors de l'envoi:", err)
+      setSubmitError(true)
+      setTimeout(() => setSubmitError(false), 5000)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }, [])
+
+  // Rendu explicite du reCAPTCHA. En SPA le script Google peut se charger avant
+  // que React ait monté le conteneur : le rendu automatique (class="g-recaptcha")
+  // raterait sa cible. On monte donc le widget nous-mêmes, une seule fois.
+  useEffect(() => {
+    const siteKey = __RECAPTCHA_SITE_KEY__
+    if (!siteKey) return
+
+    const abandonChallenge = () => {
+      pendingFormRef.current = null
+      setIsSubmitting(false)
+      setCaptchaError(true)
+    }
+
+    const renderWidget = () => {
+      if (!captchaRef.current || captchaWidgetId.current !== null) return
+      captchaWidgetId.current = window.grecaptcha.render(captchaRef.current, {
+        sitekey: siteKey,
+        size: 'invisible',
+        // Badge rendu dans le formulaire plutôt qu'en pastille flottante. Google
+        // impose d'afficher soit le badge, soit la mention légale reCAPTCHA :
+        // le garder visible ici satisfait l'obligation sans polluer la page.
+        // Badge flottant, masqué en CSS. Google l'autorise à condition
+        // d'afficher la mention légale, présente sous le bouton d'envoi.
+        badge: 'bottomright',
+        callback: () => {
+          const form = pendingFormRef.current
+          pendingFormRef.current = null
+          if (form) postForm(form)
+        },
+        'error-callback': abandonChallenge,
+        'expired-callback': abandonChallenge,
+      })
+    }
+
+    if (window.grecaptcha?.render) {
+      renderWidget()
+      return
+    }
+
+    window.onRecaptchaLoad = renderWidget
+    const script = document.createElement('script')
+    script.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit'
+    script.async = true
+    script.defer = true
+    document.head.appendChild(script)
+  }, [postForm])
 
   const handleResizeStart = useCallback((e) => {
     e.preventDefault()
@@ -212,7 +297,7 @@ export const Contact = () => {
     setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }))
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     setTouched({ name: true, email: true, message: true })
 
@@ -224,29 +309,24 @@ export const Contact = () => {
     setErrors(newErrors)
     if (Object.keys(newErrors).length > 0) return
 
-    setIsSubmitting(true)
-    const form = e.target
-    const encoded = new URLSearchParams(new FormData(form)).toString()
+    setCaptchaError(false)
 
-    try {
-      setSubmitError(false)
-      await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encoded,
-      })
-      setIsSubmitted(true)
-      setFormData({ name: '', email: '', message: '' })
-      setTouched({})
-      setErrors({})
-      setTimeout(() => setIsSubmitted(false), 5000)
-    } catch (err) {
-      console.error("Erreur lors de l'envoi:", err)
-      setSubmitError(true)
-      setTimeout(() => setSubmitError(false), 5000)
-    } finally {
-      setIsSubmitting(false)
+    // reCAPTCHA invisible : rien à cocher, on déclenche la vérification et c'est
+    // son callback qui poursuivra l'envoi. Sans widget monté (pas de clé
+    // configurée), on envoie directement — Netlify tranchera côté serveur.
+    if (captchaWidgetId.current !== null) {
+      pendingFormRef.current = e.target
+      setIsSubmitting(true)
+      // Un jeton est à usage unique : on repart d'un widget propre à chaque
+      // envoi. Le reset se fait ici, avant l'exécution, et non après la
+      // soumission : appelé pendant que Google referme son défi, il le fait
+      // planter sur un nœud déjà démonté.
+      window.grecaptcha.reset(captchaWidgetId.current)
+      window.grecaptcha.execute(captchaWidgetId.current)
+      return
     }
+
+    postForm(e.target)
   }
 
   return (
@@ -278,6 +358,7 @@ export const Contact = () => {
             method="POST"
             data-netlify="true"
             netlify-honeypot="bot-field"
+            data-netlify-recaptcha="true"
             onSubmit={handleSubmit}
             className="h-full flex flex-col p-8 md:p-10"
             style={{ border: '1px solid var(--rule-soft)', background: '#192222' }}
@@ -367,8 +448,27 @@ export const Contact = () => {
               </FieldLabel>
             </div>
 
+            {/* Conteneur du widget reCAPTCHA. Il doit rester à l'intérieur du
+                <form> : c'est là que Google injecte le champ caché
+                g-recaptcha-response que FormData doit ramasser. Le badge, lui,
+                est masqué en CSS et remplacé par la mention sous le bouton. */}
+            <div className="mt-auto">
+              <div ref={captchaRef} />
+              <div
+                role="alert"
+                className="mono-sm mt-1.5"
+                style={{
+                  color: 'rgba(239, 68, 68, 0.8)',
+                  minHeight: '18px',
+                  visibility: captchaError ? 'visible' : 'hidden',
+                }}
+              >
+                {captchaError ? 'V\u00E9rification anti-robot \u00E9chou\u00E9e \u2014 r\u00E9essayez' : '\u00A0'}
+              </div>
+            </div>
+
             <div
-              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-auto pt-6"
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6"
               style={{ borderTop: '1px solid var(--rule)' }}
             >
               <p className="mono-sm" style={{ color: 'var(--mute)' }}>
@@ -385,6 +485,20 @@ export const Contact = () => {
                 {isSubmitting ? 'Envoi...' : 'Envoyer →'}
               </button>
             </div>
+
+            {/* Mention imposée par Google dès lors que le badge reCAPTCHA est
+                masqué visuellement. */}
+            <p className="mono-sm mt-8 -mb-6 md:-mb-8" style={{ color: 'var(--faint)' }}>
+              Protégé par reCAPTCHA —{' '}
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="ed-link">
+                confidentialité
+              </a>{' '}
+              et{' '}
+              <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="ed-link">
+                conditions
+              </a>{' '}
+              Google.
+            </p>
 
             {isSubmitted && (
               <p

@@ -187,6 +187,20 @@
 
 
 <body style="background-color: #000000">
+    <!-- Formulaire statique de détection Netlify.
+         Netlify analyse le HTML *déployé* au moment du build pour enregistrer
+         les formulaires et leurs champs. Le vrai formulaire étant rendu par
+         React à l'exécution, Netlify ne le voit jamais : cette copie inerte est
+         ce qui déclare le formulaire « contact », ses champs, le honeypot et
+         l'exigence de reCAPTCHA côté serveur. Elle n'est ni affichée ni soumise.
+         Ses champs doivent rester alignés sur ceux de Contact.jsx. -->
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" data-netlify-recaptcha="true" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <textarea name="message"></textarea>
+        <input name="bot-field" />
+    </form>
+
     <div id="root"></div>
     <noscript>
         <h1>Christophe THEVENET — Développeur web Freelance · Puy-de-Dôme | Distanciel</h1>
