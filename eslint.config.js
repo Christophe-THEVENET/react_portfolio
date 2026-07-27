@@ -15,7 +15,8 @@ export default defineConfig([
         ],
         languageOptions: {
             ecmaVersion: 2020,
-            globals: globals.browser,
+            // Constante injectée au build par `define` dans vite.config.js
+            globals: { ...globals.browser, __RECAPTCHA_SITE_KEY__: 'readonly' },
             parserOptions: {
                 ecmaVersion: 'latest',
                 ecmaFeatures: { jsx: true },

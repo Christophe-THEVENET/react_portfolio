@@ -298,3 +298,12 @@ textarea::placeholder {
   color: var(--faint);
   opacity: 1;
 }
+
+/* Badge reCAPTCHA masqué.
+   Google autorise à le retirer visuellement à condition d'afficher la mention
+   légale dans le parcours utilisateur — elle est sous le bouton d'envoi du
+   formulaire de contact. On utilise visibility plutôt que display : le widget
+   doit rester rendu pour produire son jeton. */
+.grecaptcha-badge {
+  visibility: hidden;
+}
