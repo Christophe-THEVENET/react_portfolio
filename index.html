@@ -199,6 +199,14 @@
         <input type="email" name="email" />
         <textarea name="message"></textarea>
         <input name="bot-field" />
+        <!-- Ce div — et non l'attribut porté par <form> — est ce qui déclare à
+             Netlify que « contact » exige un reCAPTCHA valide. Sans lui, Netlify
+             accepte les soumissions sans jamais appeler siteverify : le jeton
+             produit par le widget n'est alors vérifié par personne, ce que la
+             console Google signale comme un reCAPTCHA non vérifié.
+             Le formulaire étant `hidden`, aucun widget n'est rendu ici ; celui
+             qui compte reste le widget invisible monté par Contact.jsx. -->
+        <div data-netlify-recaptcha="true"></div>
     </form>
 
     <div id="root"></div>
