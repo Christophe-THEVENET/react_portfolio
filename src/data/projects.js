@@ -32,7 +32,7 @@ export const featured = [
     kind: 'E-commerce Symfony',
     desc: 'Site e-commerce en Symfony : base de données, API sécurisée, intégration Twig, panier asynchrone, commandes, authentification, validations temps réel, notifications et expérience utilisateur optimisée.',
     stack: ['Symfony', 'Sass', 'MySQL', 'Asset Mapper', 'Stimulus'],
-    url: 'https://greengoodies.space/',
+    url: 'https://greengoodies.eu/',
     github: 'https://github.com/Christophe-THEVENET/symfony_greengoodies',
     linkLabel: 'Voir la boutique',
     year: '2025',
