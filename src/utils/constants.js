@@ -11,9 +11,9 @@ export const PERSONAL_INFO = {
   email: 'digitob@yahoo.com',
   location: 'Puy-de-Dôme ou distanciel',
   telephone: '06 02 87 32 51',
-  address: '9 Rue des Colonnes 75002 PARIS',
+  address: '1 rue Marguerin 75014 PARIS',
   insurance: 'RC Pro HISCOX n° HSXIN320041368',
-  siret: '97992656500016',
+  siret: '97992656500024',
 }
 
 export const SOCIAL_LINKS = [
