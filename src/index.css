@@ -1,9 +1,21 @@
 @import 'tailwindcss';
 
+/* Repli calé sur les métriques de JetBrains Mono (avance 0.600 em par
+   caractère). Consolas — la monospace par défaut de Chrome sous Windows —
+   n'avance que 0.5498 em : sans ce calage, la navigation du header, ancrée à
+   droite, s'élargissait de ~27 px vers la gauche à l'arrivée de la webfont.
+   0.600 / 0.5498 = 1.0913. La règle est ignorée là où Consolas est absente
+   (macOS, Linux), où le repli système avance déjà 0.602 em. */
+@font-face {
+  font-family: 'JetBrains Mono fallback';
+  src: local('Consolas');
+  size-adjust: 109.13%;
+}
+
 @theme {
-  --font-display: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: 'Newsreader', serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Geist Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Newsreader Variable', serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono fallback', ui-monospace, monospace;
   --breakpoint-3xl: 1920px;
 
   --color-green: #2F8E8E;

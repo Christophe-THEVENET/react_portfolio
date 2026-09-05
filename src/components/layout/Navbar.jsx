@@ -49,7 +49,12 @@ export const Navbar = () => {
         transition: 'transform 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease',
       }}
     >
-      <div className="flex items-center justify-between px-6 py-3 md:px-16 md:py-3">
+      {/* Même conteneur que les sections : le fond du header reste pleine
+          largeur, mais logo et navigation s'alignent sur la grille du contenu. */}
+      <div
+        className="mx-auto flex items-center justify-between px-6 py-3 md:px-16 md:py-3"
+        style={{ maxWidth: '1600px' }}
+      >
         <a
           href="#home"
           aria-label="Retour en haut de page"
