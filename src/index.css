@@ -13,9 +13,9 @@
 }
 
 @theme {
-  --font-display: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: 'Newsreader', serif;
-  --font-mono: 'JetBrains Mono', 'JetBrains Mono fallback', ui-monospace, monospace;
+  --font-display: 'Geist Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Newsreader Variable', serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono fallback', ui-monospace, monospace;
   --breakpoint-3xl: 1920px;
 
   --color-green: #2F8E8E;
