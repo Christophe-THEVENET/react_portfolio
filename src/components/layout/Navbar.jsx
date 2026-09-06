@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
+import Reveal from '@/components/animations/Reveal'
 import logoDigitob from '@/assets/img/general/logo_digitob.svg'
 import { NAV_LINKS } from '@/utils/constants'
 
@@ -55,7 +56,13 @@ export const Navbar = () => {
         className="mx-auto flex items-center justify-between px-6 py-3 md:px-16 md:py-3"
         style={{ maxWidth: '1600px' }}
       >
-        <a
+        {/* Fondu seul, jamais le translateY de .ed-reveal : le header est fixe,
+            le voir glisser à l'arrivée serait faux. Délais courts, la
+            navigation est ce qui permet de s'orienter. */}
+        <Reveal
+          as="a"
+          mode="fade"
+          delay={100}
           href="#home"
           aria-label="Retour en haut de page"
           onClick={(e) => {
@@ -71,13 +78,13 @@ export const Navbar = () => {
             className="transition-opacity duration-300 hover:opacity-80"
             style={{ height: '38px', width: 'auto' }}
           />
-        </a>
+        </Reveal>
 
         {/* Desktop nav */}
         <nav aria-label="Navigation principale" className="hidden md:block">
           <ul className="flex gap-1">
-            {NAV_LINKS.map((l) => (
-              <li key={l.id}>
+            {NAV_LINKS.map((l, i) => (
+              <Reveal as="li" key={l.id} mode="fade" delay={160 + i * 60}>
                 <a
                   href={'#' + l.id}
                   aria-current={active === l.id ? 'true' : undefined}
@@ -104,20 +111,23 @@ export const Navbar = () => {
                     />
                   )}
                 </a>
-              </li>
+              </Reveal>
             ))}
           </ul>
         </nav>
 
         {/* Mobile hamburger */}
-        <button
+        <Reveal
+          as="button"
+          mode="fade"
+          delay={160}
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden p-2"
           style={{ color: 'var(--ink)' }}
           aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
         >
           {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        </Reveal>
       </div>
 
       {/* Mobile nav */}
