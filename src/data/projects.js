@@ -20,6 +20,7 @@ export const featured = [
     desc: "Assistant de jardinage qui analyse le climat, la date, la lune et la météo en direct pour proposer les cultures à planter et à semer selon la région. L'espace « Mon potager » veille ensuite sur les cultures : conseil du jour, arrosage, alertes météo et recommandations par IA.",
     stack: ['Symfony', 'Asset Mapper', 'Stimulus', 'Symfony UX', 'PostgreSQL'],
     url: 'https://quoiplanter.fr',
+    github: 'https://github.com/Christophe-THEVENET/quoi-planter-showcase',
     linkLabel: "Voir l'application",
     year: '2026',
     img: imgQuoiplanter,
