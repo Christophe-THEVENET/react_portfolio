@@ -21,9 +21,24 @@ function App() {
     window.scrollTo(0, 0)
   }, [])
 
+  // Les particules attendent la fin de l'intro du héros (lettres, chiffres
+  // animés : ~3,7 s). Three.js pèse ~470 Ko à compiler, plus la création du
+  // contexte WebGL et des shaders : à la première visite (ou en navigation
+  // privée, sans cache de code ni de shaders) ce travail figeait les animations
+  // en cours. On attend ensuite un moment creux du thread principal.
   useEffect(() => {
-    const id = setTimeout(() => setShowParticles(true), 1200)
-    return () => clearTimeout(id)
+    let idleId
+    const timer = setTimeout(() => {
+      if ('requestIdleCallback' in window) {
+        idleId = requestIdleCallback(() => setShowParticles(true), { timeout: 1000 })
+      } else {
+        setShowParticles(true)
+      }
+    }, 3800)
+    return () => {
+      clearTimeout(timer)
+      if (idleId) cancelIdleCallback(idleId)
+    }
   }, [])
 
   useEffect(() => {

@@ -1,5 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
-import * as THREE from 'three'
+import {
+  AdditiveBlending,
+  BufferAttribute,
+  BufferGeometry,
+  CanvasTexture,
+  Color,
+  PerspectiveCamera,
+  Points,
+  PointsMaterial,
+  Scene,
+  WebGLRenderer,
+} from 'three'
 
 export default function ParticleField() {
   const containerRef = useRef(null)
@@ -14,13 +25,12 @@ export default function ParticleField() {
     const container = containerRef.current
     if (!container) return
 
-    const T = THREE
-    const accent = new T.Color('#47B3B1')
+    const accent = new Color('#47B3B1')
     const particleCount = 110
     const baseOpacity = 0.1
 
-    const scene = new T.Scene()
-    const camera = new T.PerspectiveCamera(
+    const scene = new Scene()
+    const camera = new PerspectiveCamera(
       52,
       window.innerWidth / window.innerHeight,
       0.1,
@@ -28,7 +38,7 @@ export default function ParticleField() {
     )
     camera.position.z = 60
 
-    const renderer = new T.WebGLRenderer({ alpha: true, antialias: true })
+    const renderer = new WebGLRenderer({ alpha: true, antialias: true })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setClearColor(0x000000, 0)
@@ -47,7 +57,7 @@ export default function ParticleField() {
       ctx.beginPath()
       ctx.arc(32, 32, 30, 0, Math.PI * 2)
       ctx.fill()
-      const t = new T.CanvasTexture(c)
+      const t = new CanvasTexture(c)
       t.needsUpdate = true
       return t
     }
@@ -67,19 +77,19 @@ export default function ParticleField() {
       velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.005
     }
 
-    const pGeo = new T.BufferGeometry()
-    pGeo.setAttribute('position', new T.BufferAttribute(positions, 3))
+    const pGeo = new BufferGeometry()
+    pGeo.setAttribute('position', new BufferAttribute(positions, 3))
     const dotTex = makeDotTex(toCss(accent))
-    const pMat = new T.PointsMaterial({
+    const pMat = new PointsMaterial({
       size: 1.6,
       map: dotTex,
       transparent: true,
       opacity: baseOpacity,
       sizeAttenuation: true,
       depthWrite: false,
-      blending: T.AdditiveBlending,
+      blending: AdditiveBlending,
     })
-    const points = new T.Points(pGeo, pMat)
+    const points = new Points(pGeo, pMat)
     scene.add(points)
 
     let mx = 0, my = 0, tx = 0, ty = 0
