@@ -5,3 +5,9 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://*.googletagmanager.com https://umami.boulio.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.gstatic.com; media-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://umami.boulio.com https://www.google.com; frame-src https://www.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
+
+# Fichiers générés par Vite : leur nom porte un hash du contenu, toute
+# modification change donc l'URL. Sans cette règle, Netlify impose une
+# revalidation (304) de chaque fichier à chaque visite.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
