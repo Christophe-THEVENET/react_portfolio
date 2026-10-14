@@ -3,6 +3,7 @@ import { Map, Phone, Mail, MapPinHouse, ShieldCheck, Tally4, Share2, ArrowDownRi
 import { motion, useScroll, useTransform } from 'motion/react'
 import Reveal from '@/components/animations/Reveal'
 import { useMagnetic } from '@/hooks/useMagnetic'
+import { useInView } from '@/hooks/useInView'
 import SectionTag from '@/components/ui/SectionTag'
 import { PERSONAL_INFO, SOCIAL_LINKS } from '@/utils/constants'
 import SocialLink from '@/components/ui/SocialLink'
@@ -169,7 +170,14 @@ export const Contact = () => {
 
   const captchaRef = useRef(null)
   const captchaWidgetId = useRef(null)
+  const captchaFailedRef = useRef(false)
   const pendingFormRef = useRef(null)
+
+  // Le script reCAPTCHA (~350 Ko compilés, plus un iframe et un worker) ne se
+  // charge qu'à l'approche de la section : chargé dès l'arrivée, il saccadait
+  // l'animation d'intro à la première visite. Le visiteur qui ne descend pas
+  // jusqu'au formulaire n'envoie de surcroît aucune requête à Google.
+  const [sectionRef, isNearContact] = useInView({ rootMargin: '1000px 0px', threshold: 0 })
 
   // Envoi réel, séparé de handleSubmit : en reCAPTCHA invisible la soumission
   // n'a lieu qu'une fois le jeton obtenu, donc depuis le callback de Google.
@@ -209,7 +217,7 @@ export const Contact = () => {
   // raterait sa cible. On monte donc le widget nous-mêmes, une seule fois.
   useEffect(() => {
     const siteKey = __RECAPTCHA_SITE_KEY__
-    if (!siteKey) return
+    if (!siteKey || !isNearContact) return
 
     // Sans envoi en attente, il n'y a rien à abandonner : le jeton expire ~2 min
     // après avoir été obtenu, donc bien après une soumission déjà partie.
@@ -240,6 +248,8 @@ export const Contact = () => {
         'error-callback': abandonChallenge,
         'expired-callback': abandonChallenge,
       })
+      // Envoi demandé pendant le chargement du script : on le reprend ici.
+      if (pendingFormRef.current) window.grecaptcha.execute(captchaWidgetId.current)
     }
 
     if (window.grecaptcha?.render) {
@@ -252,8 +262,14 @@ export const Contact = () => {
     script.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit'
     script.async = true
     script.defer = true
+    // Script bloqué (bloqueur, réseau) : on ne laisse pas un envoi en attente
+    // indéfiniment, et le suivant partira sans jeton — Netlify tranchera.
+    script.onerror = () => {
+      captchaFailedRef.current = true
+      abandonChallenge()
+    }
     document.head.appendChild(script)
-  }, [postForm])
+  }, [postForm, isNearContact])
 
   const handleResizeStart = useCallback((e) => {
     e.preventDefault()
@@ -330,11 +346,20 @@ export const Contact = () => {
       return
     }
 
+    // Clé configurée mais script encore en chargement : l'envoi reste en
+    // attente, renderWidget l'exécutera dès que le widget sera monté.
+    if (__RECAPTCHA_SITE_KEY__ && !captchaFailedRef.current) {
+      pendingFormRef.current = e.target
+      setIsSubmitting(true)
+      return
+    }
+
     postForm(e.target)
   }
 
   return (
     <section
+      ref={sectionRef}
       id="contact"
       aria-label="Contact"
       className="relative mx-auto px-6 md:px-16"
