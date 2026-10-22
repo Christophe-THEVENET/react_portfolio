@@ -64,12 +64,14 @@ export default defineConfig(({ mode }) => {
       port: 5175,
     },
     build: {
-      rollupOptions: {
+      rolldownOptions: {
         output: {
-          manualChunks(id) {
-            if (id.includes('node_modules/three/')) return 'three'
-            if (id.includes('node_modules/motion/') || id.includes('node_modules/framer-motion/')) return 'motion'
-            if (id.includes('node_modules/react-dom/') || id.includes('node_modules/react/')) return 'vendor'
+          codeSplitting: {
+            groups: [
+              { name: 'three', test: /node_modules[\\/]three[\\/]/ },
+              { name: 'motion', test: /node_modules[\\/](motion|framer-motion|motion-dom|motion-utils)[\\/]/ },
+              { name: 'vendor', test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/ },
+            ],
           },
         },
       },

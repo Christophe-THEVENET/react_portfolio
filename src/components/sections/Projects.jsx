@@ -29,7 +29,6 @@ const staggerItem = {
     transition: { type: 'spring', stiffness: 100, damping: 15 },
   },
 }
-import Reveal from '@/components/animations/Reveal'
 import SectionTag from '@/components/ui/SectionTag'
 import { featured, index } from '@/data/projects'
 
