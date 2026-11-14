@@ -75,7 +75,7 @@ export const Footer = () => {
             </div>
 
             <p className="mono-sm mb-6 text-center" style={{ color: 'var(--mute)' }}>
-              En vigueur au <time dateTime="2025-01-14">14/01/2025</time>
+              En vigueur au <time dateTime="2026-11-14">14/11/2026</time>
             </p>
 
             <div
@@ -127,9 +127,12 @@ export const Footer = () => {
                   Article 4 : Collecte des données
                 </h3>
                 <p className="text-justify">
-                  Le site est exempté de déclaration à la Commission Nationale
-                  Informatique et Libertés (CNIL) dans la mesure où il ne collecte
-                  aucune donnée concernant les utilisateurs.
+                  Le site ne collecte de données personnelles que si vous utilisez
+                  le formulaire de contact : votre nom, votre adresse email et
+                  votre message, pour vous répondre. Ces messages sont reçus par
+                  l'intermédiaire de Netlify, l'hébergeur du site, et le
+                  formulaire est protégé contre les robots par Google reCAPTCHA.
+                  La mesure d'audience est décrite à l'article 6.
                 </p>
               </section>
 

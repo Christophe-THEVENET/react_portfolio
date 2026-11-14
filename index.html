@@ -148,31 +148,6 @@
     }
     </script>
 
-    <!-- Pré-configuration de Google Analytics (Consent Mode v2).
-         Le tag GA est injecté par Netlify (snippet injection), donc en fin de
-         <head> ou de <body> : ce script s'exécute forcément avant lui, et les
-         commandes empilées ici sont consommées par gtag à son initialisation.
-         Le consentement doit impérativement être déclaré avant le premier
-         'config', sans quoi ad_storage vaut « granted » par défaut.
-
-         On refuse le stockage publicitaire, ce qui supprime les appels vers
-         stats.g.doubleclick.net et google.<tld>/ads/ga-audiences, bloqués par la
-         CSP à la première visite de chaque navigateur. Ces appels servent au
-         remarketing, pas à la mesure d'audience.
-
-         analytics_storage reste accordé : le comptage des vues continue de
-         remonter dans GA, en parallèle d'Umami. -->
-    <script>
-        window.dataLayer = window.dataLayer || []
-        function gtag() { dataLayer.push(arguments) }
-        gtag('consent', 'default', {
-            ad_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied',
-            analytics_storage: 'granted'
-        })
-    </script>
-
     <!-- Umami Analytics. Pas de sous-domaine `umami.` : EasyPrivacy (uBlock Origin, Brave, AdGuard)
          bloque `||umami.*/script.js` et `||umami.^`, ce qui rendait invisibles tous ces visiteurs. -->
     <script defer src="https://mesure.boulio.com/script.js" data-website-id="b784c539-a95c-43ed-98f3-98ffc0b7fb45" data-do-not-track="true"></script>
