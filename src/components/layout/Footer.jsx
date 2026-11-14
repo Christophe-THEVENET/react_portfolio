@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Scale } from 'lucide-react'
 import { PERSONAL_INFO } from '@/utils/constants'
+import AnalyticsOptOut from '@/components/ui/AnalyticsOptOut'
 
 export const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -141,6 +142,31 @@ export const Footer = () => {
                   modification de toute ou partie du site sans autorisation de
                   l'Editeur est prohibée.
                 </p>
+              </section>
+
+              {/* Information et refus : les deux conditions de la dispense de
+                  consentement de la mesure d'audience (CNIL). */}
+              <section>
+                <h3 className="mono-sm mb-2" style={{ color: 'var(--accent)' }}>
+                  Article 6 : Mesure d'audience
+                </h3>
+                <p className="text-justify">
+                  Le site mesure sa fréquentation avec Umami, un outil d'audience
+                  hébergé par l'éditeur : les pages consultées, la page d'où vous
+                  venez, le type d'appareil, le navigateur, la langue, le pays et
+                  la ville approximative. Aucune adresse IP n'est conservée et
+                  aucun cookie n'est déposé. L'identifiant de session qui en est
+                  tiré est anonyme et renouvelé au moins chaque mois. Ces mesures
+                  sont conservées 25 mois au plus.
+                </p>
+                <p className="mt-2 text-justify">
+                  Cette mesure est dispensée de consentement, mais vous pouvez la
+                  refuser à tout moment : le site respecte le réglage « Ne pas me
+                  suivre » de votre navigateur, et vous pouvez la désactiver ici
+                  pour cet appareil. Ce choix est mémorisé dans le stockage local
+                  de votre navigateur.
+                </p>
+                <AnalyticsOptOut />
               </section>
             </div>
 
